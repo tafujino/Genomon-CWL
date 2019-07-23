@@ -10,7 +10,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    # dockerPull: 'biocontainers/bwa:v0.7.12_cv3'
+    dockerPull: 'biocontainers/bwa:v0.7.12_cv3'
 
 requirements:
   - class: ShellCommandRequirement
