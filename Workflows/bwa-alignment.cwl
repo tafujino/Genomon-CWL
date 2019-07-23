@@ -106,8 +106,3 @@ outputs:
   bammarkduplicates_log:
     type: File
     outputSource: bammarkduplicates/log    
-
-#bwa_option = -t 8 -T 0
-#bwa_reference = s3://genomon-bucket/_GRCh37/reference/GRCh37
-#bamsort_option = index=1 level=1 inputthreads=2 outputthreads=2 calmdnm=1 calmdnmrecompindentonly=1
-#bammarkduplicates_option = markthreads=2 rewritebam=1 rewritebamlevel=1 index=1 md5=1    
