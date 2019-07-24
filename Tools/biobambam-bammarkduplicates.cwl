@@ -10,7 +10,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'biobambam:0.0.191'
+    dockerPull: 'genomon/bwa_alignment'
 
 requirements:
   - class: ShellCommandRequirement
@@ -73,4 +73,3 @@ arguments:
   - position: 7
     prefix: md5=
     valueFrom: "1"
-    

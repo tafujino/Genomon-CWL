@@ -105,4 +105,4 @@ outputs:
 
   bammarkduplicates_log:
     type: File
-    outputSource: bammarkduplicates/log    
+    outputSource: bammarkduplicates/log
