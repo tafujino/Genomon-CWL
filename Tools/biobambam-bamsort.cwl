@@ -22,7 +22,7 @@ baseCommand: [ bamsort ]
 inputs:
   sam:
     type: File
-    format: edam:format_1930
+    format: edam:format_2573
     inputBinding:
       prefix: I=
       position: 1
