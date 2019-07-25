@@ -11,4 +11,5 @@ fastq2:
   format: http://edamontology.org/format_1930
   path: /home/fujino/data/genomon/_GRCh37/sample/dna/simulate_N_read2.fq
 nthreads: 4
-outprefix: sample
+sample: sample
+bwa_min_score: 0

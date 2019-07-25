@@ -20,28 +20,23 @@ inputs:
       - .bwt
       - .pac
       - .sa
-
   fastq1:
     type: File
     format: edam:format_1930
     label: FastQ file from next-generation sequencers
-
   fastq2:
     type: File
     format: edam:format_1930
     label: FastQ file from next-generation sequencers
-
   nthreads:
     type: int
-    label: number of cpu cores to be used
-
-  outprefix:
+    label: number of cpu cores to be used for BWA MEM
+  sample:
     type: string
-    doc: Output prefix name    
-
+    label: sample name
+    
 steps:
-  # pipe to bamsort ???
-  bwa_mem:
+  bwa_mem: # may need to pipe to bamsort
     label: Mapping onto reference using BWA MEM
     run: ../Tools/bwa-mem.cwl
     in:
@@ -49,7 +44,7 @@ steps:
       fastq1: fastq1
       fastq2: fastq2
       nthreads: nthreads
-      outprefix: outprefix
+      sample: sample
     out: [sam, log]
     
   bamsort:
@@ -58,7 +53,6 @@ steps:
     in: 
       sam: bwa_mem/sam
       calmdnmreference: reference
-      outprefix: outprefix
     out: [bam, bai, log]
 
   bammarkduplicates:
@@ -66,7 +60,7 @@ steps:
     run: ../Tools/biobambam-bammarkduplicates.cwl
     in:
       bam: bamsort/bam
-      outprefix: outprefix      
+      sample: sample
     out: [markdupbam, metrics, log]
 
 outputs:

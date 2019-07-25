@@ -32,56 +32,64 @@ inputs:
       position: 1
       separate: false
     doc: input BAM
-  outprefix:
+  outdir:
+    type: Directory
+    label: output directory
+  sample:
     type: string
-#  nthreads:
-#    type: int
-#    inputBinding:
-#      prefix: -t
-#      position: 3
-#    doc: number of cpu cores to be used
+    label: sample name
 
 outputs:
   markdupbam:
     type: File
     format: edam:format_2572
     outputBinding:
-      glob: $(inputs.outprefix).markdup.bam
+      glob: $(inputs.sample).markdup.bam
   metrics:
     type: File
     outputBinding:
-      glob: $(inputs.outprefix).metrics
+      glob: $(inputs.sample).metrics
   log:
     type: stderr
 
-stderr: $(inputs.outprefix).markdup.bam.log
+stderr: $(markdupbam).log
 
+# the following annotations are taken from bammarkduplicates help
 arguments:
-  - position: 1
+  - # metrics file
+    position: 1
     prefix: M=
-    valueFrom: $(inputs.outprefix).metrics
+    valueFrom: metrics
     separate: false
-  - position: 2
+  - # output file
+    position: 2
     prefix: O=
-    valueFrom: $(inputs.outprefix).markdup.bam
+    valueFrom: markdupbam
     separate: false
-  - position: 3
+  - # number of helper threads
+    position: 3
     prefix: markthreads=
     valueFrom: "2" # is is ok to fix this value?
     separate: false
-  - position: 4
+  - # compression of temporary alignment file when input is via stdin
+    # (0=snappy,1=gzip/bam,2=copy)
+    position: 4
     prefix: rewritebam=
     valueFrom: "1"
     separate: false
-  - position: 5
+  - # compression setting for rewritten input file if rewritebam=1
+    # (-1=zlib default,0=uncompressed,1=fast,9=best)
+    position: 5
     prefix: rewritebamlevel=
     valueFrom: "1"
     separate: false
-  - position: 6
+  - # create BAM index (default: 0)
+    position: 6
     prefix: index=
     valueFrom: "1"
     separate: false
-  - position: 7
+  - # create md5 check sum (default: 0)
+    position: 7
     prefix: md5=
     valueFrom: "1"
     separate: false

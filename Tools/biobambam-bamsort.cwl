@@ -42,65 +42,69 @@ inputs:
       separate: false
     secondaryFiles:
       - .fai
-#  nthreads:
-#    type: int
-#    inputBinding:
-#      prefix: -t
-#      position: 4
-#    doc: number of cpu cores to be used
-  outprefix:
-    type: string
 
 outputs:
   bam:
     type: File
     format: edam:format_2572
     outputBinding:
-      glob: $(inputs.outprefix).sorted.bam
+      glob: $(sam.basename).sorted.bam
   bai:
     type: File
     format: edam:format_3327
     outputBinding:
-      glob: $(inputs.outprefix).sorted.bam.bai
+      glob: $(bam).bai
   log:
     type: stderr
 
-stderr: $(inputs.outprefix).sorted.bam.log
+stderr: $(bam).log
 
+# the following annotations are taken from bamsort help
 arguments:
-  - position: 1
+  - # file name for BAM index file
+    position: 1
     prefix: indexfilename=
-    valueFrom: $(inputs.outprefix).sorted.bam.bai
+    valueFrom: bai
     separate: false
-  - position: 2
+  - # output filename
+    position: 2
     prefix: O=
-    valueFrom: $(inputs.outprefix).sorted.bam
+    valueFrom: bam
     separate: false
-  - position: 3
+  - # input format (bam,maussam,sam)
+    position: 3
     prefix: inputformat=
     valueFrom: sam
     separate: false
-  - position: 4
+  - # create BAM index (default: 0)
+    position: 4
     prefix: index=
     valueFrom: "1"
     separate: false
-  - position: 5
+  - # compression settings for output bam file
+    # (-1=zlib default,0=uncompressed,1=fast,9=best)
+    position: 5
     prefix: level=
     valueFrom: "1"
     separate: false
-  - position: 6
+  - # input helper threads (for inputformat=bam only, default: 1)
+    position: 6
     prefix: inputthreads=
     valueFrom: "2" # is is ok to fix this value?
     separate: false
-  - position: 7
+  - # output helper threads (for outputformat=bam only, default: 1)
+    position: 7
     prefix: outputthreads=
     valueFrom: "2" # is is ok to fix this value?
     separate: false
-  - position: 8
+  - # calculate MD and NM aux fields (for coordinate sorted output only)
+    position: 8
     prefix: calmdnm=
     valueFrom: "1"
     separate: false
-  - position: 9
+  - # only recalculate MD and NM in the presence of indeterminate bases
+    # (calmdnm=1 only)
+    position: 9
     prefix: calmdnmrecompindentonly=
     valueFrom: "1"
     separate: false

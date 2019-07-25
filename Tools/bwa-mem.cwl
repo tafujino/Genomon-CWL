@@ -50,8 +50,15 @@ inputs:
       prefix: -t
       position: 3
     doc: number of cpu cores to be used
-  outprefix:
+  sample:
     type: string
+    label: sample name
+  bwa_min_score: # should set default value?
+    type: int
+    label: minimum score to output
+    inputBinding:
+      prefix: -T
+      position: 7
 
 outputs:
   sam:
@@ -60,11 +67,5 @@ outputs:
   log:
     type: stderr
 
-stdout: $(inputs.outprefix).sam
-stderr: $(inputs.outprefix).sam.log
-    
-arguments:
-  - position: 1
-    prefix: -T # minimum score to output
-    valueFrom: "0"
-
+stdout: $(inputs.sample).sam
+stderr: $(inputs.sample).sam.log
