@@ -17,7 +17,7 @@ requirements:
   - class: ResourceRequirement
     ramMin: 6300
     
-baseCommand: [ bwa, mem ]
+baseCommand: [ /tools/bwa-0.7.8/bwa, mem ]
 
 inputs:
   reference:

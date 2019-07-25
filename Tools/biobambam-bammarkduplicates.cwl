@@ -14,9 +14,13 @@ hints:
 
 requirements:
   - class: ShellCommandRequirement
+  - class: EnvVarRequirement
+    envDef:
+      - envName: LD_LIBRARY_PATH
+        envValue: /usr/local/lib
 #  - class: ResourceRequirement
 #    ramMin: 6300
-    
+
 baseCommand: [ bammarkduplicates ]
 
 inputs:
@@ -26,6 +30,7 @@ inputs:
     inputBinding:
       prefix: I=
       position: 1
+      separate: false
     doc: input BAM
   outprefix:
     type: string
@@ -50,26 +55,33 @@ outputs:
     type: stderr
 
 stderr: $(inputs.outprefix).markdup.bam.log
-    
+
 arguments:
   - position: 1
     prefix: M=
     valueFrom: $(inputs.outprefix).metrics
+    separate: false
   - position: 2
     prefix: O=
     valueFrom: $(inputs.outprefix).markdup.bam
+    separate: false
   - position: 3
     prefix: markthreads=
     valueFrom: "2" # is is ok to fix this value?
+    separate: false
   - position: 4
     prefix: rewritebam=
     valueFrom: "1"
+    separate: false
   - position: 5
     prefix: rewritebamlevel=
     valueFrom: "1"
+    separate: false
   - position: 6
     prefix: index=
     valueFrom: "1"
+    separate: false
   - position: 7
     prefix: md5=
     valueFrom: "1"
+    separate: false

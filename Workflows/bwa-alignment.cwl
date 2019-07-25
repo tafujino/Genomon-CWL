@@ -14,6 +14,7 @@ inputs:
     format: edam:format_1929
     label: FastA file for reference genome
     secondaryFiles:
+      - .fai
       - .amb
       - .ann
       - .bwt

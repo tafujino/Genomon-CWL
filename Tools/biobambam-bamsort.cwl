@@ -24,13 +24,14 @@ baseCommand: [ bamsort ]
 
 inputs:
   sam:
+    doc: input SAM
     type: File
+    streamable: true
     format: edam:format_2573
     inputBinding:
       prefix: I=
       position: 1
       separate: false
-    doc: input SAM
   calmdnmreference:
     doc: reference for calculating MD and NM aux fields
     type: File
