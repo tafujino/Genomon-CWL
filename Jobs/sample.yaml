@@ -10,6 +10,6 @@ fastq2:
   class: File
   format: http://edamontology.org/format_1930
   path: /home/fujino/data/genomon/_GRCh37/sample/dna/simulate_N_read2.fq
+min_score: 0
 nthreads: 4
-sample: sample
-bwa_min_score: 0
+name: sample

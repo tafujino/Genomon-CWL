@@ -32,10 +32,7 @@ inputs:
       position: 1
       separate: false
     doc: input BAM
-  outdir:
-    type: Directory
-    label: output directory
-  sample:
+  name:
     type: string
     label: sample name
 
@@ -44,11 +41,11 @@ outputs:
     type: File
     format: edam:format_2572
     outputBinding:
-      glob: $(inputs.sample).markdup.bam
+      glob: $(inputs.name).markdup.bam
   metrics:
     type: File
     outputBinding:
-      glob: $(inputs.sample).metrics
+      glob: $(inputs.name).metrics
   log:
     type: stderr
 

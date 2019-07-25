@@ -28,10 +28,13 @@ inputs:
     type: File
     format: edam:format_1930
     label: FastQ file from next-generation sequencers
+  min_score:
+    type: int
+    label: minimum score to output
   nthreads:
     type: int
     label: number of cpu cores to be used for BWA MEM
-  sample:
+  name:
     type: string
     label: sample name
     
@@ -43,8 +46,9 @@ steps:
       reference: reference
       fastq1: fastq1
       fastq2: fastq2
+      min_score: min_score
       nthreads: nthreads
-      sample: sample
+      name: name
     out: [sam, log]
     
   bamsort:
@@ -60,7 +64,7 @@ steps:
     run: ../Tools/biobambam-bammarkduplicates.cwl
     in:
       bam: bamsort/bam
-      sample: sample
+      name: name
     out: [markdupbam, metrics, log]
 
 outputs:
