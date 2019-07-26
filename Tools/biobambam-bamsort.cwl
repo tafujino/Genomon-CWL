@@ -13,6 +13,7 @@ hints:
     dockerPull: 'genomon/bwa_alignment'
 
 requirements:
+#  - class: InlineJavascriptRequirement
   - class: ShellCommandRequirement
 #  - class: ResourceRequirement
 #    ramMin: -
@@ -48,28 +49,28 @@ outputs:
     type: File
     format: edam:format_2572
     outputBinding:
-      glob: $(sam.basename).sorted.bam
+      glob: $(inputs.sam.nameroot).sorted.bam
   bai:
     type: File
     format: edam:format_3327
     outputBinding:
-      glob: $(bam).bai
+      glob: $(inputs.sam.nameroot).sorted.bam.bai
   log:
     type: stderr
 
-stderr: $(bam).log
+stderr: $(inputs.sam.nameroot).sorted.bam.log
 
 # the following annotations are taken from bamsort help
 arguments:
   - # file name for BAM index file
     position: 1
     prefix: indexfilename=
-    valueFrom: bai
+    valueFrom: $(inputs.sam.nameroot).sorted.bam.bai
     separate: false
   - # output filename
     position: 2
     prefix: O=
-    valueFrom: bam
+    valueFrom: $(inputs.sam.nameroot).sorted.bam
     separate: false
   - # input format (bam,maussam,sam)
     position: 3
