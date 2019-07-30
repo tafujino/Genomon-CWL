@@ -80,6 +80,7 @@ inputs:
       prefix: -L
   samtools_params:
     type: string?
+    label: samtools parameters string
     inputBinding:
       position: 11
       prefix: --samtools_params

@@ -45,13 +45,17 @@ inputs:
   fisher_samtools_params:
     type: string?
     label: SAMtools parameters given to GenomonFisher
-  hotspot_min_tumor_misrate: # The minimum amount of tumor allele frequency (default 0.1)
+  hotspot_min_tumor_misrate:
+    label: the minimum amount of tumor allele frequency
     type: double
-  hotspot_max_control_misrate: # The maximum amount of control allele frequency (default 0.1)
+  hotspot_max_control_misrate:
+    label: the maximum amount of control allele frequency
     type: double
-  hotspot_TN_ratio_control: # The maximum value of the ratio between normal and tumor (default 0.1 )
+  hotspot_TN_ratio_control:
+    label: the maximum value of the ratio between normal and tumor
     type: double
-  hotspot_min_lod_score: # The minimum lod score (default 8.0)
+  hotspot_min_lod_score:
+    label: the minimum lod score
     type: double
   hotspot_samtools:
     type: string?
@@ -82,5 +86,8 @@ steps:
     out:
       [txt, log]
 
+  hotspot:
+    label: identifies hotspot mutations
+    run: ../Tools/mutation-call-hotspot.cwl
+      
 outputs: []
-  

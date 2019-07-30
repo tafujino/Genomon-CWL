@@ -5,11 +5,11 @@ reference:
 fastq1:
   class: File
   format: http://edamontology.org/format_1930
-  path: /home/fujino/data/genomon/_GRCh37/sample/dna/simulate_N_read1.fq
+  path: ../simulate_T.sequence1.fastq
 fastq2:
   class: File
   format: http://edamontology.org/format_1930
-  path: /home/fujino/data/genomon/_GRCh37/sample/dna/simulate_N_read2.fq
+  path: ../simulate_T.sequence2.fastq
 min_score: 0
 nthreads: 4
-name: sample
+name: simulate_T

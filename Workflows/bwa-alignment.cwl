@@ -39,7 +39,9 @@ inputs:
     label: sample name
     
 steps:
-  bwa_mem: # may need to pipe to bamsort
+  # directry piping to the next step without an intermediate file
+  # is not currently supported by any of existing cwl runners
+  bwa_mem:
     label: Mapping onto reference using BWA MEM
     run: ../Tools/bwa-mem.cwl
     in:
@@ -72,36 +74,29 @@ outputs:
     type: File
     format: edam:format_2573
     outputSource: bwa_mem/sam
-
   bwa_mem_log:
     type: File
     format:
     outputSource: bwa_mem/log
-    
   bam:
     type: File
     format: edam:format_2572
     outputSource: bamsort/bam
-
   bai:
     type: File
     format: edam:format_3327
     outputSource: bamsort/bam
-
   sortbam_log:
     type: File
     format:
     outputSource: bamsort/log
-
   markdupbam:
     type: File
     format: edam:format_2572
     outputSource: bammarkduplicates/markdupbam
-
   metrics:
     type: File
     outputSource: bammarkduplicates/metrics
-
   bammarkduplicates_log:
     type: File
     outputSource: bammarkduplicates/log
