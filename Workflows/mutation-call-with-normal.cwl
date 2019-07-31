@@ -45,6 +45,9 @@ inputs:
   fisher_samtools_params:
     type: string?
     label: SAMtools parameters given to GenomonFisher
+  hotspot_database_directory:
+    type: Directory
+    label: directory containing hotspot_mutations.txt
   hotspot_min_tumor_misrate:
     label: the minimum amount of tumor allele frequency
     type: double
@@ -57,9 +60,9 @@ inputs:
   hotspot_min_lod_score:
     label: the minimum lod score
     type: double
-  hotspot_samtools:
+  hotspot_samtools_params:
     type: string?
-    label: parameters given to GenomonHotspotCall
+    label: SAMtools parameters given to GenomonHotspotCall
 
 #fisher_pair_option = --min_depth 8 --base_quality 15 --min_variant_read 4 --min_allele_freq 0.02 --max_allele_freq 0.1 --fisher_value 0.1
 #fisher_pair_samtools = -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
@@ -86,8 +89,24 @@ steps:
     out:
       [txt, log]
 
-  hotspot:
+  # In GenomonHotspotcall, a tumor BAM is compared with a control BAM.
+  # Here 'control BAM' corresponds to the normal BAM in Genomon mutation call,
+  # not the control panel.
+  hotspotCall:
     label: identifies hotspot mutations
-    run: ../Tools/mutation-call-hotspot.cwl
-      
+    run: ../Tools/mutation-call-hotspotCall.cwl
+    in:
+      name: name
+      tumor: tumor
+      normal: normal
+      database_directory: hotspot_database_directory
+      min_tumor_misrate: hotspot_min_tumor_misrate
+      max_control_misrate: hotspot_max_control_misrate
+      TN_ratio_control: hotspot_TN_ratio_control
+      min_lod_score: hotspot_min_lod_score
+      samtools_params: hotspot_samtools_params
+    out:
+      [txt, log]
+
 outputs: []
+
