@@ -86,6 +86,19 @@ inputs:
     type: int?
   mutfilter_realignment_exclude_sam_flags:
     type: int?
+  mutfilter_indel_search_length:
+    type: int?
+  mutfilter_indel_neighbor:
+    type: int?
+  mutfilter_indel_min_depth:
+    type: int?
+  mutfilter_indel_min_mismatch:
+    type: int?
+  mutfilter_indel_allele_frequency_threshold:
+    type: int?
+  mutfilter_indel_samtools_params:
+    type: string?
+    
 
 #fisher_pair_option = --min_depth 8 --base_quality 15 --min_variant_read 4 --min_allele_freq 0.02 --max_allele_freq 0.1 --fisher_value 0.1
 #fisher_pair_samtools = -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
@@ -154,6 +167,21 @@ steps:
       max_depth: mutfilter_realignment_max_depth
       exclude_sam_flags: mutfilter_realignment_exclude_sam_flags
       # currently the number of threads cannot be specified
+    out: [txt, log]
+
+  mutfilter_indel:
+    label: Annotates if the candidate is near indel
+    run: ../Tools/mutation-call-mutfilter-indel.cwl
+    in:
+      name: name
+      mutation: mutfilter_realignment/txt
+      normal: normal
+      search_length: mutfilter_indel_search_length
+      neighbor: mutfilter_indel_neighbor
+      min_depth: mutfilter_indel_min_depth
+      min_mismatch: mutfilter_indel_min_mismatch
+      allele_frequency_threshold: mutfilter_indel_allele_frequency_threshold
+      samtools_params: mutfilter_indel_samtools_params
     out: [txt, log]
 
 outputs: []

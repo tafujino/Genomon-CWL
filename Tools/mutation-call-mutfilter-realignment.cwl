@@ -90,7 +90,7 @@ outputs:
   txt:
     type: File
     format: edam:format_3671
-    label: Fisher's exact test result with hotspot information
+    label: mutation information after realignment
     outputBinding:
       glob: $(inputs.name).realignment_mutations.txt 
   log:
