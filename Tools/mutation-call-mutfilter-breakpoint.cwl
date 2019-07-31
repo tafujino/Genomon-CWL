@@ -1,8 +1,8 @@
 #!/usr/bin/env cwl-runner
 
 class: CommandLineTool
-id: mutation-call-mutfilter-indel
-label: Annotates if the candidate is near indel
+id: mutation-call-mutfilter-breakpoint
+label: Annotates if the candidate is near the breakpoint
 cwlVersion: v1.0
 
 $namespaces:
@@ -15,7 +15,7 @@ hints:
 requirements:
   - class: ShellCommandRequirement
 
-baseCommand: [ mutfilter, indel ]
+baseCommand: [ mutfilter, breakpoint ]
 
 inputs:
   name:
@@ -35,53 +35,45 @@ inputs:
     inputBinding:
       position: 2
       prefix: "-2"
-  search_length:
+  max_depth:
     type: int?
     inputBinding:
       position: 3
-      prefix: --search_length
-  neighbor:
+      prefix: --max_depth
+  min_clip_size:
     type: int?
     inputBinding:
       position: 4
-      prefix: --neighbor
-  min_depth:
+      prefix: --min_clip_size
+  junction_num_threshold:
     type: int?
     inputBinding:
       position: 5
-      prefix: --min_depth
-  min_mismatch:
+      prefix: --junc_num_thres
+  mapq_threshold:
     type: int?
     inputBinding:
       position: 6
-      prefix: --min_mismatch
-  allele_frequency_threshold:
+      prefix: --mapq_thres
+  exclude_sam_flags:
     type: int?
     inputBinding:
       position: 7
-      prefix: --af_thres
-  samtools_params:
-    type: string?
-    inputBinding:
-      position: 3
-      prefix: --samtools_params
-  
+      prefix: --exclude_sam_flags
+
 outputs:
   txt:
     type: File
     format: edam:format_3671
-    label: indel mutation information
+    label: mutation information annotated with breakpoint information
     outputBinding:
-      glob: $(inputs.name).indel_mutations.txt
+      glob: $(inputs.name).breakpoint_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).indel_mutations.log
+stderr: $(inputs.name).breakpoint_mutations.log
 
 arguments:
   - position: 1
     prefix: --output
-    valueFrom: $(inputs.name).indel_mutations.txt
-  - position: 2
-    prefix: --samtools_path
-    valueFrom: /usr/local/bin/samtools
+    valueFrom: $(inputs.name).breakpoint_mutations.txt

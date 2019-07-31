@@ -98,12 +98,17 @@ inputs:
     type: int?
   mutfilter_indel_samtools_params:
     type: string?
-    
-
-#fisher_pair_option = --min_depth 8 --base_quality 15 --min_variant_read 4 --min_allele_freq 0.02 --max_allele_freq 0.1 --fisher_value 0.1
-#fisher_pair_samtools = -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
-# hotspot_call_option = -t 0.1 -c 0.1 -R 0.1 -m 8.0
-# hotspot_call_samtools = -B -q 20 -Q2    
+    label: SAMtools parameters given to mutfilter indel 
+  mutfilter_breakpoint_max_depth:
+    type: int?
+  mutfilter_breakpoint_min_clip_size:
+    type: int?
+  mutfilter_breakpoint_junction_num_threshold:
+    type: int?
+  mutfilter_breakpoint_mapq_threshold:
+    type: int?
+  mutfilter_breakpoint_exclude_sam_flags:
+    type: int?
 
 steps:
   fisher:
@@ -182,6 +187,20 @@ steps:
       min_mismatch: mutfilter_indel_min_mismatch
       allele_frequency_threshold: mutfilter_indel_allele_frequency_threshold
       samtools_params: mutfilter_indel_samtools_params
+    out: [txt, log]
+
+  mutfilter_breakpoint:
+    label: Annotates if the candidate is near the breakpoint
+    run: ../Tools/mutation-call-mutfilter-breakpoint.cwl
+    in:
+      name: name
+      mutation: mutfilter_indel/txt
+      normal: normal
+      max_depth: mutfilter_breakpoint_max_depth
+      min_clip_size: mutfilter_breakpoint_min_clip_size
+      junction_num_threshold: mutfilter_breakpoint_junction_num_threshold
+      mapq_threshold: mutfilter_breakpoint_mapq_threshold
+      exclude_sam_flags: mutfilter_breakpoint_exclude_sam_flags
     out: [txt, log]
 
 outputs: []
