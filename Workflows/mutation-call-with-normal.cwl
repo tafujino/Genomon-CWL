@@ -74,6 +74,18 @@ inputs:
   hotspot_samtools_params:
     type: string?
     label: SAMtools parameters given to GenomonHotspotCall
+  mutfilter_realignment_tumor_min_mismatch:
+    type: int?
+  mutfilter_realignment_normal_max_mismatch:
+    type: int?
+  mutfilter_realignment_score_difference:
+    type: int?
+  mutfilter_realignment_window_size:
+    type: int?
+  mutfilter_realignment_max_depth:
+    type: int?
+  mutfilter_realignment_exclude_sam_flags:
+    type: int?
 
 #fisher_pair_option = --min_depth 8 --base_quality 15 --min_variant_read 4 --min_allele_freq 0.02 --max_allele_freq 0.1 --fisher_value 0.1
 #fisher_pair_samtools = -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
@@ -117,13 +129,31 @@ steps:
       samtools_params: hotspot_samtools_params
     out: [txt, log]
 
-  merge:
+  fisher_with_hotspot:
     label: Merges hotspot information to Fisher's exact test result
     run: ../Tools/mutation-call-merge.cwl
     in:
       name: name
       hotspot: hotspot/txt
       fisher: fisher/txt
+    out: [txt, log]
+
+  mutfilter_realignment:
+    label: Local realignment using blat. The candidate mutations are validated.
+    run: ../Tools/mutation-call-mutfilter-realignment.cwl
+    in:
+      name: name
+      reference: reference
+      mutation: fisher_with_hotspot/txt
+      tumor: tumor
+      normal: normal
+      tumor_min_mismatch: mutfilter_realignment_tumor_min_mismatch
+      normal_max_mismatch: mutfilter_realignment_normal_max_mismatch
+      score_difference: mutfilter_realignment_score_difference
+      window_size: mutfilter_realignment_window_size
+      max_depth: mutfilter_realignment_max_depth
+      exclude_sam_flags: mutfilter_realignment_exclude_sam_flags
+      # currently the number of threads cannot be specified
     out: [txt, log]
 
 outputs: []

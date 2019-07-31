@@ -52,5 +52,6 @@ arguments:
   - position: 1
     prefix: -o
     valueFrom: $(inputs.name).fisher_hotspot_mutations.txt
-  - position: 2
-    prefix: --hotspot-header
+  - # this option REMOVEs the header from hotspot result file
+    position: 2
+    valueFrom: --hotspot_header
