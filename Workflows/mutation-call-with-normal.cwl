@@ -23,24 +23,35 @@ inputs:
     type: File
     format: edam:format_2572
     label: tumor sample BAM aligned to the reference
+    secondaryFiles:
+      - .bai
   normal:
     type: File
     format: edam:format_2572
     label: normal sample BAM aligned to the reference
+    secondaryFiles:
+      - .bai
   fisher_min_depth:
-    type: int
+    type: int?
+    label: the minimum depth
   fisher_base_quality:
-    type: int
+    type: int?
+    label: base quality threshold
   fisher_min_variant_read:
-    type: int
+    type: int?
+    label: the minimum variant read
   fisher_min_allele_freq:
-    type: double
+    type: double?
+    label: the minimum amount of disease allele frequency
   fisher_max_allele_freq:
-    type: double
+    type: double?
+    label: the maximum amount of control allele frequency
   fisher_p_value:
-    type: double
+    type: double?
+    label: Fisher p-value threshold
   fisher_interval_list:
     type: File?
+    format: edam:format_3671
     label: pileup regions list
   fisher_samtools_params:
     type: string?
@@ -50,16 +61,16 @@ inputs:
     label: directory containing hotspot_mutations.txt
   hotspot_min_tumor_misrate:
     label: the minimum amount of tumor allele frequency
-    type: double
+    type: double?
   hotspot_max_control_misrate:
     label: the maximum amount of control allele frequency
-    type: double
+    type: double?
   hotspot_TN_ratio_control:
     label: the maximum value of the ratio between normal and tumor
-    type: double
+    type: double?
   hotspot_min_lod_score:
     label: the minimum lod score
-    type: double
+    type: double?
   hotspot_samtools_params:
     type: string?
     label: SAMtools parameters given to GenomonHotspotCall
@@ -86,27 +97,34 @@ steps:
       p_value: fisher_p_value
       interval_list: fisher_interval_list
       samtools_params: fisher_samtools_params
-    out:
-      [txt, log]
+    out: [txt, log]
 
   # In GenomonHotspotcall, a tumor BAM is compared with a control BAM.
   # Here 'control BAM' corresponds to the normal BAM in Genomon mutation call,
   # not the control panel.
-  hotspotCall:
-    label: identifies hotspot mutations
-    run: ../Tools/mutation-call-hotspotCall.cwl
+  hotspot:
+    label: Identifies hotspot mutations
+    run: ../Tools/mutation-call-hotspot.cwl
     in:
       name: name
       tumor: tumor
-      normal: normal
+      control: normal
       database_directory: hotspot_database_directory
       min_tumor_misrate: hotspot_min_tumor_misrate
       max_control_misrate: hotspot_max_control_misrate
       TN_ratio_control: hotspot_TN_ratio_control
       min_lod_score: hotspot_min_lod_score
       samtools_params: hotspot_samtools_params
-    out:
-      [txt, log]
+    out: [txt, log]
+
+  merge:
+    label: Merges hotspot information to Fisher's exact test result
+    run: ../Tools/mutation-call-merge.cwl
+    in:
+      name: name
+      hotspot: hotspot/txt
+      fisher: fisher/txt
+    out: [txt, log]
 
 outputs: []
 

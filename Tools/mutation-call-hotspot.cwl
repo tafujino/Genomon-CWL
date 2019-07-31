@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 
 class: CommandLineTool
-id: mutation-call-hotspotCall
+id: mutation-call-hotspot
 label: Identifies mutations in cancer hotspot
 cwlVersion: v1.0
 
@@ -10,7 +10,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call'
+    dockerPull: 'genomon/mutation_call:0.2.5'
 
 requirements:
   - class: ShellCommandRequirement
@@ -21,6 +21,16 @@ inputs:
   name:
     type: string
     label: sample name
+  tumor:
+    type: File
+    format: edam:format_2572
+    secondaryFiles:
+      - .bai
+  control:
+    type: File
+    format: edam:format_2572
+    secondaryFiles:
+      - .bai
   database_directory:
     type: Directory
     label: directory containing hotspot_mutations.txt
@@ -54,20 +64,11 @@ inputs:
     inputBinding:
       position: 5
       prefix: -S
-  tumor:
-    type: File
-    format: edam:format_2572
-    inputBinding:
-      position: 6
-  normal:
-    type: File
-    format: edam:format_2572
-    inputBinding:
-      position: 7
   
 outputs:
   txt:
     type: File
+    format: edam:format_3671
     outputBinding:
       glob: $(inputs.name).hotspot_mutations.txt
   log:
@@ -77,6 +78,10 @@ stderr: $(inputs.name).hotspot_mutations.log
 
 arguments:
   - position: 1
+    valueFrom: $(inputs.tumor.path)
+  - position: 1
+    valueFrom: $(inputs.control.path)
+  - position: 3
     valueFrom: $(inputs.name).hotspot_mutations.txt
-  - position: 2
-    valueFrom: $(inputs.hotspot_database_directory)/GRCh37_hotspot_database_v20170919.txt
+  - position: 4
+    valueFrom: $(inputs.database_directory.path)/GRCh37_hotspot_database_v20170919.txt

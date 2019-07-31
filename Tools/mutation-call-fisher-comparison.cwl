@@ -10,8 +10,8 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call'
-
+    dockerPull: 'genomon/mutation_call:0.2.5'
+    
 requirements:
   - class: ShellCommandRequirement
 
@@ -34,46 +34,53 @@ inputs:
     label: tumor sample BAM aligned to the reference
     inputBinding:
       position: 2
-      prefix: -1
+      prefix: "-1"
   normal:
     type: File
     format: edam:format_2572
     label: normal sample BAM aligned to the reference
     inputBinding:
       position: 3
-      prefix: -2
+      prefix: "-2"
   min_depth:
-    type: int
+    type: int?
+    label: the minimum depth
     inputBinding:
       position: 4
-      prefix: --min-depth
+      prefix: --min_depth
   base_quality:
-    type: int
+    type: int?
+    label: base quality threshold
     inputBinding:
       position: 5
       prefix: --base_quality
   min_variant_read:
-    type: int
+    type: int?
+    label: the minimum variant read
     inputBinding:
       position: 6
       prefix: --min_variant_read
   min_allele_freq:
-    type: double
+    type: double?
+    label: the minimum amount of disease allele frequency
     inputBinding:
       position: 7
       prefix: --min_allele_freq
   max_allele_freq:
-    type: double
+    type: double?
+    label: the maximum amount of control allele frequency
     inputBinding:
       position: 8
       prefix: --max_allele_freq
   p_value:
-    type: double
+    type: double?
+    label: Fisher p-value threshold
     inputBinding:
       position: 9
       prefix: --fisher_value
   interval_list:
     type: File?
+    format: edam:format_3671
     label: pileup regions list
     inputBinding:
       position: 10
@@ -88,6 +95,7 @@ inputs:
 outputs:
   txt:
     type: File
+    format: edam:format_3671
     outputBinding:
       glob: $(inputs.name).fisher_mutations.txt
   log:

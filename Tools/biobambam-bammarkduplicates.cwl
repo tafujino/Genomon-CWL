@@ -10,7 +10,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/bwa_alignment'
+    dockerPull: 'genomon/bwa_alignment:0.1.1'
 
 requirements:
   - class: ShellCommandRequirement
@@ -42,6 +42,11 @@ outputs:
     format: edam:format_2572
     outputBinding:
       glob: $(inputs.name).markdup.bam
+  markdupbam_index:
+    type: File
+    format: edam:format_3327
+    outputBinding:
+      glob: $(inputs.name).markdup.bam.bai
   metrics:
     type: File
     outputBinding:
@@ -49,24 +54,24 @@ outputs:
   log:
     type: stderr
 
-stderr: $(markdupbam).log
+stderr: $(inputs.name).markdup.bam.log
 
 # the following annotations are taken from bammarkduplicates help
 arguments:
   - # metrics file
     position: 1
     prefix: M=
-    valueFrom: metrics
+    valueFrom: $(inputs.name).metrics
     separate: false
   - # output file
     position: 2
     prefix: O=
-    valueFrom: markdupbam
+    valueFrom: $(inputs.name).markdup.bam
     separate: false
   - # number of helper threads
     position: 3
     prefix: markthreads=
-    valueFrom: "2" # is is ok to fix this value?
+    valueFrom: "2" # is it ok to fix this value?
     separate: false
   - # compression of temporary alignment file when input is via stdin
     # (0=snappy,1=gzip/bam,2=copy)

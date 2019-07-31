@@ -10,10 +10,9 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/bwa_alignment'
+    dockerPull: 'genomon/bwa_alignment:0.1.1'
 
 requirements:
-#  - class: InlineJavascriptRequirement
   - class: ShellCommandRequirement
 #  - class: ResourceRequirement
 #    ramMin: -
@@ -91,12 +90,12 @@ arguments:
   - # input helper threads (for inputformat=bam only, default: 1)
     position: 6
     prefix: inputthreads=
-    valueFrom: "2" # is is ok to fix this value?
+    valueFrom: "2" # is it ok to fix this value?
     separate: false
   - # output helper threads (for outputformat=bam only, default: 1)
     position: 7
     prefix: outputthreads=
-    valueFrom: "2" # is is ok to fix this value?
+    valueFrom: "2" # is it ok to fix this value?
     separate: false
   - # calculate MD and NM aux fields (for coordinate sorted output only)
     position: 8

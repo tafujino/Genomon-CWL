@@ -10,7 +10,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/bwa_alignment'
+    dockerPull: 'genomon/bwa_alignment:0.1.1'
 
 requirements:
   - class: ShellCommandRequirement

@@ -67,7 +67,7 @@ steps:
     in:
       bam: bamsort/bam
       name: name
-    out: [markdupbam, metrics, log]
+    out: [markdupbam, markdupbam_index, metrics, log]
 
 outputs:
   sam:
@@ -85,7 +85,7 @@ outputs:
   bai:
     type: File
     format: edam:format_3327
-    outputSource: bamsort/bam
+    outputSource: bammarkduplicates/markdupbam_index
   sortbam_log:
     type: File
     format:
