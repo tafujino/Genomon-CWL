@@ -1,6 +1,10 @@
+# !/bin/sh
+
+# Usage: mutation-call-annotation.sh (PREFIX).simplerepeat_mutations.txt
+
 # HGVD annotations
 if [ _${ACTIVE_HGVD_2016_FLAG} = "_True" ]; then 
-    mutanno mutation -t ${OUTPUT_PREF}.simplerepeat_mutations.txt -o ${OUTPUT_PREF}.HGVD_2016.txt -d ${ANNOTATION_DB}/DBexome20160412.bed.gz -c 5
+    mutanno mutation -t $1 -o ${OUTPUT_PREF}.HGVD_2016.txt -d ${ANNOTATION_DB}/DBexome20160412.bed.gz -c 5
 else
     cp ${OUTPUT_PREF}.simplerepeat_mutations.txt ${OUTPUT_PREF}.HGVD_2016.txt
 fi
