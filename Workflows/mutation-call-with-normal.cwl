@@ -171,7 +171,7 @@ steps:
       window_size: mutfilter_realignment_window_size
       max_depth: mutfilter_realignment_max_depth
       exclude_sam_flags: mutfilter_realignment_exclude_sam_flags
-      # currently the number of threads cannot be specified
+      # currently number of threads cannot be specified
     out: [txt, log]
 
   mutfilter_indel:
