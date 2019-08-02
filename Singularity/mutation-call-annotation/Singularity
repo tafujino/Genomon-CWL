@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: genomon/mutation_call:0.2.5
+
+%labels
+    Author fujino@edu.k.u-tokyo.ac.jp
+
+%files
+    mutation-call-annotation.sh /usr/local/bin/mutation-call-annotation.sh
