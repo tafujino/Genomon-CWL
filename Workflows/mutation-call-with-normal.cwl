@@ -11,6 +11,10 @@ cwlVersion: v1.0
 $namespaces:
   edam: 'http://edamontology.org/'
 
+requirements:
+  - class: InlineJavascriptRequirement
+  - class: StepInputExpressionRequirement
+
 inputs:
   name:
     type: string
@@ -109,7 +113,18 @@ inputs:
     type: int?
   mutfilter_breakpoint_exclude_sam_flags:
     type: int?
-
+  annotation_database_directory:
+    type: Directory
+    label: directory containing simpleRepeat.bed.gz, DBexome20160412.bed.gz and ExAC.r0.3.1.sites.vep.bed.gz
+  HGVD_2016:
+    type: boolean
+    default: false
+  EXAC:
+    type: boolean
+    default: false
+  meta:
+    type: string
+    
 steps:
   fisher:
     label: Fisher's exact test
@@ -203,5 +218,28 @@ steps:
       exclude_sam_flags: mutfilter_breakpoint_exclude_sam_flags
     out: [txt, log]
 
-outputs: []
+  mutfilter_simplerepeat:
+    label: Annotates if the candidate is on the simplerepeat
+    run: ../Tools/mutation-call-mutfilter-simplerepeat.cwl
+    in:
+      name: name
+      mutation: mutfilter_breakpoint/txt
+      database_directory: annotation_database_directory
+    out: [txt, log]
 
+  annotation:
+    run: ../Tools/mutation-call-annotation.cwl
+    in:
+      name: name
+      mutation: mutfilter_simplerepeat/txt
+      database_directory: annotation_database_directory
+      HGVD_2016: HGVD_2016
+      EXAC: EXAC
+      normal:
+        default: true
+      control:
+        default: false # currently always set to false
+      meta: meta
+    out: [txt, log]
+
+outputs: []

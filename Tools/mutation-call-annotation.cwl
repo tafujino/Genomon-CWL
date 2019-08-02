@@ -31,12 +31,18 @@ requirements:
         envValue: |-
           $(inputs.normal ? "True" : "False")
 
-baseCommand: [ /bin/sh, /usr/local/bin/mutation-call-annotation.sh ]
+baseCommand: [ /usr/local/bin/mutation-call-annotation.sh ]
 
 inputs:
   name:
     type: string
     label: sample name
+  mutation:
+    type: File
+    format: edam:format_3671
+    label: mutation information
+    inputBinding:
+      position: 1
   database_directory:
     type: Directory
     label: directory containing DBexome20160412.bed.gz and ExAC.r0.3.1.sites.vep.bed.gz
@@ -56,4 +62,13 @@ inputs:
   meta:
     type: string
 
-outputs: []    
+outputs:
+  txt:
+    type: File
+    format: edam:format_3671
+    outputBinding:
+      glob: $(inputs.name).genomon_mutation.result.txt
+  log:
+    type: stderr
+
+stderr: $(inputs.name).genomon_mutation.result.log
