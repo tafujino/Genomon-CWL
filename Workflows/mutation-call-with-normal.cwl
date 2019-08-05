@@ -270,4 +270,36 @@ steps:
     out:
       [txt, log]
 
-outputs: []
+outputs:
+  mutation:
+    type: File
+    format: edam:format_3671
+    label: mutation call result
+    outputSource: mutil_filter/txt
+  fisher_log:
+    type: File
+    outputSource: fisher/log
+  hotspot_log:
+    type: File
+    outputSource: hotspot/log
+  fisher_with_hotspot_log:
+    type: File
+    outputSource: fisher_with_hotspot/log
+  mutfilter_realignment_log:
+    type: File
+    outputSource: mutfilter_realignment/log
+  mutfilter_indel_log:
+    type: File
+    outputSource: mutfilter_indel/log
+  mutfilter_breakpoint_log:
+    type: File
+    outputSource: mutfilter_breakpoint/log
+  mutfilter_simplerepeat_log:
+    type: File
+    outputSource: mutfilter_simplerepeat/log
+  mutfilter_annotation_log:
+    type: File
+    outputSource: annotation/log
+  mutil_filter_log:
+    type: File
+    outputSource: mutil_filter/log
