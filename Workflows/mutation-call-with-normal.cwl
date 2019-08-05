@@ -12,7 +12,6 @@ $namespaces:
   edam: 'http://edamontology.org/'
 
 requirements:
-  - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
 
 inputs:
@@ -62,7 +61,7 @@ inputs:
     label: SAMtools parameters given to GenomonFisher
   hotspot_database_directory:
     type: Directory
-    label: directory containing hotspot_mutations.txt
+    label: directory containing GRCh37_hotspot_database_v20170919.txt
   hotspot_min_tumor_misrate:
     label: the minimum amount of tumor allele frequency
     type: double?
@@ -124,6 +123,21 @@ inputs:
     default: false
   meta:
     type: string
+  mutil_filter_fisher_p_value:
+    type: double?
+    label: Fisher test P-value
+  mutil_filter_realign_p_value:
+    type: double?
+    label: realignment Fisher test P-value
+  mutil_filter_ebcall_p_value:
+    type: double?
+    label: EBCall P-value
+  mutil_filter_tcount:
+    type: int?
+    label: read count of tumor
+  mutil_filter_ncount:
+    type: int?
+    label: read count of normal
     
 steps:
   fisher:
@@ -241,5 +255,19 @@ steps:
         default: false # currently always set to false
       meta: meta
     out: [txt, log]
+
+  mutil_filter:
+    run: ../Tools/mutation-call-mutil-filter.cwl
+    in:
+      name: name
+      mutation: annotation/txt
+      database_directory: hotspot_database_directory
+      fisher_p_value: mutil_filter_fisher_p_value
+      realign_p_value: mutil_filter_realign_p_value
+      ebcall_p_value: mutil_filter_ebcall_p_value
+      tcount: mutil_filter_tcount
+      ncount: mutil_filter_ncount
+    out:
+      [txt, log]
 
 outputs: []

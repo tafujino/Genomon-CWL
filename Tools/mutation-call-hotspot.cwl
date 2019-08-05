@@ -33,7 +33,7 @@ inputs:
       - .bai
   database_directory:
     type: Directory
-    label: directory containing hotspot_mutations.txt
+    label: directory containing GRCh37_hotspot_database_v20170919.txt
   min_tumor_misrate:
     type: double?
     label: the minimum amount of tumor allele frequency
@@ -79,7 +79,7 @@ stderr: $(inputs.name).hotspot_mutations.log
 arguments:
   - position: 1
     valueFrom: $(inputs.tumor.path)
-  - position: 1
+  - position: 2
     valueFrom: $(inputs.control.path)
   - position: 3
     valueFrom: $(inputs.name).hotspot_mutations.txt
