@@ -18,10 +18,7 @@ requirements:
 baseCommand: [ mutfilter, breakpoint ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: mutation information
@@ -62,18 +59,18 @@ inputs:
       prefix: --exclude_sam_flags
 
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     label: mutation information annotated with breakpoint information
     outputBinding:
-      glob: $(inputs.name).breakpoint_mutations.txt
+      glob: breakpoint_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).breakpoint_mutations.log
+stderr: breakpoint_mutations.log
 
 arguments:
   - position: 1
     prefix: --output
-    valueFrom: $(inputs.name).breakpoint_mutations.txt
+    valueFrom: breakpoint_mutations.txt

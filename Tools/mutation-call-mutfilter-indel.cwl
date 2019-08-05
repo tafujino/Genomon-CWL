@@ -18,10 +18,7 @@ requirements:
 baseCommand: [ mutfilter, indel ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: mutation information
@@ -67,21 +64,21 @@ inputs:
       prefix: --samtools_params
   
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     label: indel mutation information
     outputBinding:
-      glob: $(inputs.name).indel_mutations.txt
+      glob: indel_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).indel_mutations.log
+stderr: indel_mutations.log
 
 arguments:
   - position: 1
     prefix: --output
-    valueFrom: $(inputs.name).indel_mutations.txt
+    valueFrom: indel_mutations.txt
   - position: 2
     prefix: --samtools_path
     valueFrom: /usr/local/bin/samtools

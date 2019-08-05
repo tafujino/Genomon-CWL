@@ -18,9 +18,6 @@ requirements:
 baseCommand: [ hotspotCall ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
   tumor:
     type: File
     format: edam:format_2572
@@ -66,15 +63,15 @@ inputs:
       prefix: -S
   
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     outputBinding:
-      glob: $(inputs.name).hotspot_mutations.txt
+      glob: hotspot_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).hotspot_mutations.log
+stderr: hotspot_mutations.log
 
 arguments:
   - position: 1
@@ -82,6 +79,6 @@ arguments:
   - position: 2
     valueFrom: $(inputs.control.path)
   - position: 3
-    valueFrom: $(inputs.name).hotspot_mutations.txt
+    valueFrom: hotspot_mutations.txt
   - position: 4
     valueFrom: $(inputs.database_directory.path)/GRCh37_hotspot_database_v20170919.txt

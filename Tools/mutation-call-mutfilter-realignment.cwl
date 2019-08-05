@@ -18,17 +18,16 @@ requirements:
 baseCommand: [ mutfilter, realignment ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
   reference:
     type: File
     format: edam:format_1929
     label: FastA file for reference genome
+    secondaryFiles:
+      - .fai
     inputBinding:
       position: 1
       prefix: --ref_genome
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: Fisher's exact test result, possibly with hotspot information
@@ -87,21 +86,21 @@ inputs:
       prefix: --thread_num
   
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     label: mutation information after realignment
     outputBinding:
-      glob: $(inputs.name).realignment_mutations.txt 
+      glob: realignment_mutations.txt 
   log:
     type: stderr
 
-stderr: $(inputs.name).realignment_mutations.log
+stderr: realignment_mutations.log
 
 arguments:
   - position: 1
     prefix: --output
-    valueFrom: $(inputs.name).realignment_mutations.txt 
+    valueFrom: realignment_mutations.txt 
   - position: 2
     prefix: --blat_path
     valueFrom: /tools/userApps/bin/blat

@@ -18,10 +18,7 @@ requirements:
 baseCommand: [ mutfilter, simplerepeat ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: mutation information
@@ -33,20 +30,20 @@ inputs:
     label: directory containing simpleRepeat.bed.gz
 
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     outputBinding:
-      glob: $(inputs.name).simplerepeat_mutations.txt
+      glob: simplerepeat_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).simplerepeat_mutations.log
+stderr: simplerepeat_mutations.log
 
 arguments:
   - position: 1
     prefix: --output
-    valueFrom: $(inputs.name).simplerepeat_mutations.txt
+    valueFrom: simplerepeat_mutations.txt
   - position: 2
     prefix: --simple_repeat_db
     valueFrom: $(inputs.database_directory.path)/simpleRepeat.bed.gz

@@ -22,6 +22,8 @@ inputs:
     type: File
     format: edam:format_1929
     label: FastA file for reference genome
+    secondaryFiles:
+      - .fai
   tumor:
     type: File
     format: edam:format_2572
@@ -144,7 +146,6 @@ steps:
     label: Fisher's exact test
     run: ../Tools/mutation-call-fisher-comparison.cwl
     in:
-      name: name
       reference: reference
       tumor: tumor
       normal: normal
@@ -156,7 +157,7 @@ steps:
       p_value: fisher_p_value
       interval_list: fisher_interval_list
       samtools_params: fisher_samtools_params
-    out: [txt, log]
+    out: [out_mutation, log]
 
   # In GenomonHotspotcall, a tumor BAM is compared with a control BAM.
   # Here 'control BAM' corresponds to the normal BAM in Genomon mutation call,
@@ -165,7 +166,6 @@ steps:
     label: Identifies hotspot mutations
     run: ../Tools/mutation-call-hotspot.cwl
     in:
-      name: name
       tumor: tumor
       control: normal
       database_directory: hotspot_database_directory
@@ -174,24 +174,22 @@ steps:
       TN_ratio_control: hotspot_TN_ratio_control
       min_lod_score: hotspot_min_lod_score
       samtools_params: hotspot_samtools_params
-    out: [txt, log]
+    out: [out_mutation, log]
 
   fisher_with_hotspot:
     label: Merges hotspot information to Fisher's exact test result
     run: ../Tools/mutation-call-merge.cwl
     in:
-      name: name
-      hotspot: hotspot/txt
-      fisher: fisher/txt
-    out: [txt, log]
+      hotspot_mutation: hotspot/out_mutation
+      fisher_mutation: fisher/out_mutation
+    out: [out_mutation, log]
 
   mutfilter_realignment:
     label: Local realignment using blat. The candidate mutations are validated.
     run: ../Tools/mutation-call-mutfilter-realignment.cwl
     in:
-      name: name
       reference: reference
-      mutation: fisher_with_hotspot/txt
+      in_mutation: fisher_with_hotspot/out_mutation
       tumor: tumor
       normal: normal
       tumor_min_mismatch: mutfilter_realignment_tumor_min_mismatch
@@ -201,14 +199,13 @@ steps:
       max_depth: mutfilter_realignment_max_depth
       exclude_sam_flags: mutfilter_realignment_exclude_sam_flags
       # currently number of threads cannot be specified
-    out: [txt, log]
+    out: [out_mutation, log]
 
   mutfilter_indel:
     label: Annotates if the candidate is near indel
     run: ../Tools/mutation-call-mutfilter-indel.cwl
     in:
-      name: name
-      mutation: mutfilter_realignment/txt
+      in_mutation: mutfilter_realignment/out_mutation
       normal: normal
       search_length: mutfilter_indel_search_length
       neighbor: mutfilter_indel_neighbor
@@ -216,36 +213,34 @@ steps:
       min_mismatch: mutfilter_indel_min_mismatch
       allele_frequency_threshold: mutfilter_indel_allele_frequency_threshold
       samtools_params: mutfilter_indel_samtools_params
-    out: [txt, log]
+    out: [out_mutation, log]
 
   mutfilter_breakpoint:
     label: Annotates if the candidate is near the breakpoint
     run: ../Tools/mutation-call-mutfilter-breakpoint.cwl
     in:
-      name: name
-      mutation: mutfilter_indel/txt
+      in_mutation: mutfilter_indel/out_mutation
       normal: normal
       max_depth: mutfilter_breakpoint_max_depth
       min_clip_size: mutfilter_breakpoint_min_clip_size
       junction_num_threshold: mutfilter_breakpoint_junction_num_threshold
       mapq_threshold: mutfilter_breakpoint_mapq_threshold
       exclude_sam_flags: mutfilter_breakpoint_exclude_sam_flags
-    out: [txt, log]
+    out: [out_mutation, log]
 
   mutfilter_simplerepeat:
     label: Annotates if the candidate is on the simplerepeat
     run: ../Tools/mutation-call-mutfilter-simplerepeat.cwl
     in:
-      name: name
-      mutation: mutfilter_breakpoint/txt
+      in_mutation: mutfilter_breakpoint/out_mutation
       database_directory: annotation_database_directory
-    out: [txt, log]
+    out: [out_mutation, log]
 
   annotation:
     run: ../Tools/mutation-call-annotation.cwl
     in:
       name: name
-      mutation: mutfilter_simplerepeat/txt
+      in_mutation: mutfilter_simplerepeat/out_mutation
       database_directory: annotation_database_directory
       HGVD_2016: HGVD_2016
       EXAC: EXAC
@@ -254,13 +249,12 @@ steps:
       control:
         default: false # currently always set to false
       meta: meta
-    out: [txt, log]
+    out: [out_mutation, log]
 
   mutil_filter:
     run: ../Tools/mutation-call-mutil-filter.cwl
     in:
-      name: name
-      mutation: annotation/txt
+      in_mutation: annotation/out_mutation
       database_directory: hotspot_database_directory
       fisher_p_value: mutil_filter_fisher_p_value
       realign_p_value: mutil_filter_realign_p_value
@@ -268,14 +262,14 @@ steps:
       tcount: mutil_filter_tcount
       ncount: mutil_filter_ncount
     out:
-      [txt, log]
+      [out_mutation, log]
 
 outputs:
   mutation:
     type: File
     format: edam:format_3671
     label: mutation call result
-    outputSource: mutil_filter/txt
+    outputSource: mutil_filter/out_mutation
   fisher_log:
     type: File
     outputSource: fisher/log
@@ -303,3 +297,4 @@ outputs:
   mutil_filter_log:
     type: File
     outputSource: mutil_filter/log
+

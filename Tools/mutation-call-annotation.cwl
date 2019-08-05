@@ -37,7 +37,7 @@ inputs:
   name:
     type: string
     label: sample name
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: mutation information
@@ -63,12 +63,12 @@ inputs:
     type: string
 
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     outputBinding:
-      glob: $(inputs.name).genomon_mutation.result.txt
+      glob: genomon_mutation.result.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).genomon_mutation.result.log
+stderr: genomon_mutation.result.log

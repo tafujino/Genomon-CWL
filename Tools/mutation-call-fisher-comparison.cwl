@@ -11,20 +11,19 @@ $namespaces:
 hints:
   - class: DockerRequirement
     dockerPull: 'genomon/mutation_call:0.2.5'
-    
+
 requirements:
   - class: ShellCommandRequirement
 
 baseCommand: [ fisher, comparison ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
   reference:
     type: File
     format: edam:format_1929
     label: FastA file for reference genome
+    secondaryFiles:
+      - .fai
     inputBinding:
       position: 1
       prefix: --ref_fa
@@ -93,20 +92,20 @@ inputs:
       prefix: --samtools_params
 
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     outputBinding:
-      glob: $(inputs.name).fisher_mutations.txt
+      glob: fisher_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).fisher_mutations.log
+stderr: fisher_mutations.log
 
 arguments:
   - position: 1
     prefix: -o
-    valueFrom: $(inputs.name).fisher_mutations.txt
+    valueFrom: fisher_mutations.txt
   - position: 2
     prefix: --samtools_path
     valueFrom: /usr/local/bin/samtools

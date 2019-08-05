@@ -18,10 +18,7 @@ requirements:
 baseCommand: [ mutil, filter ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
-  mutation:
+  in_mutation:
     type: File
     format: edam:format_3671
     label: mutation result before filtering
@@ -61,17 +58,17 @@ inputs:
     label: EBCall P-value
 
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     outputBinding:
-      glob: $(inputs.name).genomon_mutation.result.filt.txt
+      glob: genomon_mutation.result.filt.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).genomon_mutation.result.filt.log
+stderr: genomon_mutation.result.filt.log
     
 arguments:
   - position: 1
     prefix: -o
-    valueFrom: $(inputs.name).genomon_mutation.result.filt.txt
+    valueFrom: genomon_mutation.result.filt.txt

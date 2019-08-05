@@ -18,17 +18,14 @@ requirements:
 baseCommand: [ mutil, merge_hotspot ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
-  hotspot:
+  hotspot_mutation:
     type: File
     format: edam:format_3671
     label: GenomonHotspotCall result
     inputBinding:
       position: 1
       prefix: -i
-  fisher:
+  fisher_mutation:
     type: File
     format: edam:format_3671
     label: GenomonFisher comparison result
@@ -37,21 +34,21 @@ inputs:
       prefix: -f      
   
 outputs:
-  txt:
+  out_mutation:
     type: File
     format: edam:format_3671
     label: Fisher's exact test result with hotspot information
     outputBinding:
-      glob: $(inputs.name).fisher_hotspot_mutations.txt
+      glob: fisher_hotspot_mutations.txt
   log:
     type: stderr
 
-stderr: $(inputs.name).fisher_hotspot_mutations.log
+stderr: fisher_hotspot_mutations.log
 
 arguments:
   - position: 1
     prefix: -o
-    valueFrom: $(inputs.name).fisher_hotspot_mutations.txt
+    valueFrom: fisher_hotspot_mutations.txt
   - # this option REMOVEs the header from hotspot result file
     position: 2
     valueFrom: --hotspot_header
