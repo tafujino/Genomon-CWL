@@ -25,8 +25,6 @@ requirements:
           $(inputs.EXAC ? "True" : "False")
       - envName: ANNOTATION_DB
         envValue: $(inputs.database_directory.path)
-      - envName: OUTPUT_PREF
-        envValue: $(inputs.name)
       - envName: SAMPLE2_FLAG
         envValue: |-
           $(inputs.normal ? "True" : "False")
@@ -34,9 +32,6 @@ requirements:
 baseCommand: [ /usr/local/bin/mutation-call-annotation.sh ]
 
 inputs:
-  name:
-    type: string
-    label: sample name
   in_mutation:
     type: File
     format: edam:format_3671

@@ -1,23 +1,14 @@
 #!/usr/bin/env cwl-runner
 
 class: Workflow
-id: mutation-call-with-normal
+id: mutation-call-with-normal-without-control
 label: Calls mutations with both normal and tumor samples
 cwlVersion: v1.0
-
-# DISCUSSIONS:
-# - Should default values be given to input parameters?
 
 $namespaces:
   edam: 'http://edamontology.org/'
 
-requirements:
-  - class: StepInputExpressionRequirement
-
 inputs:
-  name:
-    type: string
-    label: sample name
   reference:
     type: File
     format: edam:format_1929
@@ -239,7 +230,6 @@ steps:
   annotation:
     run: ../Tools/mutation-call-annotation.cwl
     in:
-      name: name
       in_mutation: mutfilter_simplerepeat/out_mutation
       database_directory: annotation_database_directory
       HGVD_2016: HGVD_2016
@@ -247,7 +237,7 @@ steps:
       normal:
         default: true
       control:
-        default: false # currently always set to false
+        default: false
       meta: meta
     out: [out_mutation, log]
 
@@ -297,4 +287,3 @@ outputs:
   mutil_filter_log:
     type: File
     outputSource: mutil_filter/log
-
