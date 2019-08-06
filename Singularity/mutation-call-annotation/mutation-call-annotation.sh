@@ -1,21 +1,21 @@
 # !/bin/sh
 
-# Usage: mutation-call-annotation.sh (PREFIX).simplerepeat_mutations.txt
+# Usage: mutation-call-annotation.sh simplerepeat_mutations.txt
 
 # HGVD annotations
 if [ _${ACTIVE_HGVD_2016_FLAG} = "_True" ]; then 
-    mutanno mutation -t $1 -o ${OUTPUT_PREF}.HGVD_2016.txt -d ${ANNOTATION_DB}/DBexome20160412.bed.gz -c 5
+    mutanno mutation -t $1 -o HGVD_2016.txt -d ${ANNOTATION_DB}/DBexome20160412.bed.gz -c 5
 else
-    cp ${OUTPUT_PREF}.simplerepeat_mutations.txt ${OUTPUT_PREF}.HGVD_2016.txt
+    cp simplerepeat_mutations.txt HGVD_2016.txt
 fi
 # ExAC annotations
 if [ _${ACTIVE_EXAC_FLAG} = "_True" ]; then 
-    mutanno mutation -t ${OUTPUT_PREF}.HGVD_2016.txt -o ${OUTPUT_PREF}.ExAC.txt -d ${ANNOTATION_DB}/ExAC.r0.3.1.sites.vep.bed.gz -c 8
+    mutanno mutation -t HGVD_2016.txt -o ExAC.txt -d ${ANNOTATION_DB}/ExAC.r0.3.1.sites.vep.bed.gz -c 8
 else
-    cp ${OUTPUT_PREF}.HGVD_2016.txt ${OUTPUT_PREF}.ExAC.txt
+    cp HGVD_2016.txt ExAC.txt
 fi
 
-cp ${OUTPUT_PREF}.ExAC.txt ${OUTPUT_PREF}.mutations_candidate.txt
+cp ExAC.txt mutations_candidate.txt
 
 # Add header
 mut_header=""
@@ -47,6 +47,6 @@ then
     print_header=${print_header}"\t"${tmp_header}
 fi
 
-echo "$META" > ${OUTPUT_PREF}.genomon_mutation.result.txt
-echo "$print_header" >> ${OUTPUT_PREF}.genomon_mutation.result.txt
-cat ${OUTPUT_PREF}.mutations_candidate.txt >> ${OUTPUT_PREF}.genomon_mutation.result.txt
+echo "$META" > genomon_mutation.result.txt
+echo "$print_header" >> genomon_mutation.result.txt
+cat mutations_candidate.txt >> genomon_mutation.result.txt
