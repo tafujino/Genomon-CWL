@@ -13,8 +13,6 @@ inputs:
     doc: input BAM
     type: File
     format: edam:format_2572
-    secondaryFiles:
-      - .bai
   name:
     type: string
     label: sample name
