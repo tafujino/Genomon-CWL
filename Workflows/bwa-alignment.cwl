@@ -43,7 +43,7 @@ steps:
   # is not currently supported by any of existing cwl runners
   bwa_mem:
     label: Mapping onto reference using BWA MEM
-    run: ../Tools/bwa-mem.cwl
+    run: ../Tools/bwa-alignment/bwa-mem.cwl
     in:
       reference: reference
       fastq1: fastq1
@@ -55,7 +55,7 @@ steps:
     
   bamsort:
     label: Sorts SAM by position and converts to BAM
-    run: ../Tools/biobambam-bamsort.cwl
+    run: ../Tools/bwa-alignment/biobambam-bamsort.cwl
     in: 
       sam: bwa_mem/sam
       calmdnmreference: reference
@@ -63,7 +63,7 @@ steps:
 
   bammarkduplicates:
     label: Detects duplicate BAM entries
-    run: ../Tools/biobambam-bammarkduplicates.cwl
+    run: ../Tools/bwa-alignment/biobambam-bammarkduplicates.cwl
     in:
       bam: bamsort/bam
       name: name

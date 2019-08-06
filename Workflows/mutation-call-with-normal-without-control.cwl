@@ -135,7 +135,7 @@ inputs:
 steps:
   fisher:
     label: Fisher's exact test
-    run: ../Tools/mutation-call-fisher-comparison.cwl
+    run: ../Tools/mutation-call/mutation-call-fisher-comparison.cwl
     in:
       reference: reference
       tumor: tumor
@@ -155,7 +155,7 @@ steps:
   # not the control panel.
   hotspot:
     label: Identifies hotspot mutations
-    run: ../Tools/mutation-call-hotspot.cwl
+    run: ../Tools/mutation-call/mutation-call-hotspot.cwl
     in:
       tumor: tumor
       control: normal
@@ -169,7 +169,7 @@ steps:
 
   fisher_with_hotspot:
     label: Merges hotspot information to Fisher's exact test result
-    run: ../Tools/mutation-call-merge.cwl
+    run: ../Tools/mutation-call/mutation-call-merge.cwl
     in:
       hotspot_mutation: hotspot/out_mutation
       fisher_mutation: fisher/out_mutation
@@ -177,7 +177,7 @@ steps:
 
   mutfilter_realignment:
     label: Local realignment using blat. The candidate mutations are validated.
-    run: ../Tools/mutation-call-mutfilter-realignment.cwl
+    run: ../Tools/mutation-call/mutation-call-mutfilter-realignment.cwl
     in:
       reference: reference
       in_mutation: fisher_with_hotspot/out_mutation
@@ -194,7 +194,7 @@ steps:
 
   mutfilter_indel:
     label: Annotates if the candidate is near indel
-    run: ../Tools/mutation-call-mutfilter-indel.cwl
+    run: ../Tools/mutation-call/mutation-call-mutfilter-indel.cwl
     in:
       in_mutation: mutfilter_realignment/out_mutation
       normal: normal
@@ -208,7 +208,7 @@ steps:
 
   mutfilter_breakpoint:
     label: Annotates if the candidate is near the breakpoint
-    run: ../Tools/mutation-call-mutfilter-breakpoint.cwl
+    run: ../Tools/mutation-call/mutation-call-mutfilter-breakpoint.cwl
     in:
       in_mutation: mutfilter_indel/out_mutation
       normal: normal
@@ -221,14 +221,14 @@ steps:
 
   mutfilter_simplerepeat:
     label: Annotates if the candidate is on the simplerepeat
-    run: ../Tools/mutation-call-mutfilter-simplerepeat.cwl
+    run: ../Tools/mutation-call/mutation-call-mutfilter-simplerepeat.cwl
     in:
       in_mutation: mutfilter_breakpoint/out_mutation
       database_directory: annotation_database_directory
     out: [out_mutation, log]
 
   annotation:
-    run: ../Tools/mutation-call-annotation.cwl
+    run: ../Tools/mutation-call/mutation-call-annotation.cwl
     in:
       in_mutation: mutfilter_simplerepeat/out_mutation
       database_directory: annotation_database_directory
@@ -242,7 +242,7 @@ steps:
     out: [out_mutation, log]
 
   mutil_filter:
-    run: ../Tools/mutation-call-mutil-filter.cwl
+    run: ../Tools/mutation-call/mutation-call-mutil-filter.cwl
     in:
       in_mutation: annotation/out_mutation
       database_directory: hotspot_database_directory
@@ -259,6 +259,11 @@ outputs:
     type: File
     format: edam:format_3671
     label: mutation call result
+    outputSource: annotation/out_mutation
+  mutation_filtered:
+    type: File
+    format: edam:format_3671
+    label: filtered mutation call result
     outputSource: mutil_filter/out_mutation
   fisher_log:
     type: File

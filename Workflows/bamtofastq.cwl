@@ -22,14 +22,14 @@ inputs:
 steps:
   main:
     label: Extracts FASTQ from BAM
-    run: ../Tools/biobambam-bamtofastq-main.cwl
+    run: ../Tools/bwa-alignment/biobambam-bamtofastq-main.cwl
     in:
       bam: bam
       name: name
     out: [fastq1, fastq2, single, orphan1, orphan2, summary_tmp]
   postprocess:
     label: Generates summary text
-    run: ../Tools/biobambam-bamtofastq-postprocess.cwl
+    run: ../Tools/bwa-alignment/biobambam-bamtofastq-postprocess.cwl
     in:
       summary_tmp: main/summary_tmp
     out: [summary]
