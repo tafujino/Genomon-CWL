@@ -28,6 +28,8 @@ requirements:
       - envName: SAMPLE2_FLAG
         envValue: |-
           $(inputs.normal ? "True" : "False")
+      - envName: META
+        envValue: $(inputs.meta)
 
 baseCommand: [ /usr/local/bin/mutation-call-annotation.sh ]
 

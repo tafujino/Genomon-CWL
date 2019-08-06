@@ -1,0 +1,150 @@
+# frozen_string_literal: true
+
+require 'pathname'
+require 'csv'
+
+# @abstract
+class AbstractCWLTest
+  include Rake::DSL
+
+  # @param sample   [String] sample name
+  # @param workflow [String] workflow name
+  def initialize(sample, workflow)
+    @sample = sample
+    @workflow = workflow
+    @out_dir = Pathname.new("#{sample}/output/#{workflow}")
+    namespace @sample do
+      directory @out_dir
+      define_task
+    end
+  end
+
+  def define_task
+    raise NotImplementedError
+  end
+
+  def run_cwltool(workflow_path, job_path)
+    sh "cwltool --singularity --outdir #{@out_dir} #{workflow_path} #{job_path}"
+  end
+end
+
+class SimulateTumorBAMToFASTQ < AbstractCWLTest
+  def initialize
+    super('simulate', 'bwa-alignment')
+  end
+
+  def define_task
+    fq1_path, fq2_path = [1, 2].map do |i|
+      @out_dir / "simulate_T.sequence#{i}.fastq"
+    end
+    
+    file fq1_path do
+      run_cwltool(
+        '../Workflows/bamtofastq.cwl',
+        'simulate/Jobs/simulate_T-bamtofastq.yaml'
+      )
+    end
+
+    file fq2_path => fq1_path
+
+    desc 'bam2fastq'
+    task :bamtofastq => [fq1_path, fq2_path]
+  end
+end
+
+class SimulateBWAAlignment < AbstractCWLTest
+  def initialize(read_name, job_path)
+    @read_name = read_name
+    @job_path  = job_path
+    super('simulate', 'bwa-alignment')
+  end
+
+  def define_task
+    bam_path = @out_dir / "#{@read_name}.markdup.bam"
+    
+    file bam_path => @outdir do
+      run_cwltool('../Workflows/bwa-alignment.cwl', @job_path)
+    end
+
+    desc 'bwa-alignment'
+    task "bwa_alignment_#{@read_name}" => bam_path
+  end
+end
+
+class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
+  def initialize
+    super('simulate', 'mutation-call')
+  end
+  
+  def define_task
+    file @out_dir / 'genomon_mutation.result.filt.txt' =>
+         @out_dir / 'genomon_mutation.result.txt'
+
+    file @out_dir / 'genomon_mutation.result.txt' => @outdir do
+      run_cwltool(
+        '../Workflows/mutation-call-with-normal-without-control.cwl',
+        'simulate/Jobs/simulate-mutation-call-with-normal-without-control.yaml'
+      )
+    end
+
+    desc 'mutation-call-with-normal-without-control'
+    task :mutation_call_with_normal_without_control =>
+         @out_dir / 'genomon_mutation.result.filt.txt'
+
+    desc 'validation'
+    task :validate do
+      validate(
+        @out_dir / 'genomon_mutation.result.txt',
+        '/home/fujino/data/genomon/_GRCh37/output/dna/mutation/tumor/tumor.genomon_mutation.result.txt'
+      )
+    end
+  end
+  
+  def load_mutation_file(path)
+    str = File.readlines(path, chomp: true).reject do |line|
+      line =~ /^#/
+    end.join("\n")
+    csv = CSV.new(str, col_sep: "\t", headers: true)
+
+    # checks whether (chr, start, end) can be used as unique key
+    group = csv.group_by do |row|
+      [row['Chr'], row['Start'], row['End']]
+    end
+    puts group
+    group.transform_values(&:count).each do |k, c|
+      next if c == 1
+
+      warn "#{k} is not a unique key: #{path}"
+      exit 1
+    end
+
+    group.map.to_h { |k, a| [k, a.first] }
+  end
+
+  def validate(result_path, comp_path)
+    hash_result = load_mutation_file(result_path)
+    hash_comp   = load_mutation_file(comp_path)
+    keys = hash_result.keys.union(hash_comp.keys)
+    keys.each do |k|
+      [
+        ['result', hash_result[k]],
+        ['comp'  , hash_comp[k]]
+      ].each do |name, v|
+        puts "#{name} does not have entry for #{k}" unless v
+      end
+      if hash_result[k] && hash_comp[k]
+        compare_entry(hash_result[k], hash_comp[k])
+      end
+    end
+  end
+
+  def compare_entry(result, comp)
+    puts result
+    puts comp
+  end
+end
+
+SimulateTumorBAMToFASTQ.new
+SimulateBWAAlignment.new('simulate_N', 'simulate/Jobs/simulate_N-bwa-alignment.yaml')
+SimulateBWAAlignment.new('simulate_T', 'simulate/Jobs/simulate_T-bwa-alignment.yaml')
+SimulateMutationCallNormalWithoutControl.new

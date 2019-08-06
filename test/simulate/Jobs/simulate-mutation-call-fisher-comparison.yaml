@@ -1,0 +1,23 @@
+reference:
+  class: File
+  format: http://edamontology.org/format_1929
+  path: /home/fujino/data/genomon/_GRCh37/reference/GRCh37/GRCh37.fa
+tumor:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../simulate_T.markdup.bam
+normal:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../simulate_N.markdup.bam
+fisher_min_depth: 8
+fisher_min_variant_read: 4
+fisher_min_allele_freq: 0.02
+fisher_max_allele_freq: 0.1
+fisher_p_value: 0.1
+fisher_interval_list:
+  class: File
+  format: http://edamontology.org/format_3671
+  path: /home/fujino/data/genomon/_GRCh37/reference/GRCh37/GRCh37_noScaffold_noDecoy.interval_list
+fisher_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
+

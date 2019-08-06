@@ -1,0 +1,6 @@
+bam:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: /home/fujino/data/genomon/_GRCh37/sample/dna/simulate_T.bam
+name: simulate_T
+  
