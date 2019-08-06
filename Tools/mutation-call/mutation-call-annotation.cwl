@@ -20,7 +20,7 @@ requirements:
       - envName: ACTIVE_HGVD_2016_FLAG
         envValue: |-
           $(inputs.HGVD_2016 ? "True" : "False")
-      - envName: ACTIVE_EXAC_2016_FLAG
+      - envName: ACTIVE_EXAC_FLAG
         envValue: |-
           $(inputs.EXAC ? "True" : "False")
       - envName: ANNOTATION_DB
