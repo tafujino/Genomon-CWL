@@ -2,3 +2,8 @@
 tmp*/
 script/
 *.img
+*.simg
+test/simulate
+test/*.simg
+test/vendor
+test/.bundle

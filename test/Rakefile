@@ -73,7 +73,7 @@ end
 
 class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
   def initialize
-    super('simulate', 'mutation-call')
+    super('simulate', 'mutation-call-with-normal-without-control')
   end
   
   def define_task
