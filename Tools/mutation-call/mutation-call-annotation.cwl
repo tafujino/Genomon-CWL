@@ -28,6 +28,9 @@ requirements:
       - envName: SAMPLE2_FLAG
         envValue: |-
           $(inputs.normal ? "True" : "False")
+      - envName: CONTROL_BAM_FLAG
+        envValue: |-
+          $(inputs.control ? "True" : "False")
       - envName: META
         envValue: $(inputs.meta)
 
@@ -58,6 +61,7 @@ inputs:
     default: false
   meta:
     type: string
+    label: metadata. should begin with '#'
 
 outputs:
   out_mutation:

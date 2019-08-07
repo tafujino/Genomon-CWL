@@ -116,6 +116,7 @@ inputs:
     default: false
   meta:
     type: string
+    label: metadata. should begin with '#'
   mutil_filter_fisher_p_value:
     type: double?
     label: Fisher test P-value
@@ -239,6 +240,7 @@ steps:
       control:
         default: false
       meta: meta
+      
     out: [out_mutation, log]
 
   mutil_filter:
