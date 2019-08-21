@@ -3,6 +3,34 @@
 require 'pathname'
 require 'csv'
 
+# Describes chromosome regions
+#
+class ChrRegion
+  attr_reader :chr, :spos, :epos
+  
+  def initialize(chr, spos, epos)
+    @chr  = chr
+    @spos = spos
+    @epos = epos
+  end
+
+  def ==(other)
+    @chr == other.chr && @spos == other.spos && @epos == other.epos
+  end
+
+  def eql?(other)
+    self == other
+  end
+
+  def hash
+    [@chr, @spos, @epos].hash
+  end
+
+  def to_s
+    "chr#{@chr} #{@spos}:#{@epos}"
+  end
+end
+
 # @abstract
 class AbstractCWLTest
   include Rake::DSL
@@ -99,48 +127,109 @@ class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
       )
     end
   end
-  
+
+  # @param path [String] mutation result file path
+  # @return     [Hash{ ChrRegion => CSV::Row }]
   def load_mutation_file(path)
     str = File.readlines(path, chomp: true).reject do |line|
       line =~ /^#/
     end.join("\n")
-    csv = CSV.new(str, col_sep: "\t", headers: true)
 
-    # checks whether (chr, start, end) can be used as unique key
-    group = csv.group_by do |row|
-      [row['Chr'], row['Start'], row['End']]
+    CSV.new(str, col_sep: "\t", headers: true).group_by do |row|
+      ChrRegion.new(row['Chr'], row['Start'], row['End'])
+    end.map.to_h do |k, a|
+      # (chr, start, end) should be unique
+      if a.length > 1
+        warn "#{k} is not a unique key: #{path}"
+        exit 1
+      end
+
+      [k, a.first]
     end
-    puts group
-    group.transform_values(&:count).each do |k, c|
-      next if c == 1
-
-      warn "#{k} is not a unique key: #{path}"
-      exit 1
-    end
-
-    group.map.to_h { |k, a| [k, a.first] }
   end
 
+  # @param name   [String]
+  # @param hash   [Hash{ ChrRegion => CSV::Row }]
+  # @param region [ChrRegion]
+  # @return       [Boolean]
+  def check_value_existence(name, hash, region)
+    return true if hash[region]
+
+    puts "#{name} does not have entry for #{region}"
+    return false
+  end
+
+  # @param result_path [String]
+  # @param comp_path   [String]  
   def validate(result_path, comp_path)
     hash_result = load_mutation_file(result_path)
     hash_comp   = load_mutation_file(comp_path)
-    keys = hash_result.keys.union(hash_comp.keys)
-    keys.each do |k|
-      [
-        ['result', hash_result[k]],
-        ['comp'  , hash_comp[k]]
-      ].each do |name, v|
-        puts "#{name} does not have entry for #{k}" unless v
-      end
-      if hash_result[k] && hash_comp[k]
-        compare_entry(hash_result[k], hash_comp[k])
-      end
+    hash_result.keys.union(hash_comp.keys).each do |region|
+      next unless check_value_existence('result', hash_result, region) &&
+                  check_value_existence('comp',   hash_comp,   region)
+      compare_row(region, hash_result[region], hash_comp[region])
     end
   end
 
-  def compare_entry(result, comp)
-    puts result
-    puts comp
+  # @param region [ChrRegion]
+  # @param result [CSV::Row]
+  # @param comp   [CSV::Row]
+  def compare_row(region, result, comp)
+    # the following fields in comp are not used for comparison:
+    #   HGVD_20131010:#Sample
+    #   HGVD_20131010:Filter
+    #   HGVD_20131010:NR
+    #   HGVD_20131010:NA
+    #   HGVD_20131010:Frequency(NA/(NA+NR))
+    [
+      'Ref',
+      'Alt',
+      'depth_tumor',
+      'variantNum_tumor',
+      'depth_normal',
+      'variantNum_normal',
+      'bases_tumor',
+      'bases_normal',
+      'A_C_G_T_tumor',
+      'A_C_G_T_normal',
+      'misRate_tumor',
+      'strandRatio_tumor',
+      'misRate_normal',
+      'strandRatio_normal',
+      'P-value(fisher)',
+      'score(hotspot)',
+      'readPairNum_tumor',
+      'variantPairNum_tumor',
+      'otherPairNum_tumor',
+      'readPairNum_normal',
+      'variantPairNum_normal',
+      'otherPairNum_normal',
+      'P-value(fisher_realignment)',
+      'indel_mismatch_count',
+      ['indel_mismatch_rate', ->x { sprintf('%4.3f', x) }],
+      'bp_mismatch_count',
+      'distance_from_breakpoint',
+      'simple_repeat_pos',
+      'simple_repeat_seq',
+      'HGVD_20160412:#Sample',
+      'HGVD_20160412:Filter',
+      'HGVD_20160412:NR',
+      'HGVD_20160412:NA',
+      'HGVD_20160412:Frequency(NA/(NA+NR))',
+      'ExAC:Filter',
+      'ExAC:AC_Adj',
+      'ExAC:AN_Adj',
+      'ExAC:Frequency(AC_Adj/AN_Adj)',
+      'ExAC:AC_POPMAX',
+      'ExAC:AN_POPMAX',
+      'ExAC:Frequency(AC_POPMAX/AN_POPMAX)',
+      'ExAC:POPMAX'
+    ].each do |field, formatter|
+      formatter = ->x { x } unless formatter
+      unless formatter[result[field]] == formatter[comp[field]]
+        puts "#{region}, #{field}, result = #{result[field]}, comp = #{comp[field]}"
+      end
+    end
   end
 end
 
