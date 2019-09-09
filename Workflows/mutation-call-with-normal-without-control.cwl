@@ -123,7 +123,7 @@ inputs:
   mutil_filter_realign_p_value:
     type: double?
     label: realignment Fisher test P-value
-  mutil_filter_ebcall_p_value:
+  mutil_filter_ebcall_p_value: # is it really needed?
     type: double?
     label: EBCall P-value
   mutil_filter_tcount:
