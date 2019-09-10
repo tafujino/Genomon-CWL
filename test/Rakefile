@@ -32,21 +32,77 @@ class ChrRegion
   end
 end
 
+class MutationMap
+  # @return [String]
+  attr_reader :name
+
+  # @return [Hash{ ChrRegion => CSV::Row }]
+  attr_reader :map
+
+  # @param name [String]
+  # @param path [String] mutation result file path
+  def initialize(name, path)
+    @name = name
+    @map  = load_mutation_file(path)
+  end
+
+  # @return [Array<ChrRegion>]
+  def regions
+    @map.keys
+  end
+
+  # @param  [ChrRegion]
+  # @return [CSV::Row]
+  def [](region)
+    @map[region]
+  end
+
+  # @param region [ChrRegion]
+  # @return       [Boolean]
+  def exists_value?(region)
+    return true if @map[region]
+
+    puts "#{@name} does not have entry for #{region}"
+    return false
+  end
+
+  private
+
+  def load_mutation_file(path)
+    str = File.readlines(path, chomp: true).reject do |line|
+      line =~ /^#/
+    end.join("\n")
+
+    CSV.new(str, col_sep: "\t", headers: true).group_by do |row|
+      ChrRegion.new(row['Chr'], row['Start'], row['End'])
+    end.map.to_h do |region, a|
+      # (chr, start, end) should be unique
+      if a.length > 1
+        warn "#{k} is not a unique key: #{path}"
+        exit 1
+      end
+      [region, a.first]
+    end
+  end
+end
+
 # @abstract
 class AbstractCWLTest
   include Rake::DSL
 
-  # @return [Rake::Task] task
-  attr_reader :final_task
+  # @return [Rake::Task]
+  attr_reader :final_tasks
 
   # @param sample   [String] sample name
   # @param workflow [String] workflow name
   # @param deps     [AbstractCWLTest, Array<AbstractCWLTest>] depending tests
   def initialize(sample, workflow, deps = [])
-    @sample    = sample
-    @workflow  = workflow
-    @out_dir   = Pathname.new("#{sample}/output/#{workflow}")
-    @dep_tasks = deps.is_a?(Array) ? deps.map(&:final_task) : [deps.final_task]
+    @sample      = sample
+    @workflow    = workflow
+    @out_dir     = Pathname.new("#{sample}/output/#{workflow}")
+    deps         = [deps] unless deps.is_a?(Array)
+    @dep_tasks   = deps.map(&:final_tasks).flatten
+    @final_tasks = []
     namespace @sample do
       directory @out_dir
       define_task
@@ -59,8 +115,12 @@ class AbstractCWLTest
     raise NotImplementedError
   end
 
-  def register_task(name)
-    @final_task = Rake::Task[name]
+  # @param name [String]                final task name
+  # @param deps [String, Array<String>] dependent task name(s)
+  def final_task(name, deps)
+    deps = [deps] unless deps.is_a?(Array)
+    task name => deps
+    @final_tasks = deps.map { |dep| Rake::Task[dep] }
   end
 
   def run_cwltool(workflow_path, job_path)
@@ -88,9 +148,7 @@ class SimulateTumorBAMToFASTQ < AbstractCWLTest
     file fq2_path => fq1_path
 
     desc 'bam2fastq'
-    task :bamtofastq => [fq1_path, fq2_path]
-
-    register_task :bamtofastq
+    final_task :bamtofastq, [fq1_path, fq2_path]
   end
 end
 
@@ -108,12 +166,8 @@ class SimulateBWAAlignment < AbstractCWLTest
       run_cwltool('../Workflows/bwa-alignment.cwl', @job_path)
     end
 
-    task_name = "bwa_alignment_#{@read_name}"
-
     desc 'bwa-alignment'
-    task task_name => bam_path
-
-    register_task task_name
+    final_task "bwa_alignment_#{@read_name}", bam_path
   end
 end
 
@@ -134,8 +188,8 @@ class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
     end
 
     desc 'mutation-call-with-normal-without-control'
-    task :mutation_call_with_normal_without_control =>
-         @out_dir / 'genomon_mutation.result.filt.txt'
+    final_task :mutation_call_with_normal_without_control,
+               @out_dir / 'genomon_mutation.result.filt.txt'
 
     desc 'validation'
     task 'mutation_call_with_normal_without_control:validate' =>
@@ -147,54 +201,22 @@ class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
     end
   end
 
-  # @param path [String] mutation result file path
-  # @return     [Hash{ ChrRegion => CSV::Row }]
-  def load_mutation_file(path)
-    str = File.readlines(path, chomp: true).reject do |line|
-      line =~ /^#/
-    end.join("\n")
-
-    CSV.new(str, col_sep: "\t", headers: true).group_by do |row|
-      ChrRegion.new(row['Chr'], row['Start'], row['End'])
-    end.map.to_h do |region, a|
-      # (chr, start, end) should be unique
-      if a.length > 1
-        warn "#{k} is not a unique key: #{path}"
-        exit 1
-      end
-
-      [region, a.first]
-    end
-  end
-
-  # @param name   [String]
-  # @param hash   [Hash{ ChrRegion => CSV::Row }]
-  # @param region [ChrRegion]
-  # @return       [Boolean]
-  def exists_value?(name, hash, region)
-    return true if hash[region]
-
-    puts "#{name} does not have entry for #{region}"
-    return false
-  end
-
   # @param result_path [String]
   # @param comp_path   [String]
   def validate(result_path, comp_path)
-    hash_result = load_mutation_file(result_path)
-    hash_comp   = load_mutation_file(comp_path)
-    hash_result.keys.union(hash_comp.keys).each do |region|
-      next unless exists_value?('result', hash_result, region) &&
-                  exists_value?('comp',   hash_comp,   region)
+    result = MutationMap.new('result', result_path)
+    comp   = MutationMap.new('comp',   comp_path)
+    result.regions.union(comp.regions).each do |region|
+      next unless [result, comp].all? { |mut| mut.exists_value?(region) }
 
-      compare_row(region, hash_result[region], hash_comp[region])
+      compare_row(region, result[region], comp[region])
     end
   end
 
   # @param region [ChrRegion]
   # @param result [CSV::Row]
   # @param comp   [CSV::Row]
-  def compare_row(region, result, comp)
+  def compare_row(region, row_result, row_comp)
     # the following fields in comp are not used for comparison:
     #   HGVD_20131010:#Sample
     #   HGVD_20131010:Filter
@@ -246,9 +268,11 @@ class SimulateMutationCallNormalWithoutControl < AbstractCWLTest
       'ExAC:POPMAX'
     ].each do |field, formatter|
       formatter = ->x { x } unless formatter
-      next if formatter[result[field]] == formatter[comp[field]]
+      field_result = row_result[field]
+      field_comp   = row_comp[field]
+      next if formatter[field_result] == formatter[field_comp]
 
-      puts "#{region}, #{field}, result = #{result[field]}, comp = #{comp[field]}"
+      puts "#{region}, #{field}, result = #{field_result}, comp = #{field_comp}"
     end
   end
 end
