@@ -12,8 +12,8 @@ normal:
   path: ../output/bwa-alignment/simulate_N.markdup.bam
 
 fisher_min_depth: 8
-fisher_min_variant_read: 4
 fisher_base_quality: 15
+fisher_min_variant_read: 4
 fisher_min_allele_freq: 0.02
 fisher_max_allele_freq: 0.1
 fisher_p_value: 0.1
@@ -30,7 +30,7 @@ mutfilter_realignment_exclude_sam_flags: 3332
 
 mutfilter_indel_search_length: 40
 mutfilter_indel_search_neighbor: 5
-mutfilter_indel_min_depth: 5000
+mutfilter_indel_min_depth: 8
 mutfilter_indel_min_mismatch: 100000
 mutfilter_indel_allele_frequency_threshold: 1
 mutfilter_indel_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
