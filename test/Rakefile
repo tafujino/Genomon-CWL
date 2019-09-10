@@ -44,6 +44,7 @@ class MutationMap
   def initialize(name, path)
     @name = name
     @map  = load_mutation_file(path)
+    puts "# of entries for #{@name} = #{map.length}"
   end
 
   # @return [Array<ChrRegion>]
