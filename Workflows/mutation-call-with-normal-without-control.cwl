@@ -6,7 +6,7 @@ label: Calls mutations with both normal and tumor samples
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 inputs:
   reference:
@@ -70,9 +70,9 @@ inputs:
   hotspot_samtools_params:
     type: string?
     label: SAMtools parameters given to GenomonHotspotCall
-  mutfilter_realignment_tumor_min_mismatch:
+  mutfilter_realignment_tumor_min_mismatch: # is it really needed?
     type: int?
-  mutfilter_realignment_normal_max_mismatch:
+  mutfilter_realignment_normal_max_mismatch: # is it really needed?
     type: int?
   mutfilter_realignment_score_difference:
     type: int?

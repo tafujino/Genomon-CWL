@@ -6,11 +6,11 @@ label: Filters candidates
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call:0.2.5'
+    dockerPull: genomon/mutation_call:0.2.5
     
 requirements:
   - class: ShellCommandRequirement
@@ -35,7 +35,7 @@ inputs:
   post10q:
     type: double?
     label: 10% posterior quantile
-  r_post10q:
+  realignment_post10q:
     type: double?
     label: realignment 10% posterior quantile
   count:
@@ -53,7 +53,7 @@ inputs:
   realign_p_value:
     type: double?
     label: realignment Fisher test P-value
-  ebcall_p_value:
+  ebcall_p_value: # is it really needed?
     type: double?
     label: EBCall P-value
 
