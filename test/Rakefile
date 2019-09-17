@@ -155,39 +155,6 @@ class SimulateTumorBAMToFASTQ < AbstractCWLTest
   end
 end
 
-#class SimulateMutationCallWithoutNormalWithoutControl < AbstractCWLTest
-#  def initialize(deps = [])
-#    super('simulate', 'mutation-call-without-normal-without-control', deps)
-#  end
-#
-#  def define_task
-#    file @out_dir / 'genomon_mutation.result.filt.txt' =>
-#         @dep_tasks + [@out_dir / 'genomon_mutation.result.txt']
-#
-#    file @out_dir / 'genomon_mutation.result.txt' => @outdir do
-#    end
-#      run_cwltool(
-#        '../Workflows/mutation-call-without-normal-without-control.cwl',
-#        'simulate/Jobs/simulate-mutation-call-without-normal-without-control.yaml'
-#      )
-#    end
-#
-#    desc 'mutation-call-with-normal-without-control'
-#    final_task :mutation_call_with_normal_without_control,
-#               @out_dir / 'genomon_mutation.result.filt.txt'
-#
-#    desc 'validation'
-#    task 'mutation_call_with_normal_without_control:validate' =>
-#         :mutation_call_with_normal_without_control do
-#      validate(
-#        @out_dir / 'genomon_mutation.result.txt',
-#        '/home/fujino/data/genomon/_GRCh37/output/dna/mutation/tumor/tumor.genomon_mutation.result.txt'
-#      )
-#    end
-#  end
-#end
-#
-
 class SimulateBWAAlignment < AbstractCWLTest
   def initialize(read_name, job_path, deps = [])
     @read_name = read_name
@@ -204,6 +171,28 @@ class SimulateBWAAlignment < AbstractCWLTest
 
     desc 'bwa-alignment'
     final_task "bwa_alignment_#{@read_name}", bam_path
+  end
+end
+
+class SimulateMutationCallWithoutNormalWithoutControl < AbstractCWLTest
+  def initialize(deps = [])
+    super('simulate', 'mutation-call-without-normal-without-control', deps)
+  end
+
+  def define_task
+    file @out_dir / 'genomon_mutation.result.filt.txt' =>
+         @dep_tasks + [@out_dir / 'genomon_mutation.result.txt']
+
+    file @out_dir / 'genomon_mutation.result.txt' => @outdir do
+      run_cwltool(
+        '../Workflows/mutation-call-without-normal-without-control.cwl',
+        'simulate/Jobs/simulate-mutation-call-without-normal-without-control.yaml'
+      )
+    end
+
+    desc 'mutation-call-with-normal-without-control'
+    final_task :mutation_call_without_normal_without_control,
+               @out_dir / 'genomon_mutation.result.filt.txt'
   end
 end
 
@@ -324,4 +313,4 @@ alignment_tests = %w[N T].map do |type|
 end
 
 SimulateMutationCallWithNormalWithoutControl.new(alignment_tests)
-#SimulateMutationCallWithoutNormalWithoutControl.new(alignment_tests)
+SimulateMutationCallWithoutNormalWithoutControl.new(alignment_tests)
