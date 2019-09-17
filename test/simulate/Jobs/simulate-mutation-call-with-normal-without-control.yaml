@@ -57,13 +57,7 @@ hotspot_samtools_params: -B -q 20 -Q2 -d 10000000
 annotation_database_directory:
   class: Directory  
   path: /home/fujino/data/genomon/_GRCh37/reference/tabix
-# Use of this HGVD database is subject to compliance with the terms of use.
-# Please refer to the site below:
-# http://www.genome.med.kyoto-u.ac.jp/SnpDB/about.html
 HGVD_2016: true
-# Use of this ExAC database is subject to compliance with the terms of use.
-# Please refer to the site below:
-# http://exac.broadinstitute.org/faq
 EXAC: true
 
 mutil_filter_fisher_p_value: 1.0

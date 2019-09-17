@@ -109,9 +109,15 @@ inputs:
     type: Directory
     label: directory containing simpleRepeat.bed.gz, DBexome20160412.bed.gz and ExAC.r0.3.1.sites.vep.bed.gz
   HGVD_2016:
+    # Use of this HGVD database is subject to compliance with the terms of use.
+    # Please refer to the site below:
+    # http://www.genome.med.kyoto-u.ac.jp/SnpDB/about.html
     type: boolean
     default: false
   EXAC:
+    # Use of this ExAC database is subject to compliance with the terms of use.
+    # Please refer to the site below:
+    # http://exac.broadinstitute.org/faq
     type: boolean
     default: false
   meta:
