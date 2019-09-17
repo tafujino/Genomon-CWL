@@ -135,7 +135,7 @@ inputs:
     
 steps:
   fisher:
-    label: Fisher's exact test
+    label: "Fisher's exact test"
     run: ../Tools/mutation-call/fisher-comparison.cwl
     in:
       reference: reference
@@ -169,7 +169,7 @@ steps:
     out: [out_mutation, log]
 
   fisher_with_hotspot:
-    label: Merges hotspot information to Fisher's exact test result
+    label: "Merges hotspot information to Fisher's exact test result"
     run: ../Tools/mutation-call/merge-fisher-hotspot.cwl
     in:
       hotspot_mutation: hotspot/out_mutation
