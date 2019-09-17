@@ -2,7 +2,7 @@
 
 class: CommandLineTool
 id: mutation-call-fisher-comparison
-label: Fisher's exact test (tumor versus normal) in mutation call
+label: Fisher's exact test (tumor only) in mutation call
 cwlVersion: v1.0
 
 $namespaces:
@@ -15,7 +15,7 @@ hints:
 requirements:
   - class: ShellCommandRequirement
 
-baseCommand: [ fisher, comparison ]
+baseCommand: [ fisher, single ]
 
 inputs:
   reference:
@@ -34,61 +34,45 @@ inputs:
     inputBinding:
       position: 2
       prefix: "-1"
-  normal:
-    type: File
-    format: edam:format_2572
-    label: normal sample BAM aligned to the reference
-    inputBinding:
-      position: 3
-      prefix: "-2"
   min_depth:
     type: int?
     label: the minimum depth
     inputBinding:
-      position: 4
+      position: 3
       prefix: --min_depth
   base_quality:
     type: int?
     label: base quality threshold
     inputBinding:
-      position: 5
+      position: 4
       prefix: --base_quality
   min_variant_read:
     type: int?
     label: the minimum variant read
     inputBinding:
-      position: 6
+      position: 5
       prefix: --min_variant_read
   min_allele_freq:
     type: double?
     label: the minimum amount of disease allele frequency
     inputBinding:
-      position: 7
+      position: 6
       prefix: --min_allele_freq
-  max_allele_freq:
+  10_percent_posterior_quantile_threshold:
     type: double?
-    label: the maximum amount of control allele frequency
-    inputBinding:
-      position: 8
-      prefix: --max_allele_freq
-  p_value:
-    type: double?
-    label: Fisher p-value threshold
-    inputBinding:
-      position: 9
-      prefix: --fisher_value
+    label: 10 percent posterior quantile threshold
   interval_list:
     type: File?
     format: edam:format_3671
     label: pileup regions list
     inputBinding:
-      position: 10
+      position: 7
       prefix: -L
   samtools_params:
     type: string?
     label: samtools parameters string
     inputBinding:
-      position: 11
+      position: 8
       prefix: --samtools_params
 
 outputs:
@@ -109,3 +93,5 @@ arguments:
   - position: 2
     prefix: --samtools_path
     valueFrom: /usr/local/bin/samtools
+
+    

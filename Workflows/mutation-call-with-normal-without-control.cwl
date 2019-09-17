@@ -122,7 +122,7 @@ inputs:
     default: false
   meta:
     type: string
-    label: metadata. should begin with '#'
+    label: "metadata. should begin with '#'"
   mutil_filter_fisher_p_value:
     type: double?
     label: Fisher test P-value
