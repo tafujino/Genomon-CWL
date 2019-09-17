@@ -6,7 +6,7 @@ label: Aligns FASTQs to a reference, generates BAM, and removes duplicate entrie
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
   
 inputs:
   reference:
