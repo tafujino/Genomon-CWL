@@ -2,7 +2,7 @@
 
 class: CommandLineTool
 id: mutation-call-fisher-comparison
-label: Fisher's exact test (tumor only) in mutation call
+label: "Fisher's exact test (tumor only) in mutation call"
 cwlVersion: v1.0
 
 $namespaces:

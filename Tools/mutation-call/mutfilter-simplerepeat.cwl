@@ -2,15 +2,15 @@
 
 class: CommandLineTool
 id: mutation-call-mutfilter-simplerepeat
-label: Annotates if the candidate is on the simplerepeat
+label: Annotates if a candidate is on the simplerepeat
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call:0.2.5'
+    dockerPull: genomon/mutation_call:0.2.5
     
 requirements:
   - class: ShellCommandRequirement

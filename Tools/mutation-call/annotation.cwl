@@ -6,11 +6,11 @@ label: Annotates
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerImageId: 'mutation-call-annotation.simg'
+    dockerImageId: mutation-call-annotation.simg
     
 requirements:
   - class: InlineJavascriptRequirement
@@ -61,7 +61,7 @@ inputs:
     default: false
   meta:
     type: string
-    label: metadata. should begin with '#'
+    label: "metadata. should begin with '#'"
 
 outputs:
   out_mutation:

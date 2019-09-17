@@ -6,12 +6,12 @@ label: Extracts FastQ from BAM using biobambam bamtofastq (postprocess part)
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 # this is probably unnecessary  
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/bwa_alignment:0.1.1'
+    dockerPull: genomon/bwa_alignment:0.1.1
 
 requirements:
   - class: ShellCommandRequirement

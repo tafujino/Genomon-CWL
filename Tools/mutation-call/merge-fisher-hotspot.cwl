@@ -2,15 +2,15 @@
 
 class: CommandLineTool
 id: mutation-call-merge
-label: Merges hotspot information to Fisher's exact test result
+label: "Merges hotspot information to Fisher's exact test result"
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call:0.2.5'
+    dockerPull: genomon/mutation_call:0.2.5
 
 requirements:
   - class: ShellCommandRequirement

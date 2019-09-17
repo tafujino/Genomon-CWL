@@ -6,11 +6,11 @@ label: Local realignment using blat. The candidate mutations are validated.
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/mutation_call:0.2.5'
+    dockerPull: genomon/mutation_call:0.2.5
     
 requirements:
   - class: ShellCommandRequirement
