@@ -2,7 +2,7 @@
 
 class: CommandLineTool
 id: sv-parse-0.6.0rc1
-label: sv-parse-0.6.0rc1
+label: parses breakpoint-containing and improperly aligned read pairs
 cwlVersion: v1.0
 
 $namespaces:

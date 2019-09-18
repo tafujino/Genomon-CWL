@@ -10,6 +10,7 @@ require_relative 'lib/simulate/tumor_bamtofastq'
 require_relative 'lib/simulate/bwa_alignment'
 require_relative 'lib/simulate/mutation_call_with_normal_without_control'
 require_relative 'lib/simulate/mutation_call_without_normal_without_control'
+require_relative 'lib/simulate/sv_parse'
 
 bamtofastq_test = Simulate::TumorBAMToFASTQ.new
 
@@ -20,3 +21,6 @@ alignment_tests = [
 
 Simulate::MutationCallWithNormalWithoutControl.new(alignment_tests)
 Simulate::MutationCallWithoutNormalWithoutControl.new(alignment_tests)
+
+Simulate::SVParseTumor.new(bamtofastq_test)
+Simulate::SVParseNormal.new(bamtofastq_test)

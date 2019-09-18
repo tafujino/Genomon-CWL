@@ -24,7 +24,7 @@ module Simulate
     def initialize(deps = [])
       super(
         'simulate_T',
-        "simulate/Jobs/simulate_T-bwa-alignment.yaml",
+        'simulate/Jobs/simulate_T-bwa-alignment.yam',
         deps
       )
     end
@@ -34,7 +34,7 @@ module Simulate
     def initialize(deps = [])
       super(
         'simulate_N',
-        "simulate/Jobs/simulate_N-bwa-alignment.yaml",
+        'simulate/Jobs/simulate_N-bwa-alignment.yaml',
         deps
       )
     end
