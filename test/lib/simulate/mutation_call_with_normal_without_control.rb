@@ -17,7 +17,7 @@ module Simulate
         )
       end
 
-      desc 'mutation-call-with-normal-without-control'
+      desc 'mutation-call'
       final_task :mutation_call_with_normal_without_control =>
                  @out_dir / 'genomon_mutation.result.filt.txt'
 

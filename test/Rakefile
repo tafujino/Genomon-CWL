@@ -11,7 +11,7 @@ require_relative 'lib/simulate/bwa_alignment'
 require_relative 'lib/simulate/mutation_call_with_normal_without_control'
 require_relative 'lib/simulate/mutation_call_without_normal_without_control'
 require_relative 'lib/simulate/sv_parse'
-require_relative 'lib/simulate/sv_detection_with_normal_without_control'
+require_relative 'lib/simulate/sv_detection_without_control'
 
 bamtofastq_test = Simulate::TumorBAMToFASTQ.new
 
@@ -20,10 +20,11 @@ normal_alignment = Simulate::BWAAlignmentNormal.new(bamtofastq_test)
 alignment_tests = [tumor_alignment, normal_alignment]
 
 Simulate::MutationCallWithNormalWithoutControl.new(alignment_tests)
-Simulate::MutationCallWithoutNormalWithoutControl.new(alignment_tests)
+Simulate::MutationCallWithoutNormalWithoutControl.new(tumor_alignment)
 
 tumor_sv_parse  = Simulate::SVParseTumor.new(bamtofastq_test)
 normal_sv_parse = Simulate::SVParseNormal.new(bamtofastq_test)
 sv_parse_test = [tumor_sv_parse, normal_sv_parse]
 
 Simulate::SVDetectionWithNormalWithoutControl.new(alignment_tests + sv_parse_test)
+Simulate::SVDetectionWithoutNormalWithoutControl.new([tumor_alignment, tumor_sv_parse])

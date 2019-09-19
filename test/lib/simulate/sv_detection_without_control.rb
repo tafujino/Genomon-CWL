@@ -10,7 +10,8 @@ module Simulate
 
     def define_task
       # SV parse results are symlinked to the current working directory
-      symlink_tasks = @dep_tasks.map do |t|
+      @dep_tasks.map! do |t|
+        t unless t.name =~ /.bedpe.gz(?:.tbi)$/
         file @out_dir / File.basename(t.name) => [t.name, @out_dir] do |u|
           File.symlink(File.absolute_path(u.prerequisites[0]), u.name)
         end
@@ -18,9 +19,9 @@ module Simulate
       
       sv_path = @out_dir / 'simulate_T.genomonSV.filt.metadata.txt'
 
-      file sv_path => symlink_tasks do
+      file sv_path => [@out_dir] + @dep_tasks do
         run(
-          '../Workflows/sv-detection-without-control.cwl',
+          "../Workflows/sv-detection-without-control.cwl",
           @job_path
         )
       end
@@ -35,6 +36,15 @@ module Simulate
       super(
         'with-normal-without-control',
         'simulate/Jobs/simulate-sv-detection-with-normal-without-control.yaml',
+        deps)
+    end
+  end
+
+  class SVDetectionWithoutNormalWithoutControl < SVDetection
+    def initialize(deps = [])
+      super(
+        'without-normal-without-control',
+        'simulate/Jobs/simulate-sv-detection-without-normal-without-control.yaml',
         deps)
     end
   end
