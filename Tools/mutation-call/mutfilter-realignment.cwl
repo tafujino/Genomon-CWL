@@ -30,7 +30,7 @@ inputs:
   in_mutation:
     type: File
     format: edam:format_3671
-    label: Fisher's exact test result, possibly with hotspot information
+    label: "Fisher's exact test result, possibly with hotspot information"
     inputBinding:
       position: 2
       prefix: --target_mutation_file

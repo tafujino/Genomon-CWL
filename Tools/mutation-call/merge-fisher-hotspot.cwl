@@ -37,7 +37,7 @@ outputs:
   out_mutation:
     type: File
     format: edam:format_3671
-    label: Fisher's exact test result with hotspot information
+    label: "Fisher's exact test result with hotspot information"
     outputBinding:
       glob: fisher_hotspot_mutations.txt
   log:
