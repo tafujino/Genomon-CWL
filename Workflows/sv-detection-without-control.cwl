@@ -45,6 +45,23 @@ inputs:
   meta:
     type: string
     label: "metadata. should begin with '#'"
+  sv_utils_filter_min_tumor_allele_frequency:
+    type: double?
+    label: removes if the tumor allele frequency is smaller than this value
+  sv_utils_filter_max_normal_read_pairs:
+    type: int?
+    label: removes if the number of variant read pairs in the normal sample exceeds this value
+  sv_utils_filter_normal_depth_threshold:
+    type: double?
+    label: removes if the normal read depth is smaller than this value
+  sv_utils_filter_inversion_size_threshold:
+    type: int?
+    label: removes if the size of inversion is smaller than this value
+  sv_utils_filter_min_overhang_size:
+    type: int?
+    label: removes if either of overhang sizes for two breakpoints is below this value
+  sv_utils_filter_remove_simple_repeat:
+    type: boolean
 
 steps:
   sv_filter:
@@ -67,15 +84,30 @@ steps:
       meta: meta
       in_sv: sv_filter/out_sv
     out: [out_sv, log]
+  sv_utils_filter:
+    label: filters out GenomonSV results outside specified conditions
+    run: ../Tools/sv/sv_utils-filter.cwl
+    in:
+      in_sv: preprend_metadata/out_sv
+      min_tumor_allele_frequency: sv_utils_filter_min_tumor_allele_frequency
+      max_normal_read_pairs: sv_utils_filter_max_normal_read_pairs
+      normal_depth_threshold: sv_utils_filter_normal_depth_threshold
+      inversion_size_threshold: sv_utils_filter_inversion_size_threshold
+      min_overhang_size: sv_utils_filter_min_overhang_size
+      remove_simple_repeat: sv_utils_filter_remove_simple_repeat
+    out: [out_sv, log]
     
 outputs:
   sv:
     type: File
     label: SV detection result
-    outputSource: preprend_metadata/out_sv
+    outputSource: sv_utils_filter/out_sv
   sv_filter_log:
     type: File
     outputSource: sv_filter/log
   prepend-metadata_log:
     type: File
     outputSource: preprend_metadata/log
+  sv_utils_filter_log:
+    type: File
+    outputSource: sv_utils_filter/log

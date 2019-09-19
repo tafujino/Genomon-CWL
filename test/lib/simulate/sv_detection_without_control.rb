@@ -11,13 +11,13 @@ module Simulate
     def define_task
       # SV parse results are symlinked to the current working directory
       @dep_tasks.map! do |t|
-        t unless t.name =~ /.bedpe.gz(?:.tbi)$/
+        next t unless t.name =~ /\.bedpe\.gz(?:\.tbi)?$/
         file @out_dir / File.basename(t.name) => [t.name, @out_dir] do |u|
           File.symlink(File.absolute_path(u.prerequisites[0]), u.name)
         end
       end
       
-      sv_path = @out_dir / 'simulate_T.genomonSV.filt.metadata.txt'
+      sv_path = @out_dir / 'simulate_T.genomonSV.result.metadata.filt.txt'
 
       file sv_path => [@out_dir] + @dep_tasks do
         run(
