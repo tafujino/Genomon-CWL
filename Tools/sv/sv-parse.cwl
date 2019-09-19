@@ -50,5 +50,5 @@ outputs:
   log:
     type: stderr
 
-stderr: $(inputs.name).sv_parse.log    
+stderr: $(inputs.name).sv_parse.log
 

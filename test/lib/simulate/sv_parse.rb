@@ -5,7 +5,7 @@ module Simulate
     def initialize(read_name, job_path, deps = [])
       @read_name = read_name
       @job_path  = job_path
-      super('simulate', 'sv-parse', deps)
+      super('simulate', 'sv', deps)
     end
 
     def define_task
