@@ -5,12 +5,16 @@ module Simulate
     def initialize(read_name, job_path, deps = [])
       @read_name = read_name
       @job_path  = job_path
-      super('simulate', 'sv', deps)
+      super('simulate', 'sv-parse', deps)
     end
 
     def define_task
       junction_path, improper_path = %w[junction improper].map do |type|
         @out_dir / "#{@read_name}.#{type}.clustered.bedpe.gz"
+      end
+
+      junction_index_path, improper_index_path = [junction_path, improper_path].map do |path|
+        Pathname.new("#{path}.tbi")
       end
 
       file junction_path => [@out_dir] + @dep_tasks do
@@ -21,11 +25,17 @@ module Simulate
       end
 
       file improper_path => junction_path
-      file junction_path.sub_ext('.tbi') => junction_path
-      file improper_path.sub_ext('.tbi') => improper_path
+      file junction_index_path => junction_path
+      file improper_index_path => improper_path
 
       desc 'sv-parse'
-      final_task "sv_parse_#{@read_name}" => junction_path
+      final_task "sv_parse_#{@read_name}" =>
+                 [
+                   junction_path,
+                   junction_index_path,
+                   improper_path,
+                   improper_index_path
+                 ]
     end
   end
 
