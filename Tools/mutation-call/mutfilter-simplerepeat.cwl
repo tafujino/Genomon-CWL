@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
     
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ mutfilter, simplerepeat ]
 
 inputs:
@@ -41,9 +38,9 @@ outputs:
 stderr: simplerepeat_mutations.log
 
 arguments:
-  - position: 1
+  - position: 2
     prefix: --output
     valueFrom: simplerepeat_mutations.txt
-  - position: 2
+  - position: 3
     prefix: --simple_repeat_db
     valueFrom: $(inputs.database_directory.path)/simpleRepeat.bed.gz

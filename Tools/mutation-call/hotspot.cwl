@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
 
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ hotspotCall ]
 
 inputs:
@@ -74,11 +71,11 @@ outputs:
 stderr: hotspot_mutations.log
 
 arguments:
-  - position: 1
+  - position: 6
     valueFrom: $(inputs.tumor.path)
-  - position: 2
+  - position: 7
     valueFrom: $(inputs.control.path)
-  - position: 3
+  - position: 8
     valueFrom: hotspot_mutations.txt
-  - position: 4
+  - position: 9
     valueFrom: $(inputs.database_directory.path)/GRCh37_hotspot_database_v20170919.txt

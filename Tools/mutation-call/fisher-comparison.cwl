@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
 
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ fisher, comparison ]
 
 inputs:
@@ -103,9 +100,9 @@ outputs:
 stderr: fisher_mutations.log
 
 arguments:
-  - position: 1
+  - position: 12
     prefix: -o
     valueFrom: fisher_mutations.txt
-  - position: 2
+  - position: 13
     prefix: --samtools_path
     valueFrom: /usr/local/bin/samtools

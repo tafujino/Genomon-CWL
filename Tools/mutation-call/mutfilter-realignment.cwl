@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
     
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ mutfilter, realignment ]
 
 inputs:
@@ -98,9 +95,9 @@ outputs:
 stderr: realignment_mutations.log
 
 arguments:
-  - position: 1
+  - position: 12
     prefix: --output
     valueFrom: realignment_mutations.txt 
-  - position: 2
+  - position: 13
     prefix: --blat_path
     valueFrom: /tools/userApps/bin/blat

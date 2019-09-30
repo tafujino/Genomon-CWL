@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
     
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ mutfilter, breakpoint ]
 
 inputs:
@@ -71,6 +68,6 @@ outputs:
 stderr: breakpoint_mutations.log
 
 arguments:
-  - position: 1
+  - position: 8
     prefix: --output
     valueFrom: breakpoint_mutations.txt

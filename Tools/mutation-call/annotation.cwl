@@ -14,7 +14,6 @@ hints:
     
 requirements:
   - class: InlineJavascriptRequirement
-  - class: ShellCommandRequirement
   - class: EnvVarRequirement
     envDef:
       - envName: ACTIVE_HGVD_2016_FLAG

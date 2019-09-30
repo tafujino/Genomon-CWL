@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
     
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ mutil, filter ]
 
 inputs:
@@ -29,7 +26,7 @@ inputs:
     type: Directory?
     label: directory containing GRCh37_hotspot_database_v20170919.txt
     inputBinding:
-      position: 1
+      position: 2
       prefix: --hotspot_db
       valueFrom: $(inputs.database_directory.path)/GRCh37_hotspot_database_v20170919.txt
   post10q:
@@ -69,6 +66,6 @@ outputs:
 stderr: genomon_mutation.result.filt.log
     
 arguments:
-  - position: 1
+  - position: 3
     prefix: -o
     valueFrom: genomon_mutation.result.filt.txt

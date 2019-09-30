@@ -12,9 +12,6 @@ hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5
 
-requirements:
-  - class: ShellCommandRequirement
-
 baseCommand: [ mutil, merge_hotspot ]
 
 inputs:
@@ -46,9 +43,9 @@ outputs:
 stderr: fisher_hotspot_mutations.log
 
 arguments:
-  - position: 1
+  - position: 3
     prefix: -o
     valueFrom: fisher_hotspot_mutations.txt
   - # this option REMOVEs the header from hotspot result file
-    position: 2
+    position: 4
     valueFrom: --hotspot_header
