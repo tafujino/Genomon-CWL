@@ -25,7 +25,7 @@ inputs:
     format: edam:format_1929
     label: FastA file for reference genome
     inputBinding:
-      position: 4
+      position: 1
     secondaryFiles:
       - .amb
       - .ann
@@ -36,19 +36,19 @@ inputs:
     type: File
     format: edam:format_1930
     inputBinding:
-      position: 5
+      position: 2
     label: FastQ file from next-generation sequencers
   fastq2:
     type: File
     format: edam:format_1930
     inputBinding:
-      position: 6
+      position: 3
     label: FastQ file from next-generation sequencers
   nthreads:
     type: int
     inputBinding:
       prefix: -t
-      position: 3
+      position: 4
     label: number of cpu cores to be used
   name:
     type: string
@@ -58,7 +58,7 @@ inputs:
     label: minimum score to output
     inputBinding:
       prefix: -T
-      position: 7
+      position: 5
 
 outputs:
   sam:

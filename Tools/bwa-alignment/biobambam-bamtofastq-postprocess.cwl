@@ -14,7 +14,6 @@ hints:
     dockerPull: genomon/bwa_alignment:0.1.1
 
 requirements:
-  - class: ShellCommandRequirement
 #  - class: ResourceRequirement
 #    ramMin: -
 baseCommand: [ grep ]
@@ -35,7 +34,7 @@ outputs:
 stdout: $(inputs.summary_tmp.nameroot)
 
 arguments:
-  - position: 1
+  - position: 2
     prefix: -E
     valueFrom: ^\[C\]
 

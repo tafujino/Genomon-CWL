@@ -76,32 +76,32 @@ stderr: $(inputs.name).bamtofastq.summary.txt.tmp
 # the following annotations are taken from bamtofastq help
 arguments:
   - # matched pairs first mates
-    position: 1
+    position: 2
     prefix: F=
     valueFrom: $(inputs.name).sequence1.fastq
     separate: false
   - # matched pairs second mates
-    position: 2
+    position: 3
     prefix: F2=
     valueFrom: $(inputs.name).sequence2.fastq
     separate: false
   - # temporary file name
-    position: 3
+    position: 4
     prefix: T=
     valueFrom: $(inputs.name).temp.txt
     separate: false
   - # single end
-    position: 4
+    position: 5
     prefix: S=
     valueFrom: $(inputs.name).single.txt
     separate: false
   - # unmatched pairs first mates
-    position: 5
+    position: 6
     prefix: O=
     valueFrom: $(inputs.name).orphans1.txt
     separate: false
   - # unmatched pairs second mates
-    position: 5
+    position: 7
     prefix: O2=
     valueFrom: $(inputs.name).orphans2.txt
     separate: false
