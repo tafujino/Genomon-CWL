@@ -17,7 +17,7 @@ inputs:
       - .bai
   directory:
     type: Directory
-    label: directory containing SV parse result. SV result is also generated here
+    label: directory containing SV parse result. SV detection result is also generated here
   name:
     type: string
     label: tumor sample name

@@ -8,6 +8,10 @@ cwlVersion: v1.0
 $namespaces:
   edam: http://edamontology.org/
 
+# make sure that grep regexp is quoted
+requirements:
+  - class: ShellCommandRequirement
+
 # this is probably unnecessary  
 hints:
   - class: DockerRequirement
@@ -21,7 +25,7 @@ inputs:
     type: File
     format: edam:format_3671
     inputBinding:
-      position: 1
+      position: 2
 
 outputs:
   summary:
@@ -31,7 +35,7 @@ outputs:
 stdout: $(inputs.summary_tmp.nameroot)
 
 arguments:
-  - position: 2
+  - position: 1
     prefix: -E
     valueFrom: ^\[C\]
 
