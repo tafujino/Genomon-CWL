@@ -51,12 +51,12 @@ outputs:
   orphan1:
     type: File
     format: edam:format_3671
-    label: the first unmached pair
+    label: the first unmatched pair
     outputSource: main/orphan1
   orphan2:
     type: File
     format: edam:format_3671    
-    label: the first unmached pair
+    label: the second unmatched pair
     outputSource: main/orphan2
   summary:    
     type: File
