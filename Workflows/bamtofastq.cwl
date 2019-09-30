@@ -6,7 +6,7 @@ label: Extracts FASTQ from BAM
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 inputs:
   bam:

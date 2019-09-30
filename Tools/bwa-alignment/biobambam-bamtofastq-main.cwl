@@ -13,13 +13,11 @@ hints:
     dockerPull: genomon/bwa_alignment:0.1.1
 
 requirements:
-  - class: ShellCommandRequirement
-#  - class: ResourceRequirement
-#    ramMin: -
   - class: EnvVarRequirement
     envDef:
       - envName: LD_LIBRARY_PATH
         envValue: /usr/local/lib
+
 baseCommand: [ bamtofastq ]
 
 inputs:

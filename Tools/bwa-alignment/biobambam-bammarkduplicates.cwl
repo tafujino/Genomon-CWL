@@ -6,11 +6,11 @@ label: biobambam-bammarkduplicates-0.0.191
 cwlVersion: v1.0
 
 $namespaces:
-  edam: 'http://edamontology.org/'
+  edam: http://edamontology.org/
 
 hints:
   - class: DockerRequirement
-    dockerPull: 'genomon/bwa_alignment:0.1.1'
+    dockerPull: genomon/bwa_alignment:0.1.1
 
 requirements:
   - class: EnvVarRequirement
