@@ -58,39 +58,39 @@ stderr: $(inputs.name).markdup.bam.log
 # the following annotations are taken from bammarkduplicates help
 arguments:
   - # metrics file
-    position: 1
+    position: 2
     prefix: M=
     valueFrom: $(inputs.name).metrics
     separate: false
   - # output file
-    position: 2
+    position: 3
     prefix: O=
     valueFrom: $(inputs.name).markdup.bam
     separate: false
   - # number of helper threads
-    position: 3
+    position: 4
     prefix: markthreads=
     valueFrom: "2" # is it ok to fix this value?
     separate: false
   - # compression of temporary alignment file when input is via stdin
     # (0=snappy,1=gzip/bam,2=copy)
-    position: 4
+    position: 5
     prefix: rewritebam=
     valueFrom: "1"
     separate: false
   - # compression setting for rewritten input file if rewritebam=1
     # (-1=zlib default,0=uncompressed,1=fast,9=best)
-    position: 5
+    position: 6
     prefix: rewritebamlevel=
     valueFrom: "1"
     separate: false
   - # create BAM index (default: 0)
-    position: 6
+    position: 7
     prefix: index=
     valueFrom: "1"
     separate: false
   - # create md5 check sum (default: 0)
-    position: 7
+    position: 8
     prefix: md5=
     valueFrom: "1"
     separate: false
