@@ -69,7 +69,7 @@ outputs:
 stderr: $(inputs.in_sv.nameroot).filt.log
       
 arguments:
-  - position: 1
+  - position: 7
     valueFrom: $(inputs.in_sv.path)
-  - position: 2
+  - position: 8
     valueFrom: $(inputs.in_sv.nameroot).filt.txt

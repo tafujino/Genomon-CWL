@@ -87,9 +87,9 @@ outputs:
 stderr: $(inputs.name).genomonSV.result.log
 
 arguments:
-  - position: 1
+  - position: 5
     valueFrom: $(inputs.tumor)
-  - position: 2
+  - position: 6
     valueFrom: $(inputs.directory.path)/$(inputs.name)
-  - position: 3
+  - position: 7
     valueFrom: $(inputs.reference)
