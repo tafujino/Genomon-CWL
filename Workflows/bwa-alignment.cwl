@@ -70,30 +70,20 @@ steps:
     out: [markdupbam, markdupbam_index, metrics, log]
 
 outputs:
-  sam:
-    type: File
-    format: edam:format_2573
-    outputSource: bwa_mem/sam
-  bwa_mem_log:
-    type: File
-    format:
-    outputSource: bwa_mem/log
-  bam:
-    type: File
-    format: edam:format_2572
-    outputSource: bamsort/bam
-  bai:
-    type: File
-    format: edam:format_3327
-    outputSource: bammarkduplicates/markdupbam_index
-  sortbam_log:
-    type: File
-    format:
-    outputSource: bamsort/log
   markdupbam:
     type: File
     format: edam:format_2572
     outputSource: bammarkduplicates/markdupbam
+    secondaryFiles:
+      - .bai
+  bwa_mem_log:
+    type: File
+    format:
+    outputSource: bwa_mem/log
+  sortbam_log:
+    type: File
+    format:
+    outputSource: bamsort/log
   metrics:
     type: File
     outputSource: bammarkduplicates/metrics
