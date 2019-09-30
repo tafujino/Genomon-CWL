@@ -41,11 +41,8 @@ outputs:
     format: edam:format_2572
     outputBinding:
       glob: $(inputs.name).markdup.bam
-  markdupbam_index:
-    type: File
-    format: edam:format_3327
-    outputBinding:
-      glob: $(inputs.name).markdup.bam.bai
+    secondaryFiles:
+      - .bai
   metrics:
     type: File
     outputBinding:

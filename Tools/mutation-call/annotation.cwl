@@ -10,9 +10,13 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerImageId: mutation-call-annotation.simg
+    dockerPull: genomon/mutation_call:0.2.5
     
 requirements:
+  - class: InitialWorkDirRequirement
+    listing:
+      - class: File
+        location: mutation-call-annotation.sh
   - class: InlineJavascriptRequirement
   - class: EnvVarRequirement
     envDef:
@@ -33,7 +37,7 @@ requirements:
       - envName: META
         envValue: $(inputs.meta)
 
-baseCommand: [ /usr/local/bin/mutation-call-annotation.sh ]
+baseCommand: [ ./mutation-call-annotation.sh ]
 
 inputs:
   in_mutation:

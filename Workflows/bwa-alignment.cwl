@@ -67,7 +67,7 @@ steps:
     in:
       bam: bamsort/bam
       name: name
-    out: [markdupbam, markdupbam_index, metrics, log]
+    out: [markdupbam, metrics, log]
 
 outputs:
   markdupbam:
