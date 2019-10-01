@@ -13,7 +13,6 @@ hints:
     dockerPull: genomon/bwa_alignment:0.1.1
 
 requirements:
-  - class: ShellCommandRequirement
   - class: ResourceRequirement
     ramMin: 6300
     

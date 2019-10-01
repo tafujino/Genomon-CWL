@@ -8,9 +8,8 @@ cwlVersion: v1.0
 $namespaces:
   edam: http://edamontology.org/
 
-# make sure that grep regexp is quoted
 requirements:
-  - class: ShellCommandRequirement
+  - class: ShellCommandRequirement # make sure that grep regexp is quoted
 
 # this is probably unnecessary  
 hints:
