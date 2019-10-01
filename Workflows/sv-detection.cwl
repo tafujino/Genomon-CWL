@@ -9,30 +9,36 @@ $namespaces:
   edam: http://edamontology.org/
 
 inputs:
-  tumor:
+  tumor_bam:
     type: File
     format: edam:format_2572
     label: tumor sample BAM aligned to the reference
     secondaryFiles:
       - .bai
+  tumor_name:
+    type: string
+    label: tumor sample name
   directory:
     type: Directory
     label: directory containing SV parse result. SV detection result is also generated here
-  name:
-    type: string
-    label: tumor sample name
   reference:
     type: File
     format: edam:format_1929
     label: FastA file for reference genome
     secondaryFiles:
       - .fai
-  normal:
+  control_panel_bedpe:
+    type: File
+    label: merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
+  normal_bam:
     type: File?    
     format: edam:format_2572
     label: normal sample BAM aligned to the reference
     secondaryFiles:
       - .bai
+  normal_name:
+    type: string?
+    label: normal sample name
   sv_filter_min_junctions:
     type: int?
     label: minimum required number of supporting junction read pairs
@@ -68,11 +74,13 @@ steps:
     label: filters and annotates candidate somatic structural variations
     run: ../Tools/sv/sv-filter.cwl
     in:
-      tumor: tumor
-      name: name
+      tumor_bam: tumor_bam
+      tumor_name: tumor_name
       directory: directory
       reference: reference
-      normal: normal
+      control_panel_bedpe: control_panel_bedpe
+      normal_bam: normal_bam
+      normal_name: normal_name
       min_junctions: sv_filter_min_junctions
       max_normal_read_pairs: sv_filter_max_normal_read_pairs
       min_overhang_size: sv_filter_min_overhang_size

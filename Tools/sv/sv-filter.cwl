@@ -15,60 +15,77 @@ hints:
 baseCommand: [ GenomonSV, filt ]
 
 requirements:
-  InitialWorkDirRequirement:
+  - class: InitialWorkDirRequirement
     listing:
       # this is necessary since GenomonSV filt generates files in the mounted directory
       # inside the container
       - entry: $(inputs.directory)
         writable: true
+  - class: InlineJavascriptRequirement
 
 inputs:
-  tumor:
+  tumor_bam:
     type: File
-    format: edam:format_2572
-    label: tumor sample BAM aligned to the reference
-    secondaryFiles:
-      - .bai
-  directory:
-    type: Directory
-    label: directory containing SV parse result. SV result is also generated here
-  name:
-    type: string
-    label: tumor sample name
-  reference:
-    type: File
-    format: edam:format_1929
-    label: FastA file for reference genome
-    secondaryFiles:
-      - .fai
-  normal:
-    type: File?
     format: edam:format_2572
     label: tumor sample BAM aligned to the reference
     secondaryFiles:
       - .bai
     inputBinding:
       position: 1
+  tumor_name:
+    type: string
+    label: tumor sample name
+  directory:
+    type: Directory
+    label: directory containing SV parse result. SV result is also generated here
+  reference:
+    type: File
+    format: edam:format_1929
+    label: FastA file for reference genome
+    secondaryFiles:
+      - .fai
+    inputBinding:
+      position: 3
+  control_panel_bedpe:
+    type: File
+    label: merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
+    inputBinding:
+      position: 4
+      prefix: --non_matched_control_junction
+  normal_bam:
+    type: File?
+    format: edam:format_2572
+    label: tumor sample BAM aligned to the reference
+    secondaryFiles:
+      - .bai
+    inputBinding:
+      position: 5
       # in the following context, 'control' denotes normal sample, not the control panel      
       prefix: --matched_control_bam
+  normal_name: # in the origial genomon_pipeline_cloud, this option is enabled only when control panel exists
+    type: string?
+    label: normal sample name
+    inputBinding:
+      position: 6
+      prefix: --matched_control_label
   min_junctions:
     type: int?
     label: minimum required number of supporting junction read pairs
     inputBinding:
-      position: 2
+      position: 7
       prefix: --min_junc_num
   max_normal_read_pairs:
     type: int?
     label: maximum allowed number of read pairs in normal sample
     inputBinding:
-      position: 3
+      position: 8
       # in the following context, 'control' denotes normal sample, not the control panel          
       prefix: --max_control_variant_read_pair
   min_overhang_size:
     type: int?
     label: minimum region size arround each break-point which have to be covered by at least one aligned short read
     inputBinding:
-      position: 4
+      position: 9
       prefix: --min_overhang_size
 
   # 'annotation_dir' option is commented out in the current GenomonSV filt implementation
@@ -84,12 +101,8 @@ outputs:
   log:
     type: stderr
 
-stderr: $(inputs.name).genomonSV.result.log
+stderr: $(inputs.tumor_name).genomonSV.result.log
 
 arguments:
-  - position: 5
-    valueFrom: $(inputs.tumor)
-  - position: 6
-    valueFrom: $(inputs.directory.path)/$(inputs.name)
-  - position: 7
-    valueFrom: $(inputs.reference)
+  - position: 2
+    valueFrom: $(inputs.directory.path)/$(inputs.tumor_name)
