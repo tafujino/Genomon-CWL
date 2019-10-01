@@ -37,7 +37,7 @@ requirements:
       - envName: META
         envValue: $(inputs.meta)
 
-baseCommand: [ ./mutation-call-annotation.sh ]
+baseCommand: [ ./annotation.sh ]
 
 inputs:
   in_mutation:

@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 
 class: Workflow
-id: mutation-call-with-normal-without-control
+id: mutation-call-with-normal
 label: Calls mutations with both normal and tumor samples
 cwlVersion: v1.0
 
