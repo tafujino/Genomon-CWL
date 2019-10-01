@@ -16,7 +16,7 @@ requirements:
   - class: InitialWorkDirRequirement
     listing:
       - class: File
-        location: mutation-call-annotation.sh
+        location: annotation.sh
   - class: InlineJavascriptRequirement
   - class: EnvVarRequirement
     envDef:
