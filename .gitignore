@@ -3,7 +3,8 @@ tmp*/
 script/
 *.img
 *.simg
-test/simulate
+test/simulate/output
+test/simulate/_GRCh37
 test/*.simg
 test/vendor
 test/.bundle
