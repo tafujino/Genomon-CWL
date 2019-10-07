@@ -1,0 +1,38 @@
+reference:
+  class: File
+  format: http://edamontology.org/format_1929
+  path: ../_GRCh37/reference/GRCh37/GRCh37.fa
+tumor:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../output/bwa-alignment/simulate_T.markdup.bam
+
+fisher_min_depth: 8
+fisher_base_quality: 15
+fisher_min_variant_read: 4
+fisher_min_allele_freq: 0.02
+10_percent_posterior_quantile_threshold: 0.02
+fisher_interval_list:
+  class: File
+  format: http://edamontology.org/format_3671
+  path: ../_GRCh37/reference/GRCh37/GRCh37_noScaffold_noDecoy.interval_list
+fisher_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
+
+mutfilter_realignment_score_difference: 5
+mutfilter_realignment_window_size: 200
+mutfilter_realignment_max_depth: 5000
+mutfilter_realignment_exclude_sam_flags: 3332
+
+# ANNOVAR annotation is disabled in genomon CWL
+annotation_database_directory:
+  class: Directory  
+  path: ../_GRCh37/reference/tabix
+HGVD_2016: true
+EXAC: true
+
+mutil_filter_post10q: 0.1
+mutil_filter_realignment_post10q: 0.1
+mutil_filter_count: 4
+
+meta: "# genomon-cwl"
+

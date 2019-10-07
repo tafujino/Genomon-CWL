@@ -1,0 +1,5 @@
+bam:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../output/bwa-alignment/simulate_N.markdup.bam
+name: simulate_N

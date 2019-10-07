@@ -1,0 +1,23 @@
+reference:
+  class: File
+  format: http://edamontology.org/format_1929
+  path: ../_GRCh37/reference/GRCh37/GRCh37.fa
+directory:
+  class: Directory
+  path: ../output/sv-detection-without-normal-without-control
+tumor_name: simulate_T
+tumor_bam:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../output/bwa-alignment/simulate_T.markdup.bam
+
+sv_filter_min_junctions: 2
+sv_filter_max_normal_read_pairs: 10
+sv_filter_min_overhang_size: 50
+
+meta: "# genomon-cwl"
+
+sv_utils_filter_min_tumor_allele_frequency: 0.07
+sv_utils_filter_inversion_size_threshold: 1000
+sv_utils_filter_min_overhang_size: 100
+sv_utils_filter_remove_simple_repeat: true

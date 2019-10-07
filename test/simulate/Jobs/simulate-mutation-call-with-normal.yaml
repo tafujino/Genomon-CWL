@@ -1,0 +1,69 @@
+reference:
+  class: File
+  format: http://edamontology.org/format_1929
+  path: ../_GRCh37/reference/GRCh37/GRCh37.fa
+tumor:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../output/bwa-alignment/simulate_T.markdup.bam
+normal:
+  class: File
+  format: http://edamontology.org/format_2572
+  path: ../output/bwa-alignment/simulate_N.markdup.bam
+
+fisher_min_depth: 8
+fisher_base_quality: 15
+fisher_min_variant_read: 4
+fisher_min_allele_freq: 0.02
+fisher_max_allele_freq: 0.1
+fisher_p_value: 0.1
+fisher_interval_list:
+  class: File
+  format: http://edamontology.org/format_3671
+  path: ../_GRCh37/reference/GRCh37/GRCh37_noScaffold_noDecoy.interval_list
+fisher_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
+
+mutfilter_realignment_score_difference: 5
+mutfilter_realignment_window_size: 200
+mutfilter_realignment_max_depth: 5000
+mutfilter_realignment_exclude_sam_flags: 3332
+
+mutfilter_indel_search_length: 40
+mutfilter_indel_search_neighbor: 5
+mutfilter_indel_min_depth: 8
+mutfilter_indel_min_mismatch: 100000
+mutfilter_indel_allele_frequency_threshold: 1
+mutfilter_indel_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
+
+mutfilter_breakpoint_max_depth: 1000
+mutfilter_breakpoint_min_clip_size: 20
+mutfilter_breakpoint_junction_num_threshold: 0
+mutfilter_breakpoint_mapq_threshold: 10
+mutfilter_exclude_sam_flags: 3332
+
+# EB filter is disabled in genomon_cloud_pileline
+
+# hotspot call is always active in genomon CWL
+hotspot_database_directory:
+  class: Directory
+  path: ../_GRCh37/reference/hotspot
+hotspot_min_tumor_misrate: 0.1
+hotspot_max_control_misrate: 0.1
+hotspot_TN_ratio_control: 0.1
+hotspot_min_lod_score: 8.0
+hotspot_samtools_params: -B -q 20 -Q2 -d 10000000
+
+# ANNOVAR annotation is disabled in genomon CWL
+annotation_database_directory:
+  class: Directory  
+  path: ../_GRCh37/reference/tabix
+HGVD_2016: true
+EXAC: true
+
+mutil_filter_fisher_p_value: 1.0
+mutil_filter_fisher_realign_p_value: 1.0
+mutil_filter_fisher_ebcall_p_value: 4.0 # is it really needed?
+mutil_filter_fisher_tcount: 4
+mutil_filter_fisher_ncount: 2
+
+meta: "# genomon-cwl"
