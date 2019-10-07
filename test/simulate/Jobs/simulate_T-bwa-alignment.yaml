@@ -1,7 +1,7 @@
 reference:
   class: File
   format: http://edamontology.org/format_1929
-  path: /home/fujino/data/genomon/_GRCh37/reference/GRCh37/GRCh37.fa
+  path: ../_GRCh37/reference/GRCh37/GRCh37.fa
 fastq1:
   class: File
   format: http://edamontology.org/format_1930

@@ -26,7 +26,7 @@ module Simulate
            :mutation_call_with_normal_without_control do
         validate(
           @out_dir / 'genomon_mutation.result.txt',
-          '/home/fujino/data/genomon/_GRCh37/output/dna/mutation/tumor/tumor.genomon_mutation.result.txt'
+          'simulate/_GRCh37/output/dna/mutation/tumor/tumor.genomon_mutation.result.txt'
         )
       end
     end

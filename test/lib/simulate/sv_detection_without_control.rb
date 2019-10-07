@@ -21,7 +21,7 @@ module Simulate
 
       file sv_path => [@out_dir] + @dep_tasks do
         run(
-          "../Workflows/sv-detection-without-control.cwl",
+          "../Workflows/sv-detection.cwl",
           @job_path
         )
       end
@@ -36,7 +36,8 @@ module Simulate
       super(
         'with-normal-without-control',
         'simulate/Jobs/simulate-sv-detection-with-normal-without-control.yaml',
-        deps)
+        deps
+      )
     end
   end
 
@@ -45,7 +46,8 @@ module Simulate
       super(
         'without-normal-without-control',
         'simulate/Jobs/simulate-sv-detection-without-normal-without-control.yaml',
-        deps)
+        deps
+      )
     end
   end
 end

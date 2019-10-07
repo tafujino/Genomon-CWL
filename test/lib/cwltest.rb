@@ -52,6 +52,8 @@ class AbstractCWLTest
     @final_tasks = deps.map { |dep| Rake::Task[dep] }
   end
 
+  # @param workflow_path [Pathname]
+  # @param job_path      [Pathname]
   def run(workflow_path, job_path)
     sh "cwltool --singularity --outdir #{@out_dir} #{workflow_path} #{job_path}"
   end

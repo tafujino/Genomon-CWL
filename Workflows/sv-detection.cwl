@@ -28,7 +28,7 @@ inputs:
     secondaryFiles:
       - .fai
   control_panel_bedpe:
-    type: File
+    type: File?
     label: merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
   normal_bam:
     type: File?    

@@ -47,7 +47,7 @@ inputs:
     inputBinding:
       position: 3
   control_panel_bedpe:
-    type: File
+    type: File?
     label: merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
     inputBinding:
       position: 4
@@ -97,7 +97,13 @@ outputs:
   out_sv:
     type: File
     outputBinding:
-      glob: $(inputs.directory.basename)/$(inputs.name).genomonSV.result.txt
+      # the following is the relative path from the staging directory.
+      # 1. At staging, $(inputs.directory) is copied to the staging directory
+      #    and made writable.
+      # 2. GenomonSV filt output prefix = $(inputs.directory)
+      # 3. Thus GenomonSV filt outputs the result into $(inputs.directory.basename)
+      #    relative from the staging directory.
+      glob: $(inputs.directory.basename)/$(inputs.tumor_name).genomonSV.result.txt
   log:
     type: stderr
 
