@@ -8,8 +8,8 @@ require_relative 'lib/chr_region'
 require_relative 'lib/mutation_map'
 require_relative 'lib/simulate/tumor_bamtofastq'
 require_relative 'lib/simulate/bwa_alignment'
-require_relative 'lib/simulate/mutation_call_with_normal_without_control'
-require_relative 'lib/simulate/mutation_call_without_normal_without_control'
+require_relative 'lib/simulate/mutation_call_with_normal'
+require_relative 'lib/simulate/mutation_call_without_normal'
 require_relative 'lib/simulate/sv_parse'
 require_relative 'lib/simulate/sv_detection_without_control'
 
@@ -19,8 +19,8 @@ tumor_alignment_test = Simulate::BWAAlignmentTumor.new(bamtofastq_test)
 normal_alignment_test = Simulate::BWAAlignmentNormal.new(bamtofastq_test)
 alignment_tests = [tumor_alignment_test, normal_alignment_test]
 
-Simulate::MutationCallWithNormalWithoutControl.new(alignment_tests)
-Simulate::MutationCallWithoutNormalWithoutControl.new(tumor_alignment_test)
+Simulate::MutationCallWithNormal.new(alignment_tests)
+Simulate::MutationCallWithoutNormal.new(tumor_alignment_test)
 
 tumor_sv_parse_test  = Simulate::SVParseTumor.new(bamtofastq_test)
 normal_sv_parse_test = Simulate::SVParseNormal.new(bamtofastq_test)

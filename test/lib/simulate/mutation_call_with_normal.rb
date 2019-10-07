@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Simulate
-  class MutationCallWithNormalWithoutControl < AbstractCWLTest
+  class MutationCallWithNormal < AbstractCWLTest
     def initialize(deps = [])
-      super('simulate', 'mutation-call-with-normal-without-control', deps)
+      super('simulate', 'mutation-call-with-normal', deps)
     end
 
     def define_task
@@ -12,8 +12,8 @@ module Simulate
 
       file @out_dir / 'genomon_mutation.result.txt' => @outdir do
         run(
-          '../Workflows/mutation-call-with-normal-without-control.cwl',
-          'simulate/Jobs/simulate-mutation-call-with-normal-without-control.yaml'
+          '../Workflows/mutation-call-with-normal.cwl',
+          'simulate/Jobs/simulate-mutation-call-with-normal.yaml'
         )
       end
 
