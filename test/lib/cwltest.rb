@@ -55,6 +55,7 @@ class AbstractCWLTest
   # @param workflow_path [Pathname]
   # @param job_path      [Pathname]
   def run(workflow_path, job_path)
+#    sh "cwltool --singularity --tmp-outdir-prefix tmp --outdir #{@out_dir} #{workflow_path} #{job_path}"    
     sh "cwltool --singularity --outdir #{@out_dir} #{workflow_path} #{job_path}"
   end
 end
