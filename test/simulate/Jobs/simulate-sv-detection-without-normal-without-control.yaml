@@ -2,6 +2,7 @@ reference:
   class: File
   format: http://edamontology.org/format_1929
   path: ../_GRCh37/reference/GRCh37/GRCh37.fa
+grc: true  
 directory:
   class: Directory
   path: ../output/sv-detection-without-normal-without-control

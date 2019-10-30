@@ -86,6 +86,12 @@ inputs:
     inputBinding:
       position: 9
       prefix: --min_overhang_size
+  grc:
+    type: boolean?
+    default: false
+    inputBinding:
+      position: 10
+      prefix: --grc
 
   # 'annotation_dir' option is commented out in the current GenomonSV filt implementation
   # and not available

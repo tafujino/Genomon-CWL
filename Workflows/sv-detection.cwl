@@ -68,6 +68,9 @@ inputs:
     label: removes if either of overhang sizes for two breakpoints is below this value
   sv_utils_filter_remove_simple_repeat:
     type: boolean
+  grc:
+    type: boolean?
+    default: false
 
 steps:
   sv_filter:
@@ -84,6 +87,7 @@ steps:
       min_junctions: sv_filter_min_junctions
       max_normal_read_pairs: sv_filter_max_normal_read_pairs
       min_overhang_size: sv_filter_min_overhang_size
+      grc: grc
     out: [out_sv, log]
   preprend_metadata:
     label: prepends metedata to the GenomonSV result
