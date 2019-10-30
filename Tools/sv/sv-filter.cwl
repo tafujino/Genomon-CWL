@@ -21,7 +21,6 @@ requirements:
       # inside the container
       - entry: $(inputs.directory)
         writable: true
-  - class: InlineJavascriptRequirement
 
 inputs:
   tumor_bam:
