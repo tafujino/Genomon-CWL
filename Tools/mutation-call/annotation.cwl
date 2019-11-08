@@ -13,6 +13,7 @@ hints:
     dockerPull: genomon/mutation_call:0.2.5
     
 requirements:
+  - class: ShellCommandRequirement  
   - class: InitialWorkDirRequirement
     listing:
       - class: File
