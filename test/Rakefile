@@ -12,6 +12,7 @@ require_relative 'lib/simulate/mutation_call_with_normal'
 require_relative 'lib/simulate/mutation_call_without_normal'
 require_relative 'lib/simulate/sv_parse'
 require_relative 'lib/simulate/sv_detection_without_control'
+require_relative 'lib/simulate/qc_wgs'
 
 bamtofastq_test = Simulate::TumorBAMToFASTQ.new
 
@@ -28,3 +29,5 @@ sv_parse_test = [tumor_sv_parse_test, normal_sv_parse_test]
 
 Simulate::SVDetectionWithNormalWithoutControl.new(alignment_tests + sv_parse_test)
 Simulate::SVDetectionWithoutNormalWithoutControl.new([tumor_alignment_test, tumor_sv_parse_test])
+
+Simulate::QCWGSTumor.new(tumor_alignment_test)

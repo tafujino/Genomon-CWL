@@ -1,7 +1,7 @@
 #!/usr/bin/env cwl-runner
 
 class: CommandLineTool
-id: genomon_qc-bamstats:0.1.0
+id: genomon_qc-bamstats
 cwlVersion: v1.0
 
 $namespaces:
@@ -9,7 +9,7 @@ $namespaces:
 
 hints:
   - class: DockerRequirement
-    dockerPull: genomon/genomon_sv:0.1.0
+    dockerPull: genomon/genomon_qc:0.1.0
 
 baseCommand: [ genomon_qc, bamstats ]
 
@@ -38,7 +38,9 @@ stderr: genomon_qc-bamstats.log
 
 arguments:
   - position: 2
-    valueFrom: $(inputs.name).bamstats
+    # './' is necessary
+    # see https://github.com/Genomon-Project/GenomonQC/blob/v2.0.2a/scripts/genomon_qc/run.py#L114
+    valueFrom: ./$(inputs.name).bamstats
   - position: 3
     prefix: --perl5lib
     valueFrom: /tools/ICGC/lib/perl5:/tools/ICGC/lib/perl5/x86_64-linux-gnu-thread-multi

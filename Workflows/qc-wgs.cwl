@@ -35,7 +35,7 @@ inputs:
     type: string?
     label: samtools parameters string
   coverage_text:
-    type: string?
+    type: string
     label: coverage depth text separated with comma
   meta:
     type: string?
@@ -57,6 +57,7 @@ steps:
       gap_text: gap_text
       incl_bed_width: incl_bed_width
       i_bed_lines: i_bed_lines
+      i_bed_width: i_bed_width
       samtools_params: samtools_params
       coverage_text: coverage_text
     out: [coverage, log]
@@ -64,6 +65,8 @@ steps:
     run: ../Tools/qc/genomon_qc-merge.cwl
     in:
       name: name
+      bamstats: bamstats/bamstats
+      coverage: wgs/coverage
       meta: meta
     out: [result, log]
     
