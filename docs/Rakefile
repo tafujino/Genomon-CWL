@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+require 'yaml'
+
+WORKFLOW_CWL_PATHS = Dir['../Workflows/*.cwl'].freeze
+
+def specification_rst_from_workflow_cwl(path)
+  ''
+end
+
+file 'workflow.rst' => [] do |t|
+  File.open(t.name, 'w') do |f|
+    f.puts <<~SECTION
+      Workflows
+      =========
+    SECTION
+
+    WORKFLOW_CWL_PATHS.each do |path|
+      f.puts specification_rst_from_workflow_cwl(path)
+    end
+  end
+end
+
+task :default => ['workflow.rst']

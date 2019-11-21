@@ -8,3 +8,5 @@ test/simulate/_GRCh37
 test/*.simg
 test/vendor
 test/.bundle
+docs/vendor
+docs/.bundle
