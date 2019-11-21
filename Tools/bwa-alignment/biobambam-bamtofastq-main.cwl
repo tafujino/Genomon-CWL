@@ -49,25 +49,25 @@ outputs:
       glob: $(inputs.name).sequence2.fastq
   single:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: single end reads
     outputBinding:
       glob: $(inputs.name).single.txt
   orphan1:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: the first unmached pair
     outputBinding:
       glob: $(inputs.name).orphans1.txt
   orphan2:
     type: File
-    format: edam:format_3671    
+    format: edam:data_3671    
     label: the first unmached pair
     outputBinding:
       glob: $(inputs.name).orphans2.txt
   summary_tmp:    
     type: stderr
-    format: edam:format_3671
+    format: edam:data_3671
     
 stderr: $(inputs.name).bamtofastq.summary.txt.tmp
 

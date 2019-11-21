@@ -45,20 +45,20 @@ outputs:
     outputSource: main/fastq2
   single:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: single end reads
     outputSource: main/single
   orphan1:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: the first unmatched pair
     outputSource: main/orphan1
   orphan2:
     type: File
-    format: edam:format_3671    
+    format: edam:data_3671    
     label: the second unmatched pair
     outputSource: main/orphan2
   summary:    
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     outputSource: postprocess/summary

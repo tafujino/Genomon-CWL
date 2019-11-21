@@ -62,7 +62,7 @@ inputs:
 outputs:
   out_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     outputBinding:
       glob: hotspot_mutations.txt
   log:

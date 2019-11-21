@@ -22,14 +22,14 @@ inputs:
   summary_tmp: 
     doc: bamtofastq summary file. The file extension is supposed to be .tmp
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     inputBinding:
       position: 2
 
 outputs:
   summary:
     type: stdout
-    format: edam:format_3671
+    format: edam:data_3671
     
 stdout: $(inputs.summary_tmp.nameroot)
 

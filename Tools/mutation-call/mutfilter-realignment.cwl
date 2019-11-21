@@ -26,7 +26,7 @@ inputs:
       prefix: --ref_genome
   in_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: "Fisher's exact test result, possibly with hotspot information"
     inputBinding:
       position: 2
@@ -85,7 +85,7 @@ inputs:
 outputs:
   out_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: mutation information after realignment
     outputBinding:
       glob: realignment_mutations.txt 

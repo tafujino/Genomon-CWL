@@ -36,7 +36,7 @@ inputs:
     type: double?
   fisher_interval_list:
     type: File?
-    format: edam:format_3671
+    format: edam:data_3671
     label: pileup regions list
   fisher_samtools_params:
     type: string?
@@ -146,7 +146,7 @@ steps:
 outputs:
   mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: mutation call result
     outputSource: mutil_filter/out_mutation
   fisher_log:

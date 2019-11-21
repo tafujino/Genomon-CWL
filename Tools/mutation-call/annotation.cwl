@@ -42,7 +42,7 @@ baseCommand: [ ./annotation.sh ]
 inputs:
   in_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: mutation information
     inputBinding:
       position: 1
@@ -69,7 +69,7 @@ inputs:
 outputs:
   out_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     outputBinding:
       glob: genomon_mutation.result.txt
   log:

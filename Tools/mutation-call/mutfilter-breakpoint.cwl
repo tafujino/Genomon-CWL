@@ -17,7 +17,7 @@ baseCommand: [ mutfilter, breakpoint ]
 inputs:
   in_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: mutation information
     inputBinding:
       position: 1
@@ -58,7 +58,7 @@ inputs:
 outputs:
   out_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: mutation information annotated with breakpoint information
     outputBinding:
       glob: breakpoint_mutations.txt

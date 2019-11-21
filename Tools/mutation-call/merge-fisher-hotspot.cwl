@@ -17,14 +17,14 @@ baseCommand: [ mutil, merge_hotspot ]
 inputs:
   hotspot_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: GenomonHotspotCall result
     inputBinding:
       position: 1
       prefix: -i
   fisher_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: GenomonFisher comparison result
     inputBinding:
       position: 2
@@ -33,7 +33,7 @@ inputs:
 outputs:
   out_mutation:
     type: File
-    format: edam:format_3671
+    format: edam:data_3671
     label: "Fisher's exact test result with hotspot information"
     outputBinding:
       glob: fisher_hotspot_mutations.txt
