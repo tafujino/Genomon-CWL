@@ -1,24 +1,57 @@
 # frozen_string_literal: true
 
 require 'yaml'
+require 'stringio'
 
 WORKFLOW_CWL_PATHS = Dir['../Workflows/*.cwl'].freeze
 
-def specification_rst_from_workflow_cwl(path)
-  ''
+# @param str   [String] heading
+# @param punct [String] single-character for punctuation
+# @return      [String]
+def rst_heading(str, punct)
+  <<~HEADING
+    #{str}
+    #{punct * str.length}
+  HEADING
 end
 
-file 'workflow.rst' => [] do |t|
-  File.open(t.name, 'w') do |f|
-    f.puts <<~SECTION
-      Workflows
-      =========
-    SECTION
+# @param str [String] heading
+# @return    [String]
+def rst_section(str)
+  rst_heading(str, '=')
+end
 
-    WORKFLOW_CWL_PATHS.each do |path|
+# @param str [String] heading
+# @return    [String]
+def rst_subsection(str)
+  rst_heading(str, '-')  
+end
+
+# Generates ReST document from workflow CWL
+# @param path [String] CWL path
+# @return     [String] workflow specification ReST
+def specification_rst_from_workflow_cwl(path)
+  sio = StringIO.new
+  cwl = YAML.load_file(path)
+
+  sio.puts rst_subsection(cwl['id'])
+  sio.puts
+
+  sio.string
+end
+
+file 'workflow.rst' => WORKFLOW_CWL_PATHS do |t|
+  warn "generating #{t.name}"
+  File.open(t.name, 'w') do |f|
+    f.puts rst_section('WORKFLOW')
+    f.puts
+
+    t.prerequisites.each do |path|
+      warn "loading #{path}"
       f.puts specification_rst_from_workflow_cwl(path)
     end
   end
+  warn 'done'
 end
 
 task :default => ['workflow.rst']
