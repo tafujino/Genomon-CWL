@@ -8,9 +8,6 @@ cwlVersion: v1.0
 $namespaces:
   edam: http://edamontology.org/
 
-requirements:
-  - class: ShellCommandRequirement # samtools_params should be quoted
-
 hints:
   - class: DockerRequirement
     dockerPull: genomon/mutation_call:0.2.5

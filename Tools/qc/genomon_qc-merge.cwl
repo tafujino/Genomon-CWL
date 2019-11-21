@@ -7,9 +7,6 @@ cwlVersion: v1.0
 $namespaces:
   edam: http://edamontology.org/
 
-requirements:
-  - class: ShellCommandRequirement  
-
 hints:
   - class: DockerRequirement
     dockerPull: genomon/genomon_qc:0.1.0
