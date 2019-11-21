@@ -1,5 +1,7 @@
 .. toctree::
+   :hidden:
 
+   index
    workflow
    ...
 
