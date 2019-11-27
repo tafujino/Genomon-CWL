@@ -37,6 +37,36 @@ def rst_subsubsection(str)
   rst_heading(str, '^')  
 end
 
+# @param hash [Hash]
+# @return     [Hash]
+def deep_transform_values(hash, &block)
+  hash.map.to_h do |k, v|
+    [k, v.is_a?(Hash) ? deep_transform_values(v, &block) : (yield v)]
+  end
+end
+
+# @param cwl [hash] CWL hash
+# @return    [hash]
+def resolve_namespace(cwl)
+  namespaces = cwl.delete('$namespaces')
+  return cwl unless namespaces
+
+  namespaces.each do |ns_k, ns_v|
+    cwl = deep_transform_values(cwl) do |v|
+      r = Regexp.compile("#{ns_k}:")
+      v.is_a?(String) ? v.gsub(r, ns_v) : v
+    end
+  end
+
+  cwl
+end
+
+# @param uri [String]
+# @return    [String]
+def edam_format(uri)
+  
+end
+
 # @param params [Hash] inputs/outputs part of CWL hash
 def table(params)
   sio = StringIO.new
@@ -51,6 +81,7 @@ def table(params)
 
   params.each do |id, val|
     sio.puts "  * - #{id}"
+    sio.puts "  * - #{edam_format(val['format'])}"
     sio.puts "    - #{val['label']}"
   end
 
@@ -64,7 +95,7 @@ end
 # @return     [String] workflow specification ReST
 def specification_rst_from_workflow_cwl(path)
   sio = StringIO.new
-  cwl = YAML.load_file(path)
+  cwl = resolve_namespace(YAML.load_file(path))
 
   sio.puts rst_subsection(cwl['id'])
 
