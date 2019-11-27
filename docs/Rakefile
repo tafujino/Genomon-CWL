@@ -97,7 +97,7 @@ def table(params, edam_graph)
     if type =~ /^File\??/
       format = edam_format(val['format'], edam_graph)
       if format
-        type = "#{type}(#{format})"
+        type = "#{type} (#{format})"
       end
     end
     

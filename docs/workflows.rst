@@ -17,7 +17,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - File(BAM)
+    - File (BAM)
     - 
   * - name
     - string
@@ -33,22 +33,22 @@ output parameters
     - Type
     - Description
   * - fastq1
-    - File(FASTQ)
+    - File (FASTQ)
     - the first pair FastQ extracted from the given BAM
   * - fastq2
-    - File(FASTQ)
+    - File (FASTQ)
     - the second pair FastQ extracted from the given BAM
   * - single
-    - File(Text)
+    - File (Text)
     - single end reads
   * - orphan1
-    - File(Text)
+    - File (Text)
     - the first unmatched pair
   * - orphan2
-    - File(Text)
+    - File (Text)
     - the second unmatched pair
   * - summary
-    - File(Text)
+    - File (Text)
     - 
 
 bwa-alignment
@@ -66,13 +66,13 @@ input parameters
     - Type
     - Description
   * - reference
-    - File(FASTA)
+    - File (FASTA)
     - FastA file for reference genome
   * - fastq1
-    - File(FASTQ)
+    - File (FASTQ)
     - FastQ file from next-generation sequencers
   * - fastq2
-    - File(FASTQ)
+    - File (FASTQ)
     - FastQ file from next-generation sequencers
   * - min_score
     - int
@@ -94,7 +94,7 @@ output parameters
     - Type
     - Description
   * - markdupbam
-    - File(BAM)
+    - File (BAM)
     - 
   * - bwa_mem_log
     - File
@@ -124,13 +124,13 @@ input parameters
     - Type
     - Description
   * - reference
-    - File(FASTA)
+    - File (FASTA)
     - FastA file for reference genome
   * - tumor
-    - File(BAM)
+    - File (BAM)
     - tumor sample BAM aligned to the reference
   * - normal
-    - File(BAM)
+    - File (BAM)
     - normal sample BAM aligned to the reference
   * - fisher_min_depth
     - int?
@@ -151,7 +151,7 @@ input parameters
     - double?
     - Fisher p-value threshold
   * - fisher_interval_list
-    - File?(Text)
+    - File? (Text)
     - pileup regions list
   * - fisher_samtools_params
     - string?
@@ -263,10 +263,10 @@ output parameters
     - Type
     - Description
   * - mutation
-    - File(Text)
+    - File (Text)
     - mutation call result
   * - mutation_filtered
-    - File(Text)
+    - File (Text)
     - filtered mutation call result
   * - fisher_log
     - File
@@ -311,10 +311,10 @@ input parameters
     - Type
     - Description
   * - reference
-    - File(FASTA)
+    - File (FASTA)
     - FastA file for reference genome
   * - tumor
-    - File(BAM)
+    - File (BAM)
     - tumor sample BAM aligned to the reference
   * - fisher_min_depth
     - int?
@@ -332,7 +332,7 @@ input parameters
     - double?
     - 
   * - fisher_interval_list
-    - File?(Text)
+    - File? (Text)
     - pileup regions list
   * - fisher_samtools_params
     - string?
@@ -384,7 +384,7 @@ output parameters
     - Type
     - Description
   * - mutation
-    - File(Text)
+    - File (Text)
     - mutation call result
   * - fisher_log
     - File
@@ -414,7 +414,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - File(BAM)
+    - File (BAM)
     - sample BAM aligned to the reference
   * - name
     - string
@@ -481,7 +481,7 @@ input parameters
     - Type
     - Description
   * - tumor_bam
-    - File(BAM)
+    - File (BAM)
     - tumor sample BAM aligned to the reference
   * - tumor_name
     - string
@@ -490,13 +490,13 @@ input parameters
     - Directory
     - directory containing SV parse result. SV detection result is also generated here
   * - reference
-    - File(FASTA)
+    - File (FASTA)
     - FastA file for reference genome
   * - control_panel_bedpe
     - File?
     - merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
   * - normal_bam
-    - File?(BAM)
+    - File? (BAM)
     - normal sample BAM aligned to the reference
   * - normal_name
     - string?
@@ -612,7 +612,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - File(BAM)
+    - File (BAM)
     - 
   * - name
     - string
@@ -631,13 +631,13 @@ output parameters
     - File
     - 
   * - junction_index
-    - File(tabix)
+    - File (tabix)
     - 
   * - improper
     - File
     - 
   * - improper_index
-    - File(tabix)
+    - File (tabix)
     - 
   * - sv_parse_log
     - File
