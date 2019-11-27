@@ -5,7 +5,7 @@ require 'yaml'
 require 'stringio'
 
 CWLS = Dir['../Workflows/*.cwl'].sort.freeze
-RSTS = ['workflow.rst'].freeze
+RSTS = ['workflows.rst'].freeze
 CLOBBER.include(RSTS)
 
 # @param str   [String] heading
@@ -15,6 +15,7 @@ def rst_heading(str, punct)
   <<~HEADING
     #{str}
     #{punct * str.length}
+
   HEADING
 end
 
@@ -30,6 +31,28 @@ def rst_subsection(str)
   rst_heading(str, '-')  
 end
 
+# @param params [Hash] inputs/outputs part of CWL hash
+def table(params)
+  sio = StringIO.new
+
+  sio.puts <<~LINE
+    .. list-table::
+      :header-rows: 1
+
+      * - id
+        - description
+  LINE
+
+  params.each do |id, val|
+    sio.puts "  * - #{id}"
+    sio.puts "    - #{val['label']}"
+  end
+
+  sio.puts
+
+  sio.string
+end
+
 # Generates ReST document from workflow CWL
 # @param path [String] CWL path
 # @return     [String] workflow specification ReST
@@ -38,14 +61,16 @@ def specification_rst_from_workflow_cwl(path)
   cwl = YAML.load_file(path)
 
   sio.puts rst_subsection(cwl['id'])
-  sio.puts
+
   sio.puts cwl['label'] 
   sio.puts
+
+  sio.puts table(cwl['inputs'])
 
   sio.string
 end
 
-file 'workflow.rst' => CWLS do |t|
+file 'workflows.rst' => CWLS do |t|
   warn "generating #{t.name}"
   File.open(t.name, 'w') do |f|
     f.puts rst_section('Workflows')
