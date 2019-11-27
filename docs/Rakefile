@@ -125,18 +125,6 @@ def specification_rst_from_workflow_cwl(path, edam_graph)
   sio.string
 end
 
-#task :edam do
-#  graph = RDF::Graph.load('http://edamontology.org/EDAM.owl')
-#  query = RDF::Query.new do
-#    pattern [
-#      RDF::URI.new('http://edamontology.org/format_2572'),
-#      RDF::RDFS.label,
-#      :label
-#    ]
-#  end
-#  query.execute(graph).first.label.value
-#end
-
 file 'edam_graph' do |t|
   warn 'downloading EDAM ontology'
   edam_graph = RDF::Graph.load('http://edamontology.org/EDAM.owl')
