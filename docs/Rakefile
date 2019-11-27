@@ -3,6 +3,8 @@
 require 'rake/clean'
 require 'yaml'
 require 'stringio'
+require 'rdf'
+require 'rdf/rdfxml'
 
 CWLS = Dir['../Workflows/*.cwl'].sort.freeze
 RSTS = ['workflows.rst'].freeze
@@ -61,14 +63,24 @@ def resolve_namespace(cwl)
   cwl
 end
 
-# @param uri [String]
-# @return    [String]
-def edam_format(uri)
-  
+# @param uri        [String]
+# @param edam_graph [RDF::Graph]
+# @return           [String]
+def edam_format(uri, edam_graph)
+  return nil unless uri
+
+  query = RDF::Query.new do
+    pattern [
+      RDF::URI.new(uri),
+      RDF::RDFS.label,
+      :label
+    ]
+  end
+  query.execute(edam_graph).first.label.value
 end
 
 # @param params [Hash] inputs/outputs part of CWL hash
-def table(params)
+def table(params, edam_graph)
   sio = StringIO.new
 
   sio.puts <<~LINE
@@ -76,12 +88,13 @@ def table(params)
       :header-rows: 1
 
       * - ID
+        - Format
         - Description
   LINE
 
   params.each do |id, val|
     sio.puts "  * - #{id}"
-    sio.puts "  * - #{edam_format(val['format'])}"
+    sio.puts "    - #{edam_format(val['format'], edam_graph)}"
     sio.puts "    - #{val['label']}"
   end
 
@@ -91,9 +104,10 @@ def table(params)
 end
 
 # Generates ReST document from workflow CWL
-# @param path [String] CWL path
-# @return     [String] workflow specification ReST
-def specification_rst_from_workflow_cwl(path)
+# @param path       [String] CWL path
+# @param edam_graph [RDF::Graph]
+# @return           [String] workflow specification ReST
+def specification_rst_from_workflow_cwl(path, edam_graph)
   sio = StringIO.new
   cwl = resolve_namespace(YAML.load_file(path))
 
@@ -103,23 +117,44 @@ def specification_rst_from_workflow_cwl(path)
   sio.puts
 
   sio.puts rst_subsubsection('input parameters')
-  sio.puts table(cwl['inputs'])
+  sio.puts table(cwl['inputs'], edam_graph)
 
   sio.puts rst_subsubsection('output parameters')
-  sio.puts table(cwl['outputs'])
+  sio.puts table(cwl['outputs'], edam_graph)
 
   sio.string
 end
 
-file 'workflows.rst' => CWLS do |t|
+#task :edam do
+#  graph = RDF::Graph.load('http://edamontology.org/EDAM.owl')
+#  query = RDF::Query.new do
+#    pattern [
+#      RDF::URI.new('http://edamontology.org/format_2572'),
+#      RDF::RDFS.label,
+#      :label
+#    ]
+#  end
+#  query.execute(graph).first.label.value
+#end
+
+file 'edam_graph' do |t|
+  warn 'downloading EDAM ontology'
+  edam_graph = RDF::Graph.load('http://edamontology.org/EDAM.owl')
+  File.binwrite(t.name, Marshal.dump(edam_graph))
+end
+
+file 'workflows.rst' => ['edam_graph'] + CWLS do |t|
+  warn 'loading EDAM ontology'
+  edam_graph = Marshal.load(File.binread(t.prerequisites[0]))
+
   warn "generating #{t.name}"
   File.open(t.name, 'w') do |f|
     f.puts rst_section('Workflows')
     f.puts
 
-    t.prerequisites.each do |path|
+    t.prerequisites[1..].each do |path|
       warn "loading #{path}"
-      f.puts specification_rst_from_workflow_cwl(path)
+      f.puts specification_rst_from_workflow_cwl(path, edam_graph)
     end
   end
   warn 'done'

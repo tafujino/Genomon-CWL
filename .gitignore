@@ -10,3 +10,4 @@ test/vendor
 test/.bundle
 docs/vendor
 docs/.bundle
+docs/edam_graph
