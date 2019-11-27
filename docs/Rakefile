@@ -65,7 +65,7 @@ end
 
 # @param uri        [String]
 # @param edam_graph [RDF::Graph]
-# @return           [String]
+# @return           [String, nil]
 def edam_format(uri, edam_graph)
   return nil unless uri
 
@@ -80,6 +80,7 @@ def edam_format(uri, edam_graph)
 end
 
 # @param params [Hash] inputs/outputs part of CWL hash
+# @return       [String]
 def table(params, edam_graph)
   sio = StringIO.new
 
@@ -94,7 +95,7 @@ def table(params, edam_graph)
 
   params.each do |id, val|
     type = val['type']
-    if type =~ /^File\??/
+    if type =~ /^File\??$/
       format = edam_format(val['format'], edam_graph)
       if format
         type = "#{type} (#{format})"
