@@ -13,6 +13,8 @@ Genomon-CWL is a CWL implementation of `genomon_pipeline_cloud <https://github.c
 Worflow Overview
 ================
 
+For each workflow, see :doc:`workflows` page.
+
 Install
 =======
 
