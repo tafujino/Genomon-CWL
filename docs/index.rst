@@ -18,7 +18,7 @@ Install
 
 ::
 
-   https://github.com/tafujino/Genomon-CWL.git
+   git clone https://github.com/tafujino/Genomon-CWL.git
 
 Workflows are available in ``Workflow`` directory.
 
