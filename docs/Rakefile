@@ -4,9 +4,9 @@ require 'rake/clean'
 require 'yaml'
 require 'stringio'
 
-WORKFLOW_CWL_PATHS = Dir['../Workflows/*.cwl'].sort.freeze
-BUILDS = ['workflow.rst'].freeze
-CLOBBER.include(BUILDS)
+CWLS = Dir['../Workflows/*.cwl'].sort.freeze
+RSTS = ['workflow.rst'].freeze
+CLOBBER.include(RSTS)
 
 # @param str   [String] heading
 # @param punct [String] single-character for punctuation
@@ -45,10 +45,10 @@ def specification_rst_from_workflow_cwl(path)
   sio.string
 end
 
-file 'workflow.rst' => WORKFLOW_CWL_PATHS do |t|
+file 'workflow.rst' => CWLS do |t|
   warn "generating #{t.name}"
   File.open(t.name, 'w') do |f|
-    f.puts rst_section('Workflow')
+    f.puts rst_section('Workflows')
     f.puts
 
     t.prerequisites.each do |path|
@@ -60,4 +60,4 @@ file 'workflow.rst' => WORKFLOW_CWL_PATHS do |t|
 end
 
 desc 'build all'
-task :all => BUILDS
+task :all => RSTS

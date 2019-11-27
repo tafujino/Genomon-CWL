@@ -1,7 +1,7 @@
 .. toctree::
    :hidden:
 
-   workflow
+   workflows
    ...
 
 Genomon-CWL
@@ -13,7 +13,14 @@ Genomon-CWL is a CWL implementation of `genomon_pipeline_cloud <https://github.c
 Worflow Overview
 ================
 
+Install
+=======
 
+::
+
+   https://github.com/tafujino/Genomon-CWL.git
+
+Workflows are available in ``Workflow`` directory.
 
 
 

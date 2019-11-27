@@ -1,5 +1,5 @@
-Workflow
-========
+Workflows
+=========
 
 biobambam-bamtofastq
 --------------------
