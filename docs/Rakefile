@@ -45,8 +45,8 @@ def table(params)
     .. list-table::
       :header-rows: 1
 
-      * - id
-        - description
+      * - ID
+        - Description
   LINE
 
   params.each do |id, val|

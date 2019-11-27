@@ -15,8 +15,8 @@ Worflow Overview
 
 For each workflow, see :doc:`workflows` page.
 
-Install
-=======
+Installation
+============
 
 ::
 
