@@ -31,6 +31,12 @@ def rst_subsection(str)
   rst_heading(str, '-')  
 end
 
+# @param str [String] heading
+# @return    [String]
+def rst_subsubsection(str)
+  rst_heading(str, '^')  
+end
+
 # @param params [Hash] inputs/outputs part of CWL hash
 def table(params)
   sio = StringIO.new
@@ -65,6 +71,7 @@ def specification_rst_from_workflow_cwl(path)
   sio.puts cwl['label'] 
   sio.puts
 
+  sio.puts rst_subsubsection('input parameters')
   sio.puts table(cwl['inputs'])
 
   sio.string

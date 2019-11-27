@@ -7,6 +7,9 @@ biobambam-bamtofastq
 
 Extracts FASTQ from BAM
 
+input parameters
+^^^^^^^^^^^^^^^^
+
 .. list-table::
   :header-rows: 1
 
@@ -21,6 +24,9 @@ bwa-alignment
 -------------
 
 Aligns FASTQs to a reference, generates BAM, and removes duplicate entries
+
+input parameters
+^^^^^^^^^^^^^^^^
 
 .. list-table::
   :header-rows: 1
@@ -44,6 +50,9 @@ mutation-call-with-normal
 -------------------------
 
 Calls mutations with both normal and tumor samples
+
+input parameters
+^^^^^^^^^^^^^^^^
 
 .. list-table::
   :header-rows: 1
@@ -142,6 +151,9 @@ mutation-call-without-normal-without-control
 
 Calls mutations only with tumor samples
 
+input parameters
+^^^^^^^^^^^^^^^^
+
 .. list-table::
   :header-rows: 1
 
@@ -195,6 +207,9 @@ qc-wgs
 
 QC for WGS data
 
+input parameters
+^^^^^^^^^^^^^^^^
+
 .. list-table::
   :header-rows: 1
 
@@ -225,6 +240,9 @@ sv-detection
 ------------
 
 SV detection without control panels
+
+input parameters
+^^^^^^^^^^^^^^^^
 
 .. list-table::
   :header-rows: 1
@@ -273,6 +291,9 @@ sv-merge
 
 merges non-matched control panel breakpoint-containing read pairs
 
+input parameters
+^^^^^^^^^^^^^^^^
+
 .. list-table::
   :header-rows: 1
 
@@ -289,6 +310,9 @@ sv-parse
 --------
 
 Parses breakpoint-containing and improperly aligned read pairs
+
+input parameters
+^^^^^^^^^^^^^^^^
 
 .. list-table::
   :header-rows: 1
