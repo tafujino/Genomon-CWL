@@ -74,6 +74,9 @@ def specification_rst_from_workflow_cwl(path)
   sio.puts rst_subsubsection('input parameters')
   sio.puts table(cwl['inputs'])
 
+  sio.puts rst_subsubsection('output parameters')
+  sio.puts table(cwl['outputs'])
+
   sio.string
 end
 

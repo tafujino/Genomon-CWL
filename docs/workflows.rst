@@ -13,12 +13,33 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - bam
     - 
   * - name
     - sample name
+
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - fastq1
+    - the first pair FastQ extracted from the given BAM
+  * - fastq2
+    - the second pair FastQ extracted from the given BAM
+  * - single
+    - single end reads
+  * - orphan1
+    - the first unmatched pair
+  * - orphan2
+    - the second unmatched pair
+  * - summary
+    - 
 
 bwa-alignment
 -------------
@@ -31,8 +52,8 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - reference
     - FastA file for reference genome
   * - fastq1
@@ -46,6 +67,25 @@ input parameters
   * - name
     - sample name
 
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - markdupbam
+    - 
+  * - bwa_mem_log
+    - 
+  * - sortbam_log
+    - 
+  * - metrics
+    - 
+  * - bammarkduplicates_log
+    - 
+
 mutation-call-with-normal
 -------------------------
 
@@ -57,8 +97,8 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - reference
     - FastA file for reference genome
   * - tumor
@@ -146,6 +186,37 @@ input parameters
   * - mutil_filter_ncount
     - read count of normal
 
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - mutation
+    - mutation call result
+  * - mutation_filtered
+    - filtered mutation call result
+  * - fisher_log
+    - 
+  * - hotspot_log
+    - 
+  * - fisher_with_hotspot_log
+    - 
+  * - mutfilter_realignment_log
+    - 
+  * - mutfilter_indel_log
+    - 
+  * - mutfilter_breakpoint_log
+    - 
+  * - mutfilter_simplerepeat_log
+    - 
+  * - mutfilter_annotation_log
+    - 
+  * - mutil_filter_log
+    - 
+
 mutation-call-without-normal-without-control
 --------------------------------------------
 
@@ -157,8 +228,8 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - reference
     - FastA file for reference genome
   * - tumor
@@ -202,6 +273,25 @@ input parameters
   * - mutil_filter_count
     - read count
 
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - mutation
+    - mutation call result
+  * - fisher_log
+    - 
+  * - mutfilter_realignment_log
+    - 
+  * - mutfilter_simplerepeat_log
+    - 
+  * - mutil_filter_log
+    - 
+
 qc-wgs
 ------
 
@@ -213,8 +303,8 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - bam
     - sample BAM aligned to the reference
   * - name
@@ -236,6 +326,23 @@ input parameters
   * - meta
     - metadata. should begin with '#'
 
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - result
+    - 
+  * - qc-bamstats_log
+    - 
+  * - qc-wgs_log
+    - 
+  * - qc-merge_log
+    - 
+
 sv-detection
 ------------
 
@@ -247,8 +354,8 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - tumor_bam
     - tumor sample BAM aligned to the reference
   * - tumor_name
@@ -286,6 +393,23 @@ input parameters
   * - grc
     - 
 
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - sv
+    - SV detection result
+  * - sv_filter_log
+    - 
+  * - prepend-metadata_log
+    - 
+  * - sv_utils_filter_log
+    - 
+
 sv-merge
 --------
 
@@ -297,13 +421,26 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - control_info
     - tab-delimited file on non-matched control
   * - name
     - control panel name
   * - merge_check_margin_size
+    - 
+
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - merge
+    - merged breakpoint information file
+  * - log
     - 
 
 sv-parse
@@ -317,10 +454,29 @@ input parameters
 .. list-table::
   :header-rows: 1
 
-  * - id
-    - description
+  * - ID
+    - Description
   * - bam
     - 
   * - name
     - sample name
+
+output parameters
+^^^^^^^^^^^^^^^^^
+
+.. list-table::
+  :header-rows: 1
+
+  * - ID
+    - Description
+  * - junction
+    - 
+  * - junction_index
+    - 
+  * - improper
+    - 
+  * - improper_index
+    - 
+  * - sv_parse_log
+    - 
 
