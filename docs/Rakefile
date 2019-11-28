@@ -96,8 +96,9 @@ def table(params, edam_graph)
   params.each do |id, val|
     type = val['type']
     if type =~ /^File\??$/
-      format = edam_format_text(val['format'], edam_graph)
-      type = "#{type} (#{format})" if format
+      uri = val['format']
+      format = edam_format_text(uri, edam_graph)
+      type = "#{type} (`#{format} <#{uri}>`_)" if format
     end
     secondary_files = val['secondaryFiles'] || []
     

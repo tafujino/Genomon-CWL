@@ -18,7 +18,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
     - 
   * - name
     - | string
@@ -35,22 +35,22 @@ output parameters
     - Type
     - Description
   * - fastq1
-    - | File (FASTQ)
+    - | File (`FASTQ <http://edamontology.org/format_1930>`_)
     - the first pair FastQ extracted from the given BAM
   * - fastq2
-    - | File (FASTQ)
+    - | File (`FASTQ <http://edamontology.org/format_1930>`_)
     - the second pair FastQ extracted from the given BAM
   * - single
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - single end reads
   * - orphan1
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - the first unmatched pair
   * - orphan2
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - the second unmatched pair
   * - summary
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - 
 
 bwa-alignment
@@ -69,7 +69,7 @@ input parameters
     - Type
     - Description
   * - reference
-    - | File (FASTA)
+    - | File (`FASTA <http://edamontology.org/format_1929>`_)
       | .fai
       | .amb
       | .ann
@@ -78,10 +78,10 @@ input parameters
       | .sa
     - FastA file for reference genome
   * - fastq1
-    - | File (FASTQ)
+    - | File (`FASTQ <http://edamontology.org/format_1930>`_)
     - FastQ file from next-generation sequencers
   * - fastq2
-    - | File (FASTQ)
+    - | File (`FASTQ <http://edamontology.org/format_1930>`_)
     - FastQ file from next-generation sequencers
   * - min_score
     - | int
@@ -104,7 +104,7 @@ output parameters
     - Type
     - Description
   * - markdupbam
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - 
   * - bwa_mem_log
@@ -136,15 +136,15 @@ input parameters
     - Type
     - Description
   * - reference
-    - | File (FASTA)
+    - | File (`FASTA <http://edamontology.org/format_1929>`_)
       | .fai
     - FastA file for reference genome
   * - tumor
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - tumor sample BAM aligned to the reference
   * - normal
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - normal sample BAM aligned to the reference
   * - fisher_min_depth
@@ -166,7 +166,7 @@ input parameters
     - | double?
     - Fisher p-value threshold
   * - fisher_interval_list
-    - | File? (Text)
+    - | File? (`Text <http://edamontology.org/data_3671>`_)
     - pileup regions list
   * - fisher_samtools_params
     - | string?
@@ -279,10 +279,10 @@ output parameters
     - Type
     - Description
   * - mutation
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - mutation call result
   * - mutation_filtered
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - filtered mutation call result
   * - fisher_log
     - | File
@@ -328,11 +328,11 @@ input parameters
     - Type
     - Description
   * - reference
-    - | File (FASTA)
+    - | File (`FASTA <http://edamontology.org/format_1929>`_)
       | .fai
     - FastA file for reference genome
   * - tumor
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - tumor sample BAM aligned to the reference
   * - fisher_min_depth
@@ -351,7 +351,7 @@ input parameters
     - | double?
     - 
   * - fisher_interval_list
-    - | File? (Text)
+    - | File? (`Text <http://edamontology.org/data_3671>`_)
     - pileup regions list
   * - fisher_samtools_params
     - | string?
@@ -404,7 +404,7 @@ output parameters
     - Type
     - Description
   * - mutation
-    - | File (Text)
+    - | File (`Text <http://edamontology.org/data_3671>`_)
     - mutation call result
   * - fisher_log
     - | File
@@ -435,7 +435,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - sample BAM aligned to the reference
   * - name
@@ -505,7 +505,7 @@ input parameters
     - Type
     - Description
   * - tumor_bam
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - tumor sample BAM aligned to the reference
   * - tumor_name
@@ -515,14 +515,14 @@ input parameters
     - | Directory
     - directory containing SV parse result. SV detection result is also generated here
   * - reference
-    - | File (FASTA)
+    - | File (`FASTA <http://edamontology.org/format_1929>`_)
       | .fai
     - FastA file for reference genome
   * - control_panel_bedpe
     - | File?
     - merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
   * - normal_bam
-    - | File? (BAM)
+    - | File? (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - normal sample BAM aligned to the reference
   * - normal_name
@@ -643,7 +643,7 @@ input parameters
     - Type
     - Description
   * - bam
-    - | File (BAM)
+    - | File (`BAM <http://edamontology.org/format_2572>`_)
       | .bai
     - 
   * - name
@@ -664,13 +664,13 @@ output parameters
     - | File
     - 
   * - junction_index
-    - | File (tabix)
+    - | File (`tabix <http://edamontology.org/format_3616>`_)
     - 
   * - improper
     - | File
     - 
   * - improper_index
-    - | File (tabix)
+    - | File (`tabix <http://edamontology.org/format_3616>`_)
     - 
   * - sv_parse_log
     - | File
