@@ -105,7 +105,7 @@ def table(params, edam_graph)
     sio.puts "  * - #{id}"
     sio.puts "    - | #{type}"
     secondary_files.each do |ext|
-      sio.puts "      | #{ext}"
+      sio.puts "      | ``#{ext}``"
     end
     sio.puts "    - #{val['label']}"
   end
