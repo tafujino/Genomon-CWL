@@ -11,6 +11,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -27,6 +28,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -60,6 +62,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -94,6 +97,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -125,6 +129,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -267,6 +272,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -315,6 +321,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -390,6 +397,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -420,6 +428,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -461,6 +470,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -488,6 +498,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -555,6 +566,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -582,6 +594,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -601,6 +614,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -622,6 +636,7 @@ input parameters
 ^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID
@@ -639,6 +654,7 @@ output parameters
 ^^^^^^^^^^^^^^^^^
 
 .. list-table::
+  :widths: 20 15 65
   :header-rows: 1
 
   * - ID

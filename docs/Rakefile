@@ -83,14 +83,15 @@ end
 def table(params, edam_graph)
   sio = StringIO.new
 
-  sio.puts <<~LINE
+  sio.puts <<~LINES
     .. list-table::
+      :widths: 20 15 65
       :header-rows: 1
 
       * - ID
         - Type
         - Description
-  LINE
+  LINES
 
   params.each do |id, val|
     type = val['type']
