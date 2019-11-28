@@ -17,10 +17,10 @@ input parameters
     - Type
     - Description
   * - bam
-    - File (BAM)
+    - | File (BAM)
     - 
   * - name
-    - string
+    - | string
     - sample name
 
 output parameters
@@ -33,22 +33,22 @@ output parameters
     - Type
     - Description
   * - fastq1
-    - File (FASTQ)
+    - | File (FASTQ)
     - the first pair FastQ extracted from the given BAM
   * - fastq2
-    - File (FASTQ)
+    - | File (FASTQ)
     - the second pair FastQ extracted from the given BAM
   * - single
-    - File (Text)
+    - | File (Text)
     - single end reads
   * - orphan1
-    - File (Text)
+    - | File (Text)
     - the first unmatched pair
   * - orphan2
-    - File (Text)
+    - | File (Text)
     - the second unmatched pair
   * - summary
-    - File (Text)
+    - | File (Text)
     - 
 
 bwa-alignment
@@ -66,7 +66,7 @@ input parameters
     - Type
     - Description
   * - reference
-    - File (FASTA)
+    - | File (FASTA)
       | .fai
       | .amb
       | .ann
@@ -75,19 +75,19 @@ input parameters
       | .sa
     - FastA file for reference genome
   * - fastq1
-    - File (FASTQ)
+    - | File (FASTQ)
     - FastQ file from next-generation sequencers
   * - fastq2
-    - File (FASTQ)
+    - | File (FASTQ)
     - FastQ file from next-generation sequencers
   * - min_score
-    - int
+    - | int
     - minimum score to output
   * - nthreads
-    - int
+    - | int
     - number of cpu cores to be used for BWA MEM
   * - name
-    - string
+    - | string
     - sample name
 
 output parameters
@@ -100,20 +100,20 @@ output parameters
     - Type
     - Description
   * - markdupbam
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - 
   * - bwa_mem_log
-    - File
+    - | File
     - 
   * - sortbam_log
-    - File
+    - | File
     - 
   * - metrics
-    - File
+    - | File
     - 
   * - bammarkduplicates_log
-    - File
+    - | File
     - 
 
 mutation-call-with-normal
@@ -131,136 +131,136 @@ input parameters
     - Type
     - Description
   * - reference
-    - File (FASTA)
+    - | File (FASTA)
       | .fai
     - FastA file for reference genome
   * - tumor
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - tumor sample BAM aligned to the reference
   * - normal
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - normal sample BAM aligned to the reference
   * - fisher_min_depth
-    - int?
+    - | int?
     - the minimum depth
   * - fisher_base_quality
-    - int?
+    - | int?
     - base quality threshold
   * - fisher_min_variant_read
-    - int?
+    - | int?
     - the minimum variant read
   * - fisher_min_allele_freq
-    - double?
+    - | double?
     - the minimum amount of disease allele frequency
   * - fisher_max_allele_freq
-    - double?
+    - | double?
     - the maximum amount of control allele frequency
   * - fisher_p_value
-    - double?
+    - | double?
     - Fisher p-value threshold
   * - fisher_interval_list
-    - File? (Text)
+    - | File? (Text)
     - pileup regions list
   * - fisher_samtools_params
-    - string?
+    - | string?
     - SAMtools parameters given to GenomonFisher
   * - hotspot_database_directory
-    - Directory
+    - | Directory
     - directory containing GRCh37_hotspot_database_v20170919.txt
   * - hotspot_min_tumor_misrate
-    - double?
+    - | double?
     - the minimum amount of tumor allele frequency
   * - hotspot_max_control_misrate
-    - double?
+    - | double?
     - the maximum amount of control allele frequency
   * - hotspot_TN_ratio_control
-    - double?
+    - | double?
     - the maximum value of the ratio between normal and tumor
   * - hotspot_min_lod_score
-    - double?
+    - | double?
     - the minimum lod score
   * - hotspot_samtools_params
-    - string?
+    - | string?
     - SAMtools parameters given to GenomonHotspotCall
   * - mutfilter_realignment_tumor_min_mismatch
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_normal_max_mismatch
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_score_difference
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_window_size
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_max_depth
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_exclude_sam_flags
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_search_length
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_neighbor
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_min_depth
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_min_mismatch
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_allele_frequency_threshold
-    - int?
+    - | int?
     - 
   * - mutfilter_indel_samtools_params
-    - string?
+    - | string?
     - SAMtools parameters given to mutfilter indel
   * - mutfilter_breakpoint_max_depth
-    - int?
+    - | int?
     - 
   * - mutfilter_breakpoint_min_clip_size
-    - int?
+    - | int?
     - 
   * - mutfilter_breakpoint_junction_num_threshold
-    - int?
+    - | int?
     - 
   * - mutfilter_breakpoint_mapq_threshold
-    - int?
+    - | int?
     - 
   * - mutfilter_breakpoint_exclude_sam_flags
-    - int?
+    - | int?
     - 
   * - annotation_database_directory
-    - Directory
+    - | Directory
     - directory containing simpleRepeat.bed.gz, DBexome20160412.bed.gz and ExAC.r0.3.1.sites.vep.bed.gz
   * - HGVD_2016
-    - boolean
+    - | boolean
     - 
   * - EXAC
-    - boolean
+    - | boolean
     - 
   * - meta
-    - string
+    - | string
     - metadata. should begin with '#'
   * - mutil_filter_fisher_p_value
-    - double?
+    - | double?
     - Fisher test P-value
   * - mutil_filter_realign_p_value
-    - double?
+    - | double?
     - realignment Fisher test P-value
   * - mutil_filter_ebcall_p_value
-    - double?
+    - | double?
     - EBCall P-value
   * - mutil_filter_tcount
-    - int?
+    - | int?
     - read count of tumor
   * - mutil_filter_ncount
-    - int?
+    - | int?
     - read count of normal
 
 output parameters
@@ -273,37 +273,37 @@ output parameters
     - Type
     - Description
   * - mutation
-    - File (Text)
+    - | File (Text)
     - mutation call result
   * - mutation_filtered
-    - File (Text)
+    - | File (Text)
     - filtered mutation call result
   * - fisher_log
-    - File
+    - | File
     - 
   * - hotspot_log
-    - File
+    - | File
     - 
   * - fisher_with_hotspot_log
-    - File
+    - | File
     - 
   * - mutfilter_realignment_log
-    - File
+    - | File
     - 
   * - mutfilter_indel_log
-    - File
+    - | File
     - 
   * - mutfilter_breakpoint_log
-    - File
+    - | File
     - 
   * - mutfilter_simplerepeat_log
-    - File
+    - | File
     - 
   * - mutfilter_annotation_log
-    - File
+    - | File
     - 
   * - mutil_filter_log
-    - File
+    - | File
     - 
 
 mutation-call-without-normal-without-control
@@ -321,69 +321,69 @@ input parameters
     - Type
     - Description
   * - reference
-    - File (FASTA)
+    - | File (FASTA)
       | .fai
     - FastA file for reference genome
   * - tumor
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - tumor sample BAM aligned to the reference
   * - fisher_min_depth
-    - int?
+    - | int?
     - the minimum depth
   * - fisher_base_quality
-    - int?
+    - | int?
     - base quality threshold
   * - fisher_min_variant_read
-    - int?
+    - | int?
     - the minimum variant read
   * - fisher_min_allele_freq
-    - double?
+    - | double?
     - the minimum amount of disease allele frequency
   * - fisher_10_percent_posterior_quantile_threshold
-    - double?
+    - | double?
     - 
   * - fisher_interval_list
-    - File? (Text)
+    - | File? (Text)
     - pileup regions list
   * - fisher_samtools_params
-    - string?
+    - | string?
     - SAMtools parameters given to GenomonFisher
   * - mutfilter_realignment_tumor_min_mismatch
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_score_difference
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_window_size
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_max_depth
-    - int?
+    - | int?
     - 
   * - mutfilter_realignment_exclude_sam_flags
-    - int?
+    - | int?
     - 
   * - annotation_database_directory
-    - Directory
+    - | Directory
     - directory containing simpleRepeat.bed.gz, DBexome20160412.bed.gz and ExAC.r0.3.1.sites.vep.bed.gz
   * - HGVD_2016
-    - boolean
+    - | boolean
     - 
   * - EXAC
-    - boolean
+    - | boolean
     - 
   * - meta
-    - string
+    - | string
     - metadata. should begin with '#'
   * - mutil_filter_post10q
-    - double?
+    - | double?
     - 10% posterior quantile
   * - mutil_filter_realignment_post10q
-    - double?
+    - | double?
     - realignment 10% posterior quantile
   * - mutil_filter_count
-    - int?
+    - | int?
     - read count
 
 output parameters
@@ -396,19 +396,19 @@ output parameters
     - Type
     - Description
   * - mutation
-    - File (Text)
+    - | File (Text)
     - mutation call result
   * - fisher_log
-    - File
+    - | File
     - 
   * - mutfilter_realignment_log
-    - File
+    - | File
     - 
   * - mutfilter_simplerepeat_log
-    - File
+    - | File
     - 
   * - mutil_filter_log
-    - File
+    - | File
     - 
 
 qc-wgs
@@ -426,35 +426,35 @@ input parameters
     - Type
     - Description
   * - bam
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - sample BAM aligned to the reference
   * - name
-    - string
+    - | string
     - sample name
   * - genome_size_file
-    - File
+    - | File
     - 
   * - gap_text
-    - File
+    - | File
     - 
   * - incl_bed_width
-    - int?
+    - | int?
     - bps for normalize incl_bed (bedtools shuffle -incl)
   * - i_bed_lines
-    - int?
+    - | int?
     - line number of target BED file
   * - i_bed_width
-    - int?
+    - | int?
     - bps par 1 line, number of target BED file
   * - samtools_params
-    - string?
+    - | string?
     - samtools parameters string
   * - coverage_text
-    - string
+    - | string
     - coverage depth text separated with comma
   * - meta
-    - string?
+    - | string?
     - metadata. should begin with '#'
 
 output parameters
@@ -467,16 +467,16 @@ output parameters
     - Type
     - Description
   * - result
-    - File
+    - | File
     - 
   * - qc-bamstats_log
-    - File
+    - | File
     - 
   * - qc-wgs_log
-    - File
+    - | File
     - 
   * - qc-merge_log
-    - File
+    - | File
     - 
 
 sv-detection
@@ -494,61 +494,61 @@ input parameters
     - Type
     - Description
   * - tumor_bam
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - tumor sample BAM aligned to the reference
   * - tumor_name
-    - string
+    - | string
     - tumor sample name
   * - directory
-    - Directory
+    - | Directory
     - directory containing SV parse result. SV detection result is also generated here
   * - reference
-    - File (FASTA)
+    - | File (FASTA)
       | .fai
     - FastA file for reference genome
   * - control_panel_bedpe
-    - File?
+    - | File?
     - merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
   * - normal_bam
-    - File? (BAM)
+    - | File? (BAM)
       | .bai
     - normal sample BAM aligned to the reference
   * - normal_name
-    - string?
+    - | string?
     - normal sample name
   * - sv_filter_min_junctions
-    - int?
+    - | int?
     - minimum required number of supporting junction read pairs
   * - sv_filter_max_normal_read_pairs
-    - int?
+    - | int?
     - maximum allowed number of read pairs in normal sample
   * - sv_filter_min_overhang_size
-    - int?
+    - | int?
     - minimum region size arround each break-point which have to be covered by at least one aligned short read
   * - meta
-    - string
+    - | string
     - metadata. should begin with '#'
   * - sv_utils_filter_min_tumor_allele_frequency
-    - double?
+    - | double?
     - removes if the tumor allele frequency is smaller than this value
   * - sv_utils_filter_max_normal_read_pairs
-    - int?
+    - | int?
     - removes if the number of variant read pairs in the normal sample exceeds this value
   * - sv_utils_filter_normal_depth_threshold
-    - double?
+    - | double?
     - removes if the normal read depth is smaller than this value
   * - sv_utils_filter_inversion_size_threshold
-    - int?
+    - | int?
     - removes if the size of inversion is smaller than this value
   * - sv_utils_filter_min_overhang_size
-    - int?
+    - | int?
     - removes if either of overhang sizes for two breakpoints is below this value
   * - sv_utils_filter_remove_simple_repeat
-    - boolean
+    - | boolean
     - 
   * - grc
-    - boolean?
+    - | boolean?
     - 
 
 output parameters
@@ -561,16 +561,16 @@ output parameters
     - Type
     - Description
   * - sv
-    - File
+    - | File
     - SV detection result
   * - sv_filter_log
-    - File
+    - | File
     - 
   * - prepend-metadata_log
-    - File
+    - | File
     - 
   * - sv_utils_filter_log
-    - File
+    - | File
     - 
 
 sv-merge
@@ -588,13 +588,13 @@ input parameters
     - Type
     - Description
   * - control_info
-    - File
+    - | File
     - tab-delimited file on non-matched control
   * - name
-    - string
+    - | string
     - control panel name
   * - merge_check_margin_size
-    - int?
+    - | int?
     - 
 
 output parameters
@@ -607,10 +607,10 @@ output parameters
     - Type
     - Description
   * - merge
-    - File
+    - | File
     - merged breakpoint information file
   * - log
-    - File
+    - | File
     - 
 
 sv-parse
@@ -628,11 +628,11 @@ input parameters
     - Type
     - Description
   * - bam
-    - File (BAM)
+    - | File (BAM)
       | .bai
     - 
   * - name
-    - string
+    - | string
     - sample name
 
 output parameters
@@ -645,18 +645,18 @@ output parameters
     - Type
     - Description
   * - junction
-    - File
+    - | File
     - 
   * - junction_index
-    - File (tabix)
+    - | File (tabix)
     - 
   * - improper
-    - File
+    - | File
     - 
   * - improper_index
-    - File (tabix)
+    - | File (tabix)
     - 
   * - sv_parse_log
-    - File
+    - | File
     - 
 
