@@ -6,6 +6,8 @@ require 'stringio'
 require 'rdf'
 require 'rdf/rdfxml'
 
+EDAM_URI = 'http://edamontology.org/EDAM.owl'
+
 CWLS = Dir['../Workflows/*.cwl'].sort.freeze
 RSTS = ['workflows.rst'].freeze
 CLOBBER.include(RSTS)
@@ -43,7 +45,8 @@ end
 # @return     [Hash]
 def deep_transform_values(hash, &block)
   hash.map.to_h do |k, v|
-    [k, v.is_a?(Hash) ? deep_transform_values(v, &block) : (yield v)]
+    v = v.is_a?(Hash) ? deep_transform_values(v, &block) : (yield v)
+    [k, v]
   end
 end
 
@@ -66,15 +69,11 @@ end
 # @param uri        [String]
 # @param edam_graph [RDF::Graph]
 # @return           [String, nil]
-def edam_format(uri, edam_graph)
+def edam_format_text(uri, edam_graph)
   return nil unless uri
 
   query = RDF::Query.new do
-    pattern [
-      RDF::URI.new(uri),
-      RDF::RDFS.label,
-      :label
-    ]
+    pattern [RDF::URI.new(uri), RDF::RDFS.label, :label]
   end
   query.execute(edam_graph).first.label.value
 end
@@ -96,14 +95,16 @@ def table(params, edam_graph)
   params.each do |id, val|
     type = val['type']
     if type =~ /^File\??$/
-      format = edam_format(val['format'], edam_graph)
-      if format
-        type = "#{type} (#{format})"
-      end
+      format = edam_format_text(val['format'], edam_graph)
+      type = "#{type} (#{format})" if format
     end
+    secondary_files = val['secondaryFiles'] || []
     
     sio.puts "  * - #{id}"
     sio.puts "    - #{type}"
+    secondary_files.each do |ext|
+      sio.puts "      #{ext}"
+    end
     sio.puts "    - #{val['label']}"
   end
 
@@ -136,7 +137,7 @@ end
 
 file 'edam_graph' do |t|
   warn 'downloading EDAM ontology'
-  edam_graph = RDF::Graph.load('http://edamontology.org/EDAM.owl')
+  edam_graph = RDF::Graph.load(EDAM_URI)
   File.binwrite(t.name, Marshal.dump(edam_graph))
 end
 
@@ -149,7 +150,7 @@ file 'workflows.rst' => ['edam_graph'] + CWLS do |t|
     f.puts rst_section('Workflows')
     f.puts
 
-    t.prerequisites[1..].each do |path|
+    CWLS.each do |path|
       warn "loading #{path}"
       f.puts specification_rst_from_workflow_cwl(path, edam_graph)
     end
