@@ -67,12 +67,12 @@ input parameters
     - Description
   * - reference
     - File (FASTA)
-      .fai
-      .amb
-      .ann
-      .bwt
-      .pac
-      .sa
+      | .fai
+      | .amb
+      | .ann
+      | .bwt
+      | .pac
+      | .sa
     - FastA file for reference genome
   * - fastq1
     - File (FASTQ)
@@ -101,7 +101,7 @@ output parameters
     - Description
   * - markdupbam
     - File (BAM)
-      .bai
+      | .bai
     - 
   * - bwa_mem_log
     - File
@@ -132,15 +132,15 @@ input parameters
     - Description
   * - reference
     - File (FASTA)
-      .fai
+      | .fai
     - FastA file for reference genome
   * - tumor
     - File (BAM)
-      .bai
+      | .bai
     - tumor sample BAM aligned to the reference
   * - normal
     - File (BAM)
-      .bai
+      | .bai
     - normal sample BAM aligned to the reference
   * - fisher_min_depth
     - int?
@@ -322,11 +322,11 @@ input parameters
     - Description
   * - reference
     - File (FASTA)
-      .fai
+      | .fai
     - FastA file for reference genome
   * - tumor
     - File (BAM)
-      .bai
+      | .bai
     - tumor sample BAM aligned to the reference
   * - fisher_min_depth
     - int?
@@ -427,7 +427,7 @@ input parameters
     - Description
   * - bam
     - File (BAM)
-      .bai
+      | .bai
     - sample BAM aligned to the reference
   * - name
     - string
@@ -495,7 +495,7 @@ input parameters
     - Description
   * - tumor_bam
     - File (BAM)
-      .bai
+      | .bai
     - tumor sample BAM aligned to the reference
   * - tumor_name
     - string
@@ -505,14 +505,14 @@ input parameters
     - directory containing SV parse result. SV detection result is also generated here
   * - reference
     - File (FASTA)
-      .fai
+      | .fai
     - FastA file for reference genome
   * - control_panel_bedpe
     - File?
     - merged control panel. filename is usually XXX.merged.junction.control.bedpe.gz
   * - normal_bam
     - File? (BAM)
-      .bai
+      | .bai
     - normal sample BAM aligned to the reference
   * - normal_name
     - string?
@@ -629,7 +629,7 @@ input parameters
     - Description
   * - bam
     - File (BAM)
-      .bai
+      | .bai
     - 
   * - name
     - string
