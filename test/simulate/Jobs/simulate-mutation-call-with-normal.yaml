@@ -19,7 +19,7 @@ fisher_max_allele_freq: 0.1
 fisher_p_value: 0.1
 fisher_interval_list:
   class: File
-  format: http://edamontology.org/format_3671
+  format: http://edamontology.org/data_3671
   path: ../_GRCh37/reference/GRCh37/GRCh37_noScaffold_noDecoy.interval_list
 fisher_samtools_params: -q 20 -BQ0 -d 10000000 --ff UNMAP,SECONDARY,QCFAIL,DUP
 
